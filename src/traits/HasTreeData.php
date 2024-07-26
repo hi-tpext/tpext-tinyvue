@@ -87,6 +87,13 @@ trait HasTreeData
      */
     public function optionsData($treeData, $textField = '', $idField = 'id', $pidField = 'parent_id')
     {
+        if (empty($idField)) {
+            $idField = $this->idKey;
+        }
+        if (empty($pidField)) {
+            $pidField = 'parent_id';
+        }
+
         $tree = [];
 
         preg_match_all('/\{([\w\.]+)\}/', $textField, $matches);
@@ -96,6 +103,10 @@ trait HasTreeData
         $key = '';
 
         foreach ($treeData as $k => $li) {
+
+            if (!isset($li[$pidField])) { //没有pidField的表也可以做只有一层的树形
+                $li[$pidField] = $li['pid'] ?? 0;
+            }
 
             if ($li[$pidField] !== 0 && $li[$pidField] !== '') {
                 continue;
