@@ -1,0 +1,5 @@
+{include file="$begintempl" /}
+<tiny-input class="{$class}" type="textarea" placeholder="{$placeholder}" v-bind="{$id}Op" v-model.lazy="{$VModel}"
+    @blur="{$id}Blur(row, $event)" {$attr|raw}>
+</tiny-input>
+{include file="$endtempl" /}

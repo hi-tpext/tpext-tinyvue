@@ -1,0 +1,53 @@
+{notempty name="searchForm"}
+{:$searchForm->render()}
+{/notempty}
+<div id="{$id}">
+    <div class="table-wrapper">
+        <tiny-grid class="{$class}" ref="{$id}Ref" v-bind="{$id}Op" {$attr|raw}>
+            <template #toolbar>
+                <tiny-grid-toolbar :id="{$id}ToolbarId" size="mini" :class="{full: {$id}UseChooseColumns.length==0}"
+                    :resizable="{ storage: 'local' }" :setting="{$id}ToolbarSetting" @save-setting="{$id}SaveSetting">
+                    {notempty name="toolbar"}
+                    <template #buttons>
+                        {:$toolbar->render()}
+                        {notempty name="addTop"}
+                        <div>{:$addTop->render()}</div>
+                        {/notempty}
+                    </template>
+                    {/notempty}
+                </tiny-grid-toolbar>
+            </template>
+            <template #empty>
+                {$emptyText|raw}
+            </template>
+            {if condition="$useCheckbox"}
+            <tiny-grid-column type="selection" width="30" fixed="left"></tiny-grid-column>
+            {/if}
+            {foreach name="list" id="displayer" key="co"}
+            <tiny-grid-column v-bind="{$id}Columns['{$co}']">
+                <template #header="{column}">
+                    <div class="table-column-header" v-html="{$id}Columns['{$co}'].params.title_raw"></div>
+                </template>
+                <template #default="{row, column, skip}">
+                    <div v-if="!skip && row && row.{$co}!==undefined" class="column-field-wrapper"
+                        :class="row.__field_info__['{$co}'].matchClass">
+                        {:$displayer->render()}
+                    </div>
+                </template>
+            </tiny-grid-column>
+            {/foreach}
+            {if condition="$useActionbar"}
+            <tiny-grid-column title="{$actionRowText}" fixed="right" field="__action__" width="{$actionRowWidth}">
+                <template #default="{row, column, skip}">
+                    <div v-if="!skip && row && row.__action__!==undefined" class="table-column-buttons">
+                        {:$actionbar->render()}
+                    </div>
+                </template>
+            </tiny-grid-column>
+            {/if}
+        </tiny-grid>
+    </div>
+    {notempty name="addBottom"}
+    {:$addBottom->render()}
+    {/notempty}
+</div>

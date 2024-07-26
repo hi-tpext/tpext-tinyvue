@@ -1,0 +1,13 @@
+<tiny-dropdown v-bind="{$id}Op" @button-click="{$id}ButtonClick" @item-click="{$id}ItemClick">
+    <span>{if condition="$icon"}<i class="mdi {$icon}"></i>{/if}{$label|raw}</span>
+    <template #dropdown>
+        <tiny-dropdown-menu>
+            {volist name="items" id="item"}
+            <tiny-dropdown-item item-data="{$item.key}">
+                <span class="{$item.class}" {$item.attr|raw}>{if condition="$item.icon"}<i
+                        class="mdi {$item.icon}"></i>{/if}{$item.label|raw}</span>
+            </tiny-dropdown-item>
+            {/volist}
+        </tiny-dropdown-menu>
+    </template>
+</tiny-dropdown>

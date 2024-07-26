@@ -1,0 +1,18 @@
+{include file="$begintempl" /}
+{if condition="!$inline"}
+<div class="field-show">
+    {/if}
+    <template v-if="Array.isArray({$VModel})">
+        <span v-text="{$VModel}[2]?{$VModel}[1]:{$VModel}[0]" class="the-field {$class}" @click="{$VModel}[2]=!{$VModel}[2]" {$attr|raw}></span>
+        <span class="shwo-more" @click="{$VModel}[2]=!{$VModel}[2]">
+            <span v-show="!{$VModel}[2]">{$more}<i class="mdi mdi-arrow-bottom-right"></i></span>
+            <i v-show="{$VModel}[2]" class="mdi mdi-arrow-top-left"></i>
+        </span>
+    </template>
+    <template v-else>
+        <span v-text="{$VModel}" class="the-field {$class}" {$attr|raw}></span>
+    </template>
+    {if condition="!$inline"}
+</div>
+{/if}
+{include file="$endtempl" /}

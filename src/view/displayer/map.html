@@ -1,0 +1,27 @@
+{include file="$begintempl" /}
+<div class="tiny-map">
+    <tiny-input id="{$id}" type="text" placeholder="{$placeholder}" v-bind="{$id}Op" v-model="{$VModel}">
+        {if condition="$prepend"}
+        <template #prepend>{$prepend|raw}</template>
+        {/if}
+        {if condition="$append"}
+        <template #append>{$append|raw}</template>
+        {/if}
+        {if condition="$prefix"}
+        <template #prefix>{$prefix|raw}</template>
+        {/if}
+        {if condition="$suffix"}
+        <template #suffix>{$suffix|raw}</template>
+        {/if}
+    </tiny-input>
+    {if condition="$maptype neq 'yandex' && !$readonly && !$disabled" }
+    <tiny-input class="tiny-map-search" title="若无法搜索，检查是否填写了正确的js apikey" v-model="{$id}Search" id="search-{$id}"
+        type="text" placeholder="{:__blang('bilder_map_search_place')}">
+        <template #prefix>
+            <i class="mdi mdi-search-web"></i>
+        </template>
+    </tiny-input>
+    {/if}
+    <div id="map-{$id}" {$mapStyle|raw}></div>
+</div>
+{include file="$endtempl" /}

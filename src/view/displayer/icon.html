@@ -1,0 +1,29 @@
+{include file="$begintempl" /}
+<tiny-button size="small" class="icon-selector" @click="{$id}OpenIconSelector(row)">
+    <i :class="{$VModel}"></i>
+</tiny-button>
+{if condition="!$inTable"}
+<span v-text="{$VModel}"></span>
+{/if}
+<tiny-dialog-box v-bind="{$id}Op.dialogOp" v-model:visible="{$id}Op.visible" @open="{$id}Open">
+    <template #title>
+        <div class="tiny-icon-search">
+            <tiny-search :clearable="true" placeholder="Icon search" is-enter-search @search="{$id}Search"
+                @input="{$id}SearchInput"></tiny-search>
+        </div>
+    </template>
+    <template #default>
+        <tiny-grid ref="{$id}GridRef" v-bind="{$id}Op.gridOp" :fetch-data="{$id}FetchData" :pager="{$id}PagerConfig"
+            @cell-click="{$id}CellClick">
+            <tiny-grid-column v-for="col in 16" :align="'center'">
+                <template #default="{row, column, skip}">
+                    <i :title="row[col-1]" :class="row[col-1]"></i>
+                </template>
+            </tiny-grid-column>
+            <template #empty>
+                <span>Loading...</span>
+            </template>
+        </tiny-grid>
+    </template>
+</tiny-dialog-box>
+{include file="$endtempl" /}

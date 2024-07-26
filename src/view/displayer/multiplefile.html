@@ -1,0 +1,110 @@
+{include file="$begintempl" /}
+<div class="tiny-multiplefile {$class}">
+    <div class="tiny-image-priview">
+        <ul class="tiny-upload-list tiny-upload-list--text">
+            <li v-for="(file, index) in {$VModel}.split(',').filter(x => x.trim())" class="tiny-upload-list__li">
+                <div class="tiny-upload-list__item">
+                    <div class="pic-item-cover" {$thumbnailStyle|raw}>
+                        <figure>
+                            <img object-fit="fill" :src="$__getImageOrFileIco(file, {$id}Op.isImage)" :alt="file" />
+                            <figcaption>
+                                <span title="{:__blang('bilder_action_view')}" class="opt-btn preview-file"
+                                    @click="previewFile(file, {$VModel}, {$id}Op.isImage)">
+                                    <i class="mdi mdi-eye"></i>
+                                </span>
+                                {if condition="$canUpload"}
+                                <span title="{:__blang('bilder_action_delete')}" class="opt-btn delete-file"
+                                    @click="{$id}RemoveFile(row, index)">
+                                    <i class="mdi mdi-delete"></i>
+                                </span>
+                                {/if}
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div><!--v-if-->
+            </li>
+            {if condition="$canUpload && $cover"}
+            <li v-show="{$id}Op.fileNumLimit < 1 || {$VModel}.length < {$id}Op.fileNumLimit"
+                class="tiny-upload-list__li">
+                <div class="tiny-upload-list__item">
+                    <div class="pic-item-cover" {$thumbnailStyle|raw}>
+                        <figure>
+                            <img object-fit="fill" src="{$cover}" alt="cover" />
+                            <figcaption>
+                                <span title="{:__blang('bilder_upload_nwe_file')}" class="opt-btn upload-file"
+                                    @click="{$id}UploadFile(row)">
+                                    <i class="mdi mdi-folder-open"></i>
+                                </span>
+                                {if condition="$showChooseBtn || ($inTable && !$showUploadBtn)"}
+                                <span title="{:__blang('bilder_choose_uploaded_file')}" class="opt-btn choose-file"
+                                    @click="{$id}ChooseFile(row)">
+                                    <i class="mdi mdi mdi-file-find"></i>
+                                </span>
+                                {/if}
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </li>
+            {/if}
+        </ul>
+    </div>
+    {if condition="$canUpload"}
+    <tiny-file-upload ref="{$id}Ref" class="hidden" v-bind="{$id}Op" :before-add-file="{$id}BeforeAddFile"
+        :before-upload="{$id}BeforeUpload" @success="{$id}Success" @error="{$id}Error" @progress="{$id}Progress"
+        {$attr|raw}>
+        <template #file="{ file }">
+            <div><!----></div>
+        </template>
+        <template #trigger>
+            <div class="hidden">
+                <a ref="{$id}UploadRef"></a>
+            </div>
+        </template>
+    </tiny-file-upload>
+    {if condition="$showInput"}
+    <tiny-input type="text" class="tiny-file-upload-input" placeholder="{$placeholder}" id="{$id}-input-div"
+        v-model="{$VModel}">
+        <template #append>
+            {if condition="$showUploadBtn"}
+            <span title="{:__blang('bilder_upload_nwe_file')}" class="opt-btn upload-file"
+                @click="{$id}UploadFile(row)">
+                <i class="mdi mdi-folder-open "></i>{:__blang('bilder_upload_file_button')}
+            </span>
+            {/if}
+            {if condition="$showChooseBtn"}
+            <span title="{:__blang('bilder_choose_uploaded_file')}" class="opt-btn choose-file"
+                @click="{$id}ChooseFile(row)">
+                <i class="mdi mdi mdi-file-find"></i>{:__blang('bilder_choose_file_button')}
+            </span>
+            {/if}
+        </template>
+    </tiny-input>
+    {else/}
+    <div class="bottom-control-buttons">
+        <tiny-input type="hidden" class="hidden tiny-file-upload-input" placeholder="{$placeholder}"
+            id="{$id}-input-div" v-model="{$VModel}"></tiny-input>
+        {if condition="$showUploadBtn"}
+        <tiny-button size="mini" title="{:__blang('bilder_upload_nwe_file')}">
+            <span class="opt-btn upload-file" @click="{$id}UploadFile(row)">
+                <i class="mdi mdi-folder-open "></i>
+                {if condition="!$inTable"}
+                {:__blang('bilder_upload_file_button')}
+                {/if}
+            </span>
+        </tiny-button>
+        {/if}
+        {if condition="$showChooseBtn"}
+        <tiny-button size="mini" title="{:__blang('bilder_choose_uploaded_file')}">
+            <span class="opt-btn choose-file" @click="{$id}ChooseFile(row)"><i class="mdi mdi mdi-file-find"></i>
+                {if condition="!$inTable"}
+                {:__blang('bilder_choose_file_button')}
+                {/if}
+            </span>
+        </tiny-button>
+        {/if}
+    </div>
+    {/if}
+    {/if}
+</div>
+{include file="$endtempl" /}

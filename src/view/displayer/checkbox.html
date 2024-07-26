@@ -1,0 +1,12 @@
+{include file="$begintempl" /}
+{if condition="$checkallBtn"}
+{if condition="$blockStyle"}
+<tiny-checkbox-button class="tiny-checkbox-button--mini"
+    v-model="{$id}CheckAll">{$checkallBtn|raw}</tiny-checkbox-button>
+{else/}
+<tiny-checkbox :indeterminate="{$id}Indeterminate" v-model="{$id}CheckAll">{$checkallBtn|raw}</tiny-checkbox>
+{/if}
+{/if}
+<tiny-checkbox-group class="{$class}" :options="{$id}Options" v-bind="{$id}Op" v-model="{$VModel}"
+    {$attr|raw}></tiny-checkbox-group>
+{include file="$endtempl" /}

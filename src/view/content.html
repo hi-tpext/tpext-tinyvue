@@ -1,0 +1,161 @@
+{extend name="$builder_layout"/}
+{block name="style"}
+<style>
+  {$stylesheet|raw}
+</style>
+{/block}
+
+{block name="content"}
+<div class="main-panel" id="app">
+  {notempty name="$title"}
+  <div class="main-panel-heading">
+    <h4 class="main-panel-title">
+      {$title|raw}
+      {notempty name="$desc"}
+      <small> - {$desc|raw}</small>
+      {/notempty}
+    </h4>
+  </div>
+  {/notempty}
+  <div class="main-panel-body">
+    <tiny-layout :cols="12">
+      {volist name="rows" id="row"}
+      {:$row->render()}
+      {/volist}
+    </tiny-layout>
+  </div>
+  <div class="hidden">
+    <tiny-image v-if="previewList.length" ref="previewRef" :z-index="3000" show-index="true" fit="scale-down" :src="previewImageUrl"
+        :preview-src-list="previewList">
+    </tiny-image>
+    {{previewList}}
+    <a ref="downloadRef" :href="previewImageUrl" target="_blank">{{previewImageUrl}}</a>
+  </div>
+</div>
+<script type="text/javascript">
+  window.__blang = JSON.parse('{$__blang|raw}');
+</script>
+{/block}
+{block name="script"}
+<script type="importmap">
+  {
+    "imports": {
+      "vue": "/assets/tpexttinyvue/lib/vue.esm-browser.prod.js?aver={$aver}",
+      "@opentiny/vue": "/assets/tpexttinyvue/lib/tiny-vue.js?aver={$aver}",
+      "@opentiny/vue-common": "/assets/tpexttinyvue/lib/tiny-vue-common.js?aver={$aver}",
+      "@opentiny/vue-icon": "/assets/tpexttinyvue/lib/tiny-vue-icon.js?aver={$aver}",
+      "@opentiny/vue-locale": "/assets/tpexttinyvue/lib/tiny-vue-locale.js?aver={$aver}"
+    }
+  }
+</script>
+<script type="module">
+  import { {$vueImport} } from 'vue';
+  import TinyVue from '@opentiny/vue';
+  import * as TinyIcon from '@opentiny/vue-icon';
+
+  import { 
+    {$componentsImport} 
+  } from '@opentiny/vue';
+
+  const loadingInstance = ref(null);
+
+  const __getImageOrFileIco = (url, isImage) => {
+    if(__isImage(url, isImage)) {
+        return url;
+    }
+    return '/index/file/extimg?type=' + url.replace(/.+?\.(\w+)$/, '$1');
+  }
+
+  const __isImage = (url, op) => {
+      return (!/.+?\.(\w+)$/i.test(url) && op.isImage) || /.+\.(png|jpg|jpeg|gif|bmp|wbmp|webpg|ico|svg)$/i.test(url);
+  }
+
+  layui.use(function(){
+    window.layer = layui.layer;
+  });
+
+  let app = createApp({
+    setup() {
+      onBeforeMount(() => {
+        loadingInstance.value = TinyLoading.service({
+          background: 'rgba(0, 0, 0, 0.2)',
+          target: document.getElementById('app')
+        })
+      });
+      onMounted(() => {
+        
+        {$onMountedScript|raw}
+
+        nextTick(() => {
+          setTimeout(() => {
+            loadingInstance.value.close();
+          }, 100);
+        })
+      });
+
+      {$setupScript|raw}
+
+      const previewRef = ref(null);
+      const downloadRef = ref(null);
+      const previewImageUrl = ref('/assets/tpexttinyvue/images/default.png');
+      const previewList = ref(['/assets/tpexttinyvue/images/default.png']);
+
+      const previewFile = (file, files, isImage) => {
+          if(!Array.isArray(files)) {
+              files = files.split(',').filter(x => x.trim());
+          }
+          previewImageUrl.value = file;
+          if(__isImage(file, isImage)) {
+              previewImageUrl.value = file;
+              let images = files.filter(x => __isImage(x, isImage));
+              let i = 0;
+              let find = false;
+              let arr = [];
+              images.forEach(x => {
+                  if(x === file) {
+                      find = true;
+                  }
+                  if(find) {
+                      arr.push(x);
+                  }
+                  else {
+                      i += 1;
+                  }
+              });
+              for(let j = 0; j < i; j+=1) {
+                  arr.push(images[j]);
+              }
+              previewList.value = arr;
+              nextTick(() => {
+                  previewRef.value.clickHandler();
+              });
+          } else {
+              nextTick(() => {
+                  downloadRef.value.click();
+              });
+          }
+      };
+
+      return {
+        previewFile,
+        previewRef,
+        downloadRef,
+        previewImageUrl,
+        previewList,
+        {$vueTokens|raw}
+      };
+    }
+  });
+  app.use(TinyVue);
+  app.config.globalProperties.$__isImage = __isImage;
+  app.config.globalProperties.$__getImageOrFileIco = __getImageOrFileIco;
+  window.vm = app.mount('#app');
+  //导出为全局变量
+  window.TinyLoading = TinyLoading;
+  window.TinyAlert = TinyAlert;
+  window.TinyModal = TinyModal;
+  window.TinyNotify = TinyNotify;
+
+</script>
+<div class="hidden" id="script-div"></div>
+{/block}

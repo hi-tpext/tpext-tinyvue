@@ -1,0 +1,22 @@
+<div id="{$id}" class="form-wrapper">
+    <tiny-form class="{$class}" ref="{$id}Ref" :model="{$id}Data" v-bind="{$id}Op" {$attr|raw}>
+        <tiny-row>
+            {volist name="rows" id="row"}
+            {if condition="$row instanceof tpext\builder\common\Tab"}
+            <tiny-col :span="12">
+                {:$row->render()}
+            </tiny-col>
+            {elseif condition="$row instanceof tpext\builder\form\step"}
+            <tiny-col :span="12">
+                {:$row->render()}
+            </tiny-col>
+            {else/}
+            <tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getName()}-div" {$row->getAttrWithStyle()|raw}
+                {$row->getColSizeAttr()|raw}>
+                {:$row->render()}
+            </tiny-col>
+            {/if}
+            {/volist}
+        </tiny-row>
+    </tiny-form>
+</div>

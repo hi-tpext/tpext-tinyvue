@@ -1,0 +1,10 @@
+{volist name="rows" id="row"}
+{if condition="$hasWrapper"}
+<tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getName()}-div" {$row->getAttrWithStyle()|raw}
+  {$row->getColSizeAttr()|raw}>
+  {:$row->render()}
+</tiny-col>
+{else/}
+{:$row->render()}
+{/if}
+{/volist}

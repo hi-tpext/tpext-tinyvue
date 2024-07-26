@@ -1,0 +1,11 @@
+{notempty name="$options"}
+<tiny-tabs v-bind="{$id}Op" class="tiny-tabs-container search-tab-link {$class}" @click="{$id}Click" {$attr|raw}>
+    {volist name="options" id="option"}
+    <tiny-tab-item title="{:strip_tags($option)}" name="{$key}">
+        <template #title>
+            {$option|raw}
+        </template>
+    </tiny-tab-item>
+    {/volist}
+</tiny-tabs>
+{/notempty}

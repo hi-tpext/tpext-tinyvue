@@ -1,0 +1,7 @@
+{if condition="$hasWrapper"}
+{if condition="$showLabel"}
+{include file="$labeltempl" /}
+{/if}
+<tiny-col class="displayer-{$displayerType}" {$sizeAttr[1]|raw}>
+    <tiny-form-item prop="{$name}" :rules="{$id}Rules">
+{/if}

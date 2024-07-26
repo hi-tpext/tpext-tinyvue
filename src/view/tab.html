@@ -1,0 +1,12 @@
+{notempty name="$rows"}
+<tiny-tabs v-bind="{$id}Op" class="tiny-tabs-container {$class}" {$attr|raw}>
+    {volist name="rows" id="row"}
+    <tiny-tab-item name="{$row.name}" {$contentAttr|raw}>
+        <template #title>
+            {$row.label|raw}
+        </template>
+        {:$row.content->render()}
+    </tiny-tab-item>
+    {/volist}
+</tiny-tabs>
+{/notempty}

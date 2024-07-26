@@ -1,0 +1,22 @@
+{include file="$begintempl" /}
+{if condition="$group"}
+<tiny-select class="{$class}" placeholder="{$placeholder}" v-bind="{$id}Op" v-model="{$VModel}" @change="{$id}Change"
+    @focus="{$id}Focus(row, $event)" {$attr|raw}>
+    <template v-for="(group, index) in {$id}Options" :key="index">
+        <tiny-option-group :label="group.label" :disabled="!!group.disabled">
+            <template v-for="(option, gindex) in group.options" :key="gindex">
+                <tiny-option :label="option.label" :value="option.value" :disabled="option.disabled">
+                </tiny-option>
+            </template>
+        </tiny-option-group>
+    </template>
+</tiny-select>
+{else/}
+<tiny-select class="{$class}" placeholder="{$placeholder}" :optimization="true" :options="{$id}Options" v-bind="{$id}Op"
+    v-model="{$VModel}" @change="{$id}Change" @focus="{$id}Focus(row, $event)" {$attr|raw}>
+    {if condition="$prefix"}
+    <template #prefix>{$prefix|raw}</template>
+    {/if}
+</tiny-select>
+{/if}
+{include file="$endtempl" /}

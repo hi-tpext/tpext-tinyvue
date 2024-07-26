@@ -1,0 +1,9 @@
+{if condition="$inline"}
+<span v-html="{$VModel}" class="the-field {$class}" {$attr|raw}></span>
+{else/}
+{include file="$begintempl" /}
+<div class="field-raw">
+    <span v-html="{$VModel}" class="the-field {$class}" {$attr|raw}></span>
+</div>
+{include file="$endtempl" /}
+{/if}

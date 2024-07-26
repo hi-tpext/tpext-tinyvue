@@ -1,0 +1,17 @@
+{include file="$begintempl" /}
+<tiny-input class="{$class}" type="text" placeholder="{$placeholder}" v-bind="{$id}Op" v-model.lazy="{$VModel}"
+    @blur="{$id}Blur(row, $event)" {$attr|raw}>
+    {if condition="$prepend"}
+    <template #prepend>{$prepend|raw}</template>
+    {/if}
+    {if condition="$append"}
+    <template #append>{$append|raw}</template>
+    {/if}
+    {if condition="$prefix"}
+    <template #prefix>{$prefix|raw}</template>
+    {/if}
+    {if condition="$suffix"}
+    <template #suffix>{$suffix|raw}</template>
+    {/if}
+</tiny-input>
+{include file="$endtempl" /}

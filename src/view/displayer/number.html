@@ -1,0 +1,3 @@
+{include file="$begintempl" /}
+<tiny-numeric class="{$class}" placeholder="{$placeholder}" v-bind="{$id}Op" v-model.lazy="{$VModel}" @change="{$id}Change(row, $event)" {$attr|raw}></tiny-numeric>
+{include file="$endtempl" /}

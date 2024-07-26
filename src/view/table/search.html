@@ -1,0 +1,21 @@
+{notempty name="tablink"}
+{:$tablink->render()}
+{/notempty}
+{notempty name="addTop"}
+{:$addTop->render()}
+{/notempty}
+<div id="{$id}" class="form-wrapper" :class="{hidden : !{$id}Visible}">
+    <tiny-form class="{$class}" ref="{$id}Ref" :model="{$id}Data" v-bind="{$id}Op" {$attr|raw}>
+        <tiny-row>
+            {volist name="rows" id="row"}
+            <tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getName()}-div" {$row->getAttrWithStyle()|raw}
+                {$row->getColSizeAttr()|raw}>
+                {:$row->render()}
+            </tiny-col>
+            {/volist}
+        </tiny-row>
+    </tiny-form>
+</div>
+{notempty name="addBottom"}
+{:$addBottom->render()}
+{/notempty}
