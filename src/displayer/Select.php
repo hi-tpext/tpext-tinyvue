@@ -276,6 +276,7 @@ class Select extends Field
         $script = <<<EOT
 
     const {$fieldId}Options = ref({$options});
+    const {$fieldId}Error = ref('');
     let {$fieldId}Row = null;//如果是在items中，保持当前行的实例
 
     const {$fieldId}Change = (value, list) => {
@@ -304,6 +305,7 @@ EOT;
             "{$fieldId}Options",
             "{$fieldId}Change",
             "{$fieldId}Focus",
+            "{$fieldId}Error",
         ]);
 
         //远程加载
@@ -370,8 +372,8 @@ EOT;
                 return resolve(options);
             })
             .catch(e => {
-                console.log(e);
-                TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+                {$fieldId}Error.value = __blang.bilder_network_error;
+                throw e;
             });
         });
     };
@@ -454,8 +456,8 @@ EOT;
             }
         })
         .catch(e => {
-            console.log(e);
-            TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+            {$fieldId}Error.value = __blang.bilder_network_error;
+            throw e;
         });
     };
     
@@ -512,6 +514,7 @@ EOT;
         return [
             'group' => false, // $this->isGroup(),
             'prefix' => $this->prefix,
+            'remote' => $this->isAjax(),
             'placeholder' => $this->placeholder ?: __blang('bilder_please_select') . $this->label
         ];
     }

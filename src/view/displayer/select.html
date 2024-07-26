@@ -17,6 +17,11 @@
     {if condition="$prefix"}
     <template #prefix>{$prefix|raw}</template>
     {/if}
+    {if condition="$remote"}
+    <template v-if="{$id}Error" #empty>
+        <span class="tiny-select-dropdown__empty" v-text="{$id}Error"></span>
+    </template>
+    {/if}
 </tiny-select>
 {/if}
 {include file="$endtempl" /}
