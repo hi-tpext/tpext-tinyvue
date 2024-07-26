@@ -163,10 +163,10 @@ trait HasWhen
     let {$fieldId}MatchCaseFieldNames = [];
 
 EOT;
-        $this->addOnMountedScript($script);
+        $this->addSetupScript($script);
 
         foreach ($this->whens as $when) {
-            $this->addOnMountedScript($when->watchForScript());
+            $this->addSetupScript($when->watchForScript());
         }
 
         $script = <<<EOT
