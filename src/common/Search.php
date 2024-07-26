@@ -41,7 +41,6 @@ class Search extends SWrapper implements Renderable
     protected $open = true;
     protected $tableId = '';
     protected $formData = [];
-    protected $formFields = [];
     /**
      * Undocumented variable
      *
@@ -374,24 +373,6 @@ class Search extends SWrapper implements Renderable
     /**
      * Undocumented function
      *
-     * @param string $name
-     * @param string|int|array|mixed $value
-     * @return $this
-     */
-    public function addFormFields($name, $value)
-    {
-        if (strstr($name, '[')) {
-            $name = str_replace(['[', ']'], ['.', ''], $name);
-        }
-
-        Arr::set($this->formFields, $name, $value);
-
-        return $this;
-    }
-
-    /**
-     * Undocumented function
-     *
      * @return $this
      */
     public function beforRender()
@@ -493,13 +474,11 @@ EOT;
         $table = $this->tableId;
         $open = $this->open ? 'true' : 'false';
         $formData = json_encode($this->formData, JSON_UNESCAPED_UNICODE);
-        $formFields = json_encode($this->formFields, JSON_UNESCAPED_UNICODE);
 
         $script = <<<EOT
 
     const {$form}Ref = ref(null);
     const {$form}Data = reactive($formData);
-    const {$form}Fields = {$formFields};
     const {$form}Visible = ref({$open});
 
     const {$form}Submit = () => {

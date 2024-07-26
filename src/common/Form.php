@@ -51,7 +51,6 @@ class Form extends FWrapper implements Renderable
     protected $readonly = false;
     protected $partial = false;
     protected $formData = [];
-    protected $formFields = [];
     protected $validateScripts = [];
     /**
      * Undocumented variable
@@ -762,24 +761,6 @@ class Form extends FWrapper implements Renderable
      * Undocumented function
      *
      * @param string $name
-     * @param string|int|array|mixed $value
-     * @return $this
-     */
-    public function addFormFields($name, $value)
-    {
-        if (strstr($name, '[')) {
-            $name = str_replace(['[', ']'], ['.', ''], $name);
-        }
-
-        Arr::set($this->formFields, $name, $value);
-
-        return $this;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param string $name
      * @param array $rule ['required' => true, 'message' => '必填', trigger: 'change']
      * @return $this
      */
@@ -914,7 +895,6 @@ EOT;
 
         $rules = json_encode($this->validator, JSON_UNESCAPED_UNICODE);
         $formData = json_encode($this->formData, JSON_UNESCAPED_UNICODE);
-        $formFields = json_encode($this->formFields, JSON_UNESCAPED_UNICODE);
         $ajax = $this->ajax ? 'true' : 'false';
         $readonly = $this->readonly ? 'true' : 'false';
         $validateScripts = '';
@@ -928,7 +908,6 @@ EOT;
 
     const {$form}Ref = ref(null);
     const {$form}Data = reactive({$formData});
-    const {$form}Fields = {$formFields};
     const {$form}Ajax = {$ajax};
     const {$form}Rules = {$rules};
 

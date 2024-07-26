@@ -2,6 +2,6 @@
 {if condition="$vBind"}
 <div v-html="{$VModel}" class="the-html {$class}" {$attr|raw}></div>
 {else/}
-<div class="the-html {$class}" {$attr|raw}>{{$value}}</div>
+<div class="the-html {$class}" {$attr|raw}>{$value|raw}</div>
 {/if}
 {include file="$endtempl" /}
