@@ -1,9 +1,9 @@
+{include file="$begintempl" /}
 {if condition="$inline"}
 <span v-text="{$VModel}[1]" class="the-field {$class} load-texts" {$attr|raw}></span>
 {else/}
-{include file="$begintempl" /}
 <div class="field-raw">
     <span v-text="{$VModel}[1]" class="the-field {$class} load-texts" {$attr|raw}></span>
 </div>
-{include file="$endtempl" /}
 {/if}
+{include file="$endtempl" /}
