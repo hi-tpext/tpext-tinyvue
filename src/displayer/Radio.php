@@ -90,20 +90,27 @@ class Radio extends Field
         return $this;
     }
 
-    protected function fieldScript()
+    protected function radioOptions()
     {
-        $fieldId = $this->getId();
         $options = [];
 
         foreach ($this->options as $key => $label) {
             $options[] = [
                 'label' => (string)$key,
                 'text' => $label,
-                'disabled' => in_array($key, $this->disabledOptions)  || $this->readonly,
+                'disabled' => in_array($key, $this->disabledOptions) || $this->readonly,
             ];
         }
 
-        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+        return $options;
+    }
+
+    protected function fieldScript()
+    {
+        $fieldId = $this->getId();
+        $options = [];
+
+        $options = json_encode($this->inTable ? [] : $this->radioOptions(), JSON_UNESCAPED_UNICODE);
 
         $script = <<<EOT
 
@@ -116,5 +123,18 @@ EOT;
         ]);
 
         $this->whenScript();
+    }
+
+    /**
+     * Undocumented function
+     * 
+     * @return array
+     */
+    public function fieldInfo()
+    {
+        $info = parent::fieldInfo();
+        $info['options'] = $this->radioOptions();
+
+        return $info;
     }
 }

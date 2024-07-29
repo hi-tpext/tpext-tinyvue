@@ -146,7 +146,7 @@ EOT;
      * 在列表中时初始化脚本
      * @return string
      */
-    public function initRowScript()
+    public function getInitRowScript()
     {
         $fieldName = $this->getName();
         $fieldId = $this->getId();

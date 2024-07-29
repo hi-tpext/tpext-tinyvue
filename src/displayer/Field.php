@@ -1221,6 +1221,7 @@ EOT;
             array_walk($value, function (&$v) {
                 $v = (string) $v;
             });
+            $value = array_values(array_filter($value, 'strlen'));
         } else if ($this->valueType == 'boolean') {
             $value = (bool) $value;
         } else if ($this->valueType == 'integer') {
@@ -1229,7 +1230,7 @@ EOT;
             $value = (float) $value;
         } else {
             if (is_array($value)) {
-                $value = implode(',', $value);
+                $value = implode(',', array_filter($value, 'strlen'));
             }
             $value = (string) $value;
         }

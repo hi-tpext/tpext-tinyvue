@@ -629,7 +629,6 @@ EOT;
         $script = <<<EOT
 
     //监听表格数据变化，绑定到表单数据
-    {$VModel} = undefined;
     let {$table}Timer = null;
     watch(
         {$table}InitData,
@@ -639,11 +638,14 @@ EOT;
                 {$table}Timer = null;
             }
             {$table}Timer = setTimeout(() => {
-                {$table}ToData()
+                {$table}ToData();
             }, 800);
         },
         {deep: true, immediate: true}
     );
+    {$table}Timer = setTimeout(() => {
+        {$table}ToData();
+    }, 100);
 
 EOT;
         Builder::getInstance()->addOnMountedScript($script);

@@ -115,10 +115,8 @@ class Checkbox extends Field
         return $this;
     }
 
-    protected function fieldScript()
+    protected function checkboxOptions()
     {
-        $fieldId = $this->getId();
-        $VModel = $this->getVModel();
         $options = [];
 
         foreach ($this->options as $key => $label) {
@@ -129,7 +127,15 @@ class Checkbox extends Field
             ];
         }
 
-        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+        return $options;
+    }
+
+    protected function fieldScript()
+    {
+        $fieldId = $this->getId();
+        $VModel = $this->getVModel();
+
+        $options = json_encode($this->inTable ? [] : $this->checkboxOptions(), JSON_UNESCAPED_UNICODE);
 
         $script = <<<EOT
 
@@ -175,5 +181,18 @@ EOT;
             'blockStyle' => $this->blockStyle,
             'checkallBtn' => $this->checkallBtn,
         ];
+    }
+
+    /**
+     * Undocumented function
+     * 
+     * @return array
+     */
+    public function fieldInfo()
+    {
+        $info = parent::fieldInfo();
+        $info['options'] = $this->checkboxOptions();
+
+        return $info;
     }
 }

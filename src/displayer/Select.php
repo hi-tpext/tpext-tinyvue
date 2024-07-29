@@ -220,15 +220,9 @@ class Select extends Field
         return $this;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    protected function fieldScript()
+    protected function selectOptions()
     {
         $fieldId = $this->getId();
-        $VModel = $this->getVModel();
 
         $options = [];
 
@@ -270,7 +264,21 @@ class Select extends Field
             }
         }
 
-        $options = json_encode($options, JSON_UNESCAPED_UNICODE);
+        return $options;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    protected function fieldScript()
+    {
+        $fieldId = $this->getId();
+        $VModel = $this->getVModel();
+
+        //可能会rendering动态修改每一行的选项，故把选项值存在这一行中
+        $options = json_encode($this->inTable ? [] : $this->selectOptions(), JSON_UNESCAPED_UNICODE);
         $triggerNext = $this->nextSelectId ? "{$this->nextSelectId}Reset(row);" : '';
 
         $script = <<<EOT
@@ -314,7 +322,9 @@ EOT;
             $this->jsOptions['filterable'] = true;
             $this->jsOptions['remote'] = true;
         } else {
-            $this->jsOptions['filterable'] = count($this->options) > 10;
+            if (!$this->inTable) {
+                $this->jsOptions['filterable'] = count($this->options) > 10;
+            }
             $this->jsOptions['remote'] = false;
         }
 
@@ -326,6 +336,7 @@ EOT;
         $fieldId = $this->getId();
         $VModel = $this->getVModel();
         $formVModel =   $this->getFormVModel();
+        $fieldName = $this->getName();
 
         $url = $this->ajax['url'];
         $id = $this->ajax['id'] ?: '_';
@@ -462,6 +473,15 @@ EOT;
     };
     
     {$fieldId}Op.value['remote-method'] = {$fieldId}QueryData;
+
+     watch(
+        {$fieldId}Options,
+        (newValue, oldValue) => {
+            if({$fieldId}Row) {
+                {$fieldId}Row.__field_info__['{$fieldName}'].options = newValue;
+            }
+        }
+    );
     
 EOT;
 
@@ -472,7 +492,7 @@ EOT;
      * 在列表中时初始化脚本
      * @return string
      */
-    public function initRowScript()
+    public function getInitRowScript()
     {
         if (empty($this->ajax)) {
             return '';
@@ -485,6 +505,7 @@ EOT;
         
         if(row.{$fieldName} !== '') {
             {$fieldId}LoadData(row.{$fieldName}).then(options => {
+                row.__field_info__['{$fieldName}'].options = options;
                 {$fieldId}Options.value = options;
                 if(options.length == 0) {
                     row.{$fieldName} = '';
@@ -517,6 +538,19 @@ EOT;
             'remote' => $this->isAjax(),
             'placeholder' => $this->placeholder ?: __blang('bilder_please_select') . $this->label
         ];
+    }
+
+    /**
+     * Undocumented function
+     * 
+     * @return array
+     */
+    public function fieldInfo()
+    {
+        $info = parent::fieldInfo();
+        $info['options'] = $this->selectOptions();
+
+        return $info;
     }
 
     public function destroy()

@@ -675,7 +675,7 @@ class Form extends FWrapper implements Renderable
     public function middle($colSize = 6, $fieldsCall = null)
     {
         $this->fieldsEnd(); //同上
-        $displayer =  $this->fields('middle' . mt_rand(10, 99), '', $colSize)->size(0, 12)->showLabel(false);
+        $displayer =  $this->fields('middle' . mt_rand(100, 999), '', $colSize)->size(0, 12)->showLabel(false);
 
         if ($fieldsCall) {
             if (!($fieldsCall instanceof \Closure)) {
@@ -698,7 +698,7 @@ class Form extends FWrapper implements Renderable
     public function right($colSize = 6, $fieldsCall = null)
     {
         $this->fieldsEnd(); //同上
-        $displayer =  $this->fields('right' . mt_rand(10, 99), '', $colSize)->size(0, 12)->showLabel(false);
+        $displayer =  $this->fields('right' . mt_rand(100, 999), '', $colSize)->size(0, 12)->showLabel(false);
 
         if ($fieldsCall) {
             if (!($fieldsCall instanceof \Closure)) {
@@ -723,7 +723,7 @@ class Form extends FWrapper implements Renderable
     public function logs($label, $dataList, $itemsCall = null, $size = [12, 12])
     {
         $this->itemsEnd();
-        $displayer =  $this->items('logs' . mt_rand(10, 99), $label, 12)->size($size[0], $size[1])->readonly();
+        $displayer =  $this->items('logs' . mt_rand(100, 999), $label, 12)->size($size[0], $size[1])->readonly();
 
         if (is_array($dataList)) {
             $displayer->fill($dataList);
