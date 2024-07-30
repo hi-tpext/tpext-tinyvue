@@ -57,7 +57,7 @@ class FieldsContent extends TWrapper implements Renderable
      */
     public function addCol($col)
     {
-        $this->cols[$col->getLabel()] = $col;
+        $this->cols[] = $col;
         return $this;
     }
 
