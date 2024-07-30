@@ -27,20 +27,29 @@
             area: size || ['90%', '400'],
             offset: size && size.length > 1 & size[1] == '100%' ? '0' : '7px',
             content: href,
-            success: function (layero, index) {
+            success: function (layero, index, that) {
                 if (!size || size[1] == 'auto' || size[1] == '' || size[1] == '0') {
                     var iframe = layero.find('iframe').get(0);
-
-                    var mainheight = $(iframe.contentWindow.document.body).find('.panel-default.content').height() + 10;
-                    if (mainheight < 400) {
-                        mainheight = 400;
-                    }
-                    if (mainheight > winheight - 43) {
-                        mainheight = winheight - 43;
-                    }
-                    $(iframe).height(mainheight);
-                    //layero.css('top', ((winheight - mainheight - 43) / 2) + 'px');
-                    layer.iframeAuto(index);
+                    var app = $(iframe.contentWindow.document.body).find('#app');
+                    var mainheight = 0;
+                    //定时等待页面vue渲染完成
+                    var intv = setInterval(function () {
+                        mainheight = app.height();
+                        if (mainheight > 50) {
+                            clearInterval(intv);
+                            mainheight += 10;
+                            if (mainheight < 400) {
+                                mainheight = 400;
+                            }
+                            if (mainheight > winheight - 52) {
+                                mainheight = winheight - 52;
+                            }
+                            $(iframe).height(mainheight);
+                            //layero.css('top', ((winheight - mainheight - 43) / 2) + 'px');
+                            // layer.iframeAuto(index);
+                            that.offset(); // 重新自适应弹层坐标
+                        }
+                    }, 200);
                 }
 
                 $(':focus').blur();
