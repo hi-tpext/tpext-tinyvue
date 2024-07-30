@@ -35,7 +35,7 @@ class Select extends Field
      */
     protected $jsOptions = [
         'clearable' => true,
-        'filterable' => false,
+        'filterable' => true,
         'is-drop-inherit-width' => true,
         'loading' => false,
         'remote' => false,
@@ -323,7 +323,7 @@ EOT;
             $this->jsOptions['remote'] = true;
         } else {
             if (!$this->inTable) {
-                $this->jsOptions['filterable'] = count($this->options) > 10;
+                $this->jsOptions['filterable'] = count($this->options) > 6;
             }
             $this->jsOptions['remote'] = false;
         }
