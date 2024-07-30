@@ -26,7 +26,7 @@ class MultipleFile extends Field
     protected $showChooseBtn = true;
     protected $showUploadBtn = true;
     protected $cover = '/assets/tpexttinyvue/images/cover/file.svg';
-    protected $__default = '/assets/tpextbuilder/images/ext/0.png';
+    protected $__default = '/assets/tpexttinyvue/images/ext/0.png';
 
     protected $jsOptions = [
         'accept' => '', //mimeTypes

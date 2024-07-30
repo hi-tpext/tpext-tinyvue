@@ -26,7 +26,7 @@ return [
         "doc,docx,xls,xlsx,ppt,pptx,pdf,txt,md",
     //
     // '__hr__' => '地图api，按需配置',
-    'table_empty_text' => '<div class="text-center"><img src="/assets/tpextbuilder/images/empty.png" /><p>暂无相关数据~</p></div>',
+    'table_empty_text' => '<div class="text-center"><img src="/assets/tpexttinyvue/images/empty.png" /><p>暂无相关数据~</p></div>',
     'export_only_choosed_columns' => 1,
     'amap_js_key' => '//webapi.amap.com/maps?v=1.4.15&key=您申请的key&jscode=你的jscode',
     'baidu_map_js_key' => '//api.map.baidu.com/api?v=3.0&ak=您的密钥',
