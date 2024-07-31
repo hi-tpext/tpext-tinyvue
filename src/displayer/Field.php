@@ -1355,15 +1355,13 @@ EOT;
 
         $mapClass = $this->parseMapClass();
 
-        $value = $this->renderValue();
-
         $vars = [
             'id' => $this->getId(),
             'label' => $this->label,
             'name' => $this->getName(),
             'requiredStyle' => $this->required ? '' : 'style="display: none;"',
             'extKey' => $this->extKey,
-            'value' => $value,
+            'value' => $this->inTable ? '' : $this->renderValue(),
             'class' => ' row-' . preg_replace('/\W/', '_', $this->name) . $this->getClass() . $mapClass,
             'attr' => $this->getAttrWithStyle(),
             'size' => $this->adjustSize(),
