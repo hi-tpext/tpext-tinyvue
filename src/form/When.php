@@ -113,7 +113,7 @@ class When
         $fieldId = $this->watchFor->getId();
         $VModel = $this->watchFor->getVModel();
         $cases = json_encode($this->cases);
-        $fieldNames = json_encode(array_unique($this->fieldNames));
+        $fieldNames = json_encode(array_values(array_unique($this->fieldNames)));
         $caseKey = $this->caseKey;
 
         $script = <<<EOT

@@ -74,6 +74,7 @@ class Field implements Fillable
     protected $data = [];
     protected $jsOptions = [];
     protected $exporting = false;
+    protected $randomKey = '';
 
     /**
      * Undocumented variable
@@ -93,6 +94,8 @@ class Field implements Fillable
         if (strstr($this->name, '.')) {
             $this->extKey = '_' . explode('.', $this->name)[0];
         }
+
+        $this->randomKey = mt_rand(10, 99);
 
         $this->label = $label;
     }
@@ -150,7 +153,7 @@ class Field implements Fillable
             return $this->id;
         }
         $this->id = ($this->formMode == 'table' ? $this->getForm()->getTableId() : $this->getForm()->getFormId())
-            . preg_replace('/\W/', '_', ucfirst($this->extKey) . ucfirst($this->name));
+            .  $this->displayerType . preg_replace('/\W/', '_', ucfirst($this->extKey) . ucfirst($this->name)) . $this->randomKey;
 
         return $this->id;
     }

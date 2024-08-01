@@ -153,7 +153,7 @@ trait HasWhen
         }
 
         $caseJudges = implode(";\r\n\t\t\t\t", $caseJudges);
-        $allCaseFieldNames = json_encode(array_unique($allCaseFieldNames));
+        $allCaseFieldNames = json_encode(array_values(array_unique($allCaseFieldNames)));
 
         $script = <<<EOT
 
