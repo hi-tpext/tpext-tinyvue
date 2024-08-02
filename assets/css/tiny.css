@@ -408,6 +408,7 @@ th {
 .tiny-grid .tiny-grid-body__column .is-vertical .tiny-checkbox {
   --ti-checkbox-group-margin-bottom: 2px;
   --ti-radio-group-margin-bottom: 2px;
+  line-height: 20px;
 }
 
 .tiny-grid .tiny-grid-body__column .column-field-wrapper.disabled,
@@ -434,8 +435,11 @@ th {
 
 /** form **/
 .tiny-form .tiny-form-item.tiny-form-item--small {
-  --ti-form-item-small-line-height: 33px;
   --ti-form-item-margin-bottom-small: 6px;
+}
+
+.tiny-form .tiny-form-item.tiny-form-item--small .tiny-date-container {
+  height: var(--ti-form-item-small-line-height);
 }
 
 .tiny-form-item .tiny-form-item.tiny-form-item--small {
@@ -526,7 +530,7 @@ th {
 }
 
 .tiny-numeric {
-  max-width: 120px;
+  max-width: 240px;
 }
 
 .tiny-form-item__content input[type="checkbox"],
@@ -744,6 +748,18 @@ th {
   height: 0;
   width: 0;
   display: none;
+}
+
+.tiny-form-item--small
+  .tiny-form-item__content
+  .tiny-checkbox-group.is-vertical
+  .tiny-checkbox,
+.tiny-form-item--small
+  .tiny-form-item__content
+  .tiny-radio-group.is-vertical
+  .tiny-radio {
+  --ti-form-item-small-line-height: 20px;
+  --ti-checkbox-group-margin-bottom: 0px;
 }
 
 .tiny-multiplefile .tiny-upload-list {
