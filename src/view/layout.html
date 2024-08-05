@@ -35,7 +35,7 @@
   </style>
 </head>
 
-<body class="hidden">
+<body>
   <!--页面主要内容-->
   <main class="main-wrap">
     <div class="container-fluid">
@@ -50,9 +50,6 @@
   {/notempty}
   <script>
     window.__token__ = "{$__token__|default=''}";
-    jQuery(function () {
-      $('body').removeClass('hidden');
-    });
   </script>
   {block name="script"}
   <!--scripts-->

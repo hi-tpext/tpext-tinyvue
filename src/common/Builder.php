@@ -71,13 +71,11 @@ class Builder implements Renderable
         '/assets/tpexttinyvue/js/jquery-3.7.min.js',
         '/assets/tpexttinyvue/js/layui/layui.js',
         '/assets/tpexttinyvue/js/tpextbuilder.js',
-        '/assets/tpexttinyvue/js/lightyear.js',
     ];
 
     protected $commonCss = [
         '/assets/tpexttinyvue/lib/index.css',
         '/assets/tpexttinyvue/js/layui/css/layui.css',
-        '/assets/tpexttinyvue/css/normalize.css',
         '/assets/tpexttinyvue/css/tiny.css',
         '/assets/tpexttinyvue/css/materialdesignicons.min.css',
     ];

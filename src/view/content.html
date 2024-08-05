@@ -6,6 +6,7 @@
 {/block}
 
 {block name="content"}
+<div class="page-loader" id="page-loader"></div>
 <div class="main-panel" style="display: none;" id="app">
   {notempty name="$title"}
   <div class="main-panel-heading">
@@ -23,13 +24,13 @@
       {:$row->render()}
       {/volist}
     </tiny-layout>
-  </div>
-  <div class="hidden">
-    <tiny-image v-if="previewList.length" ref="previewRef" :z-index="3000" show-index="true" fit="scale-down" :src="previewImageUrl"
-        :preview-src-list="previewList">
-    </tiny-image>
-    {{previewList}}
-    <a ref="downloadRef" :href="previewImageUrl" target="_blank">{{previewImageUrl}}</a>
+    <div class="hidden">
+      <tiny-image v-if="previewList.length" ref="previewRef" :z-index="3000" show-index="true" fit="scale-down" :src="previewImageUrl"
+          :preview-src-list="previewList">
+      </tiny-image>
+      {{previewList}}
+      <a ref="downloadRef" :href="previewImageUrl" target="_blank">{{previewImageUrl}}</a>
+    </div>
   </div>
 </div>
 <script type="text/javascript">
@@ -41,10 +42,10 @@
   {
     "imports": {
       "vue": "/assets/tpexttinyvue/lib/vue.esm-browser.prod.js?aver={$aver}",
-      "@opentiny/vue": "/assets/tpexttinyvue/lib/tiny-vue.js?aver={$aver}",
-      "@opentiny/vue-common": "/assets/tpexttinyvue/lib/tiny-vue-common.js?aver={$aver}",
-      "@opentiny/vue-icon": "/assets/tpexttinyvue/lib/tiny-vue-icon.js?aver={$aver}",
-      "@opentiny/vue-locale": "/assets/tpexttinyvue/lib/tiny-vue-locale.js?aver={$aver}"
+      "@opentiny/vue": "/assets/tpexttinyvue/lib/tiny-vue-simple.min.js?aver={$aver}",
+      "@opentiny/vue-common": "/assets/tpexttinyvue/lib/tiny-vue-common.min.js?aver={$aver}",
+      "@opentiny/vue-icon": "/assets/tpexttinyvue/lib/tiny-vue-icon.min.js?aver={$aver}",
+      "@opentiny/vue-locale": "/assets/tpexttinyvue/lib/tiny-vue-locale.min.js?aver={$aver}"
     }
   }
 </script>
@@ -57,8 +58,6 @@
     {$componentsImport} 
   } from '@opentiny/vue';
 
-  const loadingInstance = ref(null);
-
   const __getImageOrFileIco = (url, isImage) => {
     if(__isImage(url, isImage)) {
         return url;
@@ -69,7 +68,7 @@
   const __isImage = (url, op) => {
       return (!/.+?\.(\w+)$/i.test(url) && op.isImage) || /.+\.(png|jpg|jpeg|gif|bmp|wbmp|webpg|ico|svg)$/i.test(url);
   }
-
+  let loading = false;
   layui.use(function(){
     window.layer = layui.layer;
   });
@@ -77,21 +76,13 @@
   let app = createApp({
     setup() {
       onBeforeMount(() => {
+        document.getElementById('page-loader').remove();
         document.getElementById('app').style.display = 'block';
-        loadingInstance.value = TinyLoading.service({
-          background: 'rgba(0, 0, 0, 0.2)',
-          target: document.getElementById('app')
-        })
       });
       onMounted(() => {
         
         {$onMountedScript|raw}
 
-        nextTick(() => {
-          setTimeout(() => {
-            loadingInstance.value.close();
-          }, 100);
-        })
       });
 
       {$setupScript|raw}
