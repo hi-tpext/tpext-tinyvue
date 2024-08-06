@@ -683,6 +683,13 @@ class Table extends TWrapper implements Renderable
             {$table}Sort ? { __sort__ : {$table}Sort } : null,
         );
 
+        params = Object.keys(params)
+            .filter(key => !/^__button\d+$/.test(key) && key != 'search_buttons')
+            .reduce((acc, key) => {
+                acc[key] = params[key];
+                return acc;
+            }, {});
+
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
