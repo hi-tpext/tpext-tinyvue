@@ -943,7 +943,7 @@ EOT;
             'stylesheet' => implode('', array_values($this->styleSheet)),
             '__blang' => json_encode($__blang, JSON_UNESCAPED_UNICODE),
             'aver' => static::$aver,
-            'builder_layout' => $this->layout,
+            'builderLayout' => $this->layout,
         ];
 
         View::share([

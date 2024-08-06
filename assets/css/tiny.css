@@ -567,15 +567,16 @@ th {
 }
 
 .page-loader {
-  border: 6px solid #f3f3f3;
+  border: 1px solid transparent;
   border-radius: 50%;
-  border-top: 6px solid #5e7ce0;
-  width: 40px;
-  height: 40px;
+  border-top: 1px solid #5e7ce0;
+  border-right: 1px solid #5e7ce0;
+  width: 35px;
+  height: 35px;
   padding: 0;
   margin: 10px auto;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 @-webkit-keyframes spin {

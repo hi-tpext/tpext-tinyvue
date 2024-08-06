@@ -1,4 +1,4 @@
-{extend name="$builder_layout"/}
+{extend name="$builderLayout"/}
 {block name="style"}
 <style>
   {$stylesheet|raw}
@@ -6,7 +6,13 @@
 {/block}
 
 {block name="content"}
-<div class="page-loader" id="page-loader"></div>
+<div class="page-loader" id="page-loader" style="display: none;">
+  <script type="text/javascript">
+    if(/^layui\-layer\-iframe/i.test(window.name)){
+        document.getElementById('page-loader').style.display = 'block';
+    }
+  </script>
+</div>
 <div class="main-panel" style="display: none;" id="app">
   {notempty name="$title"}
   <div class="main-panel-heading">
