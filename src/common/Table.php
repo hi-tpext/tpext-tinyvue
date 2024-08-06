@@ -1104,6 +1104,7 @@ EOT;
                     $displayer = $colunm->getDisplayer();
                     $displayer->clearScript()
                         ->lockValue(false)
+                        ->value('')
                         ->fill($row)
                         ->beforRender();
                     Arr::set($this->dataList[$key], $col, $displayer->renderValue());
@@ -1118,6 +1119,7 @@ EOT;
                             $sDisplayer = $sCol->getDisplayer();
                             $sDisplayer->clearScript()
                                 ->lockValue(false)
+                                ->value('')
                                 ->fill($row)
                                 ->beforRender();
                             Arr::set($this->dataList[$key], $sDisplayer->getName(), $sDisplayer->renderValue());

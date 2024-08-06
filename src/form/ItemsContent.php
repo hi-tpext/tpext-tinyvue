@@ -380,6 +380,7 @@ class ItemsContent extends FWrapper
                     $name = $col;
                     $displayer->clearScript()
                         ->lockValue(false)
+                        ->value('')
                         ->fill($row)
                         ->beforRender();
 
@@ -406,6 +407,7 @@ class ItemsContent extends FWrapper
                             $name = $sCol->getName();
                             $sDisplayer->clearScript()
                                 ->lockValue(false)
+                                ->value('')
                                 ->fill($row);
 
                             $value = $sDisplayer->renderValue();
