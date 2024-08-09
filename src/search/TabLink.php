@@ -93,6 +93,9 @@ class TabLink implements Renderable
         $tabId = $this->getId();
         $serchId = $this->searchId;
         $active = $this->getActive();
+        if ($active === '') {
+            $active = '__empty_string__';
+        }
 
         $script = <<<EOT
 
@@ -109,7 +112,11 @@ class TabLink implements Renderable
     });
 
     const {$tabId}Click = (opt) => {
-        {$serchId}Data['{$this->key}'] = opt.name;
+        let val = opt.name;
+        if (val === '__empty_string__') {
+            val = '';
+        }
+        {$serchId}Data['{$this->key}'] = val;
         {$serchId}Submit();
     };
     
@@ -131,8 +138,17 @@ EOT;
     public function render()
     {
         $template = Module::getInstance()->getViewsPath() . 'table' . DIRECTORY_SEPARATOR . $this->view . '.html';
+        $options = [];
+
+        foreach ($this->options as $k => $v) {
+            if ($k === '') {
+                $k = '__empty_string__';
+            }
+            $options[$k] = $v;
+        }
+
         $vars = [
-            'options' => $this->options,
+            'options' => $options,
             'active' => $this->active,
             'id' => $this->getId(),
             'class' => $this->class,
