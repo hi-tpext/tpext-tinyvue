@@ -1416,6 +1416,102 @@ th {
   overflow: hidden;
 }
 
+.default span.the-field {
+  color: #8b95a5;
+}
+
+.primary span.the-field {
+  color: #647bf8;
+}
+
+.success span.the-field {
+  color: #54b77a;
+}
+
+.info span.the-field {
+  color: #48b0f7;
+}
+
+.warning span.the-field {
+  color: #faa64b;
+}
+
+.danger span.the-field {
+  color: #f96868;
+}
+
+.dark span.the-field {
+  color: #465161;
+}
+
+.secondary span.the-field {
+  color: #e4e7ea;
+}
+
+.purple span.the-field {
+  color: #926dde;
+}
+
+.pink span.the-field {
+  color: #f96197;
+}
+
+.cyan span.the-field {
+  color: #57c7d4;
+}
+
+.yellow span.the-field {
+  color: #fcc525;
+}
+
+.label {
+  padding: .3em;
+  border-radius: 2px;
+  font-weight: 300;
+  color: #fff;
+}
+.label-default {
+  background-color: #f5f6f7;
+  color: #8b95a5;
+}
+.label-primary {
+  background-color: #647bf8;
+}
+.label-success {
+  background-color: #54b77a;
+}
+.label-info {
+  background-color: #48b0f7;
+}
+.label-warning {
+  background-color: #faa64b;
+}
+.label-danger {
+  background-color: #f96868;
+}
+.label-dark {
+  background-color: #465161;
+}
+.label-secondary {
+  background-color: #e4e7ea;
+  color: #4d5259;
+}
+.label-purple {
+  background-color: #926dde;
+}
+.label-pink {
+  background-color: #f96197;
+}
+.label-cyan {
+  background-color: #57c7d4;
+}
+.label-yellow {
+  background-color: #fcc525;
+}
+.label-brown {
+  background-color: #8d6658;
+}
+
 .displayer-formerror {
   min-height: 56px;
   margin-top: 12px;
