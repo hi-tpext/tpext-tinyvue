@@ -858,6 +858,14 @@ th {
   }
 }
 
+@media screen and (max-width: 767px) {
+  .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label,
+  .col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label {
+    text-align: left;
+    --ti-form-item-small-line-height: 22px;
+  }
+}
+
 .tiny-col.displayer-fields {
   padding-left: 0;
   padding-right: 0;
@@ -1465,7 +1473,7 @@ th {
 }
 
 .label {
-  padding: .3em;
+  padding: 0.3em;
   border-radius: 2px;
   font-weight: 300;
   color: #fff;
