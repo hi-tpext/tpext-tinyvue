@@ -886,6 +886,9 @@ class Table extends TWrapper implements Renderable
         }
 
         if(btn) {
+            window.refreshTable = () => {
+                {$table}Refresh();
+            };
             layerOpenLink(btn.href, btn.layer_title, btn.layer_size);
         }
     };

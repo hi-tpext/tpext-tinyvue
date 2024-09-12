@@ -342,7 +342,7 @@ EOT;
     const {$btnId}Click = (row) => {
         if(row.__action__.{$btnId}.href) {
             window.refreshTable = () => {
-                {$table}Ref.value.handleFetch();
+                {$table}Refresh();
             };
             layerOpenLink(row.__action__.{$btnId}.href, '{$label}', '{$this->layerSize}');
         }

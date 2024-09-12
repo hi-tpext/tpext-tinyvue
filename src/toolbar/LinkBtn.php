@@ -100,7 +100,7 @@ class LinkBtn extends Bar
 
     const {$btnId}OpenChecked = (url, ids) => {
         window.refreshTable = () => {
-            {$table}Ref.value.handleFetch();
+            {$table}Refresh();
         };
         layerOpenLink(url + (/.+\?.*/.test(url) ? '&ids=' : '?ids=') + ids, '{$label}', '{$this->layerSize}');
     };
@@ -151,7 +151,7 @@ EOT;
             {$table}ExportData({$btnId}PostUrl, data.itemData);
         } else if(href) {
             window.refreshTable = () => {
-                {$table}Ref.value.handleFetch();
+                {$table}Refresh();
             };
             layerOpenLink(href, '{$label}', '{$this->layerSize}');
         } else {
