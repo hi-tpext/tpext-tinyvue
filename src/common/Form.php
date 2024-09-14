@@ -1143,7 +1143,7 @@ EOT;
                 $this->__when__->toggle($displayer);
             }
 
-            if ($this->defaultDisplayerSize && (!$displayer instanceof Button)) {
+            if ($this->defaultDisplayerSize && !($displayer instanceof Button)) {
                 $displayer->size($this->defaultDisplayerSize[0], $this->defaultDisplayerSize[1]);
             }
 
