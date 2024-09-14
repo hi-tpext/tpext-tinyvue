@@ -268,7 +268,7 @@ class Upload extends Controller
         }
     }
 
-    private function base64_image_content($base64_image_content, $dirName)
+    protected function base64_image_content($base64_image_content, $dirName)
     {
         //匹配出图片的格式
         if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64_image_content, $result)) {
@@ -364,7 +364,7 @@ class Upload extends Controller
         return false;
     }
 
-    private function catchFile()
+    protected function catchFile()
     {
         // 假装抓取成功了
         return [
@@ -374,7 +374,7 @@ class Upload extends Controller
         ];
     }
 
-    private function showFile($type = '', $config = [])
+    protected function showFile($type = '', $config = [])
     {
         /* 判断类型 */
         switch ($type) {
@@ -427,7 +427,7 @@ class Upload extends Controller
         return $result;
     }
 
-    private function getfiles($path = '', $allowFiles = '', &$files = array())
+    protected function getfiles($path = '', $allowFiles = '', &$files = array())
     {
         if (!is_dir($path)) {
             return null;
