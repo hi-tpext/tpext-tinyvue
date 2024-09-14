@@ -859,8 +859,14 @@ th {
 }
 
 @media screen and (max-width: 767px) {
-  .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label,
-  .col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label {
+  .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label{
+    text-align: left;
+    --ti-form-item-small-line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label{
     text-align: left;
     --ti-form-item-small-line-height: 22px;
   }
