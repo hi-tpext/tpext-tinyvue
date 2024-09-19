@@ -212,9 +212,11 @@ class ActionBtn extends Bar
                 // 'delete' => ['hidden' => function ($data) {
                 //     return $data['pay_status'] > 1;
                 // }],
-                $match = $mp($data);
-                if ($match) {
-                    $this->matchClass[] = $class;
+                if (!empty($data)) {//判断一下，避免空数据导致报错
+                    $match = $mp($data);
+                    if ($match) {
+                        $this->matchClass[] = $class;
+                    }
                 }
             } else { // 'enable' => ['hidden' => '__hi_en__'],
                 if (isset($data[$mp]) && $data[$mp]) {
