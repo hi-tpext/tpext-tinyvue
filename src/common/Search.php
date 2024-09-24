@@ -502,6 +502,9 @@ EOT;
 
     window.{$form}Submit = {$form}Submit;
     window.{$form}Reset = {$form}Reset;
+    window.refreshTable = () => {
+        {$table}Refresh();
+    };
 
 EOT;
 
