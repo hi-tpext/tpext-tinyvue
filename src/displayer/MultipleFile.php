@@ -89,22 +89,6 @@ class MultipleFile extends Field
         'pkg' => '/assets/tpexttinyvue/images/cover/pkg.svg',
     ];
 
-    public function created($type = '')
-    {
-        parent::created($type);
-
-        $token = $this->getCsrfToken();
-        $this->jsOptions['action'] = (string)url($this->getUploadUrl(), [
-            'utype' => 'webuploader',
-            'token' => $token,
-            'driver' => $this->getStorageDriver(),
-            'is_rand_name' => $this->isRandName(),
-            'image_driver' => $this->getImageDriver(),
-            'image_commonds' => $this->getImageCommands()
-        ]);
-        $this->jsOptions['chooseUrl'] = url(Module::getInstance()->getChooseUrl()) . '?';
-    }
-
     /**
      * Undocumented function
      * 对老版本参数兼容
@@ -307,6 +291,26 @@ class MultipleFile extends Field
         $this->jsOptions['thumbnailHeight'] = $h;
 
         return $this;
+    }
+
+    /**
+     * Undocumented function
+     * @return $this
+     */
+    public function beforRender()
+    {
+        $token = $this->getCsrfToken();
+        $this->jsOptions['action'] = (string)url($this->getUploadUrl(), [
+            'utype' => 'webuploader',
+            'token' => $token,
+            'driver' => $this->getStorageDriver(),
+            'is_rand_name' => $this->isRandName(),
+            'image_driver' => $this->getImageDriver(),
+            'image_commonds' => $this->getImageCommands()
+        ]);
+        $this->jsOptions['chooseUrl'] = url(Module::getInstance()->getChooseUrl()) . '?';
+
+        return parent::beforRender();
     }
 
     /**

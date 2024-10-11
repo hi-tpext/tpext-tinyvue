@@ -30,7 +30,7 @@
                 </template>
                 <template #default="{row, column, skip}">
                     <div v-if="!skip && row && row.{$co}!==undefined" class="column-field-wrapper"
-                        :class="row.__field_info__['{$co}'].matchClass">
+                        :class="[...row.__field_info__['{$co}'].matchClass, 'displayer-' + row.__field_info__['{$co}'].displayerType]">
                         {:$displayer->render()}
                     </div>
                 </template>

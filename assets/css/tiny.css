@@ -859,14 +859,14 @@ th {
 }
 
 @media screen and (max-width: 767px) {
-  .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label{
+  .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label {
     text-align: left;
     --ti-form-item-small-line-height: 22px;
   }
 }
 
 @media screen and (max-width: 991px) {
-  .col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label{
+  .col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label {
     text-align: left;
     --ti-form-item-small-line-height: 22px;
   }
@@ -926,6 +926,10 @@ th {
 
 .tiny-numeric {
   max-width: 240px;
+}
+
+.tiny-grid-cell .tiny-numeric {
+  max-width: inherit;
 }
 
 .tiny-form-item__content input[type="checkbox"],
@@ -1428,6 +1432,10 @@ th {
 .column-field-wrapper.displayer-Number {
   height: 24px;
   overflow: hidden;
+}
+
+.tiny-tree .tiny-tree-node__label {
+  --ti-tree-node-label-font-size: 12px;
 }
 
 .default span.the-field {

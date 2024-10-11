@@ -1125,6 +1125,7 @@ EOT;
      */
     protected function fieldScript()
     {
+        //
     }
 
     /**
@@ -1454,8 +1455,6 @@ EOT;
             $matchClass[] = 'is-required';
         }
 
-        $matchClass[] = 'displayer-' . $displayerType;
-
         $title = $this->getLabel();
 
         return [
@@ -1469,7 +1468,7 @@ EOT;
             'isFile' => $isFile,
             'isImage' => $isImage,
             'isInput' => $this->isInput(),
-            'matchClass' => $matchClass,
+            'matchClass' => array_values(array_filter($matchClass)),
             'wrapperStyle' => $this->getWrapper()->getStyle(),
         ];
     }
