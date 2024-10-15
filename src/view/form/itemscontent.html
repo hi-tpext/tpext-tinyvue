@@ -18,7 +18,7 @@
       </template>
       <template #default="{row, column, skip}">
         <div v-if="!skip && row && row.{$co}!==undefined" class="table-column-field"
-          :class="[...row.__field_info__['{$co}'].matchClass, 'displayer-' + row.__field_info__['{$co}'].displayerType], {$id}Errors[row.__pk__]['{$co}']]">
+          :class="[...row.__field_info__['{$co}'].matchClass, 'displayer-' + row.__field_info__['{$co}'].displayerType, {$id}Errors[row.__pk__]['{$co}']]">
           {:$displayer->render()}
         </div>
       </template>
