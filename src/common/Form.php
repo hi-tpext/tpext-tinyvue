@@ -1148,8 +1148,10 @@ EOT;
             }
 
             if ($this->__items__) {
-                $displayer->inTable();
-                $displayer->extKey($this->__items__->getId());
+                if (!($displayer instanceof Items)) {
+                    $displayer->inTable();
+                    $displayer->extKey($this->__items__->getId());
+                }
                 if ($displayer instanceof MultipleFile) { //表格中默使用btn控制
                     $displayer->showInput(false)->disableButtons();
                 } else if ($displayer instanceof Fields) { //items的Fields
