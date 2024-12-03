@@ -17,7 +17,7 @@
         </div>
       </template>
       <template #default="{row, column, skip}">
-        <div v-if="!skip && row && row.{$co}!==undefined" class="table-column-field"
+        <div v-if="!skip && row && row.{$co}!==undefined" class="column-field-wrapper"
           :class="[...row.__field_info__['{$co}'].matchClass, 'displayer-' + row.__field_info__['{$co}'].displayerType, {$id}Errors[row.__pk__]['{$co}']]">
           {:$displayer->render()}
         </div>
@@ -31,13 +31,13 @@
           {if condition="$canDelete"}
           <template v-if="row.__pk__ !== '__add__'">
             <tiny-button v-if="row.__del__== 0" v-bind="{$id}DelBtnOp" @click="{$id}Delete(row)"
-              :disabled="row.__can_delete__">
+              :disabled="!row.__can_delete__">
               <span class="action-delete" title="{:__blang('bilder_remove')}">
                 <i class="mdi mdi-delete"></i>
               </span>
             </tiny-button>
             <tiny-button v-if="row.__del__== 1" v-bind="{$id}AddBtnOp" @click="{$id}Recover(row)"
-              :disabled="row.__can_delete__">
+              :disabled="!row.__can_delete__">
               <span class="action-recover" title="{:__blang('bilder_recover')}">
                 <i class="mdi mdi-restart"></i>
               </span>

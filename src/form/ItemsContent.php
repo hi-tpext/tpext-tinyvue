@@ -96,7 +96,7 @@ class ItemsContent extends FWrapper
      */
     public function label($val)
     {
-        $this->label = strip_tags(str_replace(['<br>', '<br/>', '<br />', '<br >'], " | ",  $val));
+        $this->label = strip_tags(str_replace(['<br>', '<br/>', '<br />', '<br >'], " | ", $val));
     }
 
     /**
@@ -331,6 +331,7 @@ class ItemsContent extends FWrapper
         $this->template = [
             '__pk__' => '__new__0',
             '__del__' => 0,
+            '__can_delete__' => 1,
             '__field_info__' => [],
         ];
         $displayer = null;
@@ -371,13 +372,19 @@ class ItemsContent extends FWrapper
             $name = '';
             $value = '';
             foreach ($this->data as $key => $row) {
-                $item = ['__pk__' => $key, '__del__' => 0];
+                $item = ['__pk__' => $key, '__del__' => 0, '__can_delete__' => isset($row['__can_delete__']) ? $row['__can_delete__'] : 1];
                 foreach ($this->cols as $col => $colunm) {
                     if (!($colunm instanceof FRow)) {
                         continue;
                     }
+
                     $displayer = $colunm->getDisplayer();
                     $name = $col;
+
+                    //暂存属性，防止在 rendering 被修改
+                    $readonly = $displayer->isReadonly();
+                    $disabled = $displayer->isDisabled();
+
                     $displayer->clearScript()
                         ->lockValue(false)
                         ->value('')
@@ -387,13 +394,18 @@ class ItemsContent extends FWrapper
                     $value = $displayer->renderValue();
                     Arr::set($item, $name, $value);
                     $item['__field_info__'][$name] = $displayer->fieldInfo();
+
+                    //还原属性
+                    $displayer->readonly($readonly);
+                    $displayer->disabled($disabled);
+
                     if (!isset($filled[$name])) {
                         $filled[$name] = true;
                         $this->initScripts[] = $displayer->getInitRowScript();
                         if ($this->canAdd) {
                             //填充模板默认值
                             Arr::set($this->template, $name, $displayer->lockValue(false)->value('')->renderValue());
-                            $this->template['__field_info__'] = $item['__field_info__'];
+                            $this->template['__field_info__'][$name] = $displayer->fieldInfo();
                         }
                     }
 

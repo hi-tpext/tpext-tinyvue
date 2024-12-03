@@ -1405,15 +1405,15 @@ th {
   height: 46px;
 }
 
-.table-column-field.is-error .tiny-input__inner,
-.table-column-field.is-error .tiny-input__inner:focus,
-.table-column-field.is-error .tiny-textarea,
-.table-column-field.is-error .tiny-textarea:focus,
-.table-column-field.is-error .tiny-textarea__inner,
-.table-column-field.is-error .tiny-textarea__inner:focus,
-.table-column-field.is-error .tiny-tags-container,
+.column-field-wrapper.is-error .tiny-input__inner,
+.column-field-wrapper.is-error .tiny-input__inner:focus,
+.column-field-wrapper.is-error .tiny-textarea,
+.column-field-wrapper.is-error .tiny-textarea:focus,
+.column-field-wrapper.is-error .tiny-textarea__inner,
+.column-field-wrapper.is-error .tiny-textarea__inner:focus,
+.column-field-wrapper.is-error .tiny-tags-container,
 .tiny-form-item.is-error .tiny-tags-container,
-.table-column-field.is-error .tiny-multiplefile,
+.column-field-wrapper.is-error .tiny-multiplefile,
 .tiny-form-item.is-error .tiny-multiplefile {
   border-color: var(--ti-form-item-error-border-color);
   background-color: var(--ti-form-item-error-bg-color);

@@ -153,7 +153,7 @@ class Field implements Fillable
             return $this->id;
         }
         $this->id = ($this->formMode == 'table' ? $this->getForm()->getTableId() : $this->getForm()->getFormId())
-            .  $this->displayerType . preg_replace('/\W/', '_', ucfirst($this->extKey) . ucfirst($this->name)) . $this->randomKey;
+            . $this->displayerType . preg_replace('/\W/', '_', ucfirst($this->extKey) . ucfirst($this->name)) . $this->randomKey;
 
         return $this->id;
     }
@@ -233,7 +233,7 @@ class Field implements Fillable
     public function autoPost($url = '', $refresh = false)
     {
         if (empty($url)) {
-            $url = (string)url('autopost');
+            $url = (string) url('autopost');
         }
         $this->autoPost = ['url' => $url, 'refresh' => $refresh, 'displayerType' => $this->displayerType];
         return $this;
@@ -384,8 +384,8 @@ class Field implements Fillable
     /**
      * Undocumented function
      *
-     * @param integer $label
-     * @param integer $element
+     * @param integer|string $label
+     * @param integer|string $element
      * @return $this
      */
     public function size($label = 2, $element = 8)
@@ -1086,12 +1086,12 @@ EOT;
         }
         $fieldId = $this->getId();
 
-        if ($this->disabled) {
+        if ($this->isDisabled()) {
             $this->jsOptions['disabled'] = true;
         } else {
             unset($this->jsOptions['disabled']);
         }
-        if ($this->disabled) {
+        if ($this->isReadonly()) {
             $this->jsOptions['readonly'] = true;
         } else {
             unset($this->jsOptions['readonly']);
@@ -1147,7 +1147,7 @@ EOT;
             $this->formMode == 'form' && !$this->inTable && !$this->getForm()->isReadonly() && !$this->isDisplayerType('items')
             && (!$this->isInput() || $this->to)
         ) {
-            $this->name .=  '__display__only'; //只读时，name加上__display__only，避免提交
+            $this->name .= '__display__only'; //只读时，name加上__display__only，避免提交
         }
 
         $this->fieldScript();
@@ -1220,7 +1220,7 @@ EOT;
 
         if ($this->valueType == 'array') {
             if (!is_array($value)) {
-                $value = explode(',', (string)$value);
+                $value = explode(',', (string) $value);
             }
             array_walk($value, function (&$v) {
                 $v = (string) $v;
@@ -1373,7 +1373,7 @@ EOT;
             'labelAttr' => empty($this->labelAttr) ? '' : ' ' . $this->labelAttr,
             'sizeAttr' => $this->getSizeAttr(),
             'help' => $this->help,
-            'showLabel' =>  $this->inTable || (is_numeric($this->size[0]) && $this->size[0] == 0) ? false : $this->showLabel,
+            'showLabel' => $this->inTable || (is_numeric($this->size[0]) && $this->size[0] == 0) ? false : $this->showLabel,
             'readonly' => $this->readonly,
             'disabled' => $this->disabled,
             'formMode' => $this->formMode,
@@ -1414,7 +1414,8 @@ EOT;
         $renderValue = $displayer->renderValue();
         $displayer->getForm()->addFormData($fieldName, $renderValue);
 
-        if ((($displayer->isInput() || $this->isDisplayerType('items')))
+        if (
+            (($displayer->isInput() || $this->isDisplayerType('items')))
             && $displayer->isRequired() && !$displayer->isReadonly() && !$displayer->isDisabled()
         ) {
             $displayer->getForm()->addValidatorRule($displayer->getName(), ['required' => true, 'message' => '[' . $this->label . ']' . __blang('bilder_validate_required')]);
@@ -1449,18 +1450,26 @@ EOT;
         $matchClass = explode(' ', $this->parseMapClass());
         $displayerType = $this->getDisplayerType();
         $isFile = in_array($displayerType, ['File', 'Image', 'MultipleFile', 'MultipleImage']);
-        $isImage = in_array($displayerType, ['Image',  'MultipleImage']);
+        $isImage = in_array($displayerType, ['Image', 'MultipleImage']);
 
         if ($this->isRequired()) {
             $matchClass[] = 'is-required';
+        }
+
+        if ($this->isDisabled() || $this->hasClass('disabled')) {
+            $matchClass[] = 'disabled';
+            $matchClass[] = 'readonly';
+        }
+        if ($this->isReadonly() || $this->hasClass('readonly')) {
+            $matchClass[] = 'readonly';
         }
 
         $title = $this->getLabel();
 
         return [
             'hidden' => in_array('hidden', $matchClass),
-            'disabled' => $this->disabled || in_array('disabled', $matchClass) || in_array('disable', $matchClass),
-            'readonly' => $this->readonly || in_array('readonly', $matchClass),
+            'disabled' => $this->isDisabled() || in_array('disabled', $matchClass) || in_array('disable', $matchClass),
+            'readonly' => $this->isReadonly() || in_array('readonly', $matchClass),
             'displayerType' => $this->displayerType,
             'required' => $this->isRequired(),
             'title' => strip_tags(str_replace(['<br>', '<br/>', '<br />', '<br >'], " | ", $title)),

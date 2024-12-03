@@ -114,8 +114,10 @@
             });
             if (parent.refreshTable) {
                 parent.refreshTable();
-            } else {
-                setTimeout(() => parent.location.reload(), 1000);
+            } else if (parent !== top) {
+                setTimeout(function () {
+                    parent.location.reload();
+                }, 2000);
             }
             w.layerCloseWindow();
         } else {
@@ -137,7 +139,9 @@
                 duration: 2000,
             });
             if (parent.layer) {
-                setTimeout(() => parent.location.replace(url), 1000);
+                setTimeout(function () {
+                    parent.location.replace(url)
+                }, 1000);
                 w.layerCloseWindow();
             }
         } else {
@@ -152,10 +156,10 @@
 
 })(window);
 
-var lightyear = function(){
-	return {
+var lightyear = function () {
+    return {
         // 页面小提示
-        notify  : function ($msg, $type, $delay, $icon, $from, $align) {
+        notify: function ($msg, $type, $delay, $icon, $from, $align) {
             TinyNotify({
                 type: $type,
                 message: $msg,
@@ -164,7 +168,7 @@ var lightyear = function(){
             });
         },
         // 页面加载动画
-		loading : function ($mode) {
+        loading: function ($mode) {
             let loading = TinyLoading.service({
                 background: 'rgba(0, 0, 0, 0.2)',
                 target: document.getElementById('app')
@@ -172,7 +176,7 @@ var lightyear = function(){
 
             setTimeout(() => {
                 loading.close();
-              }, 2000);
-		}
+            }, 2000);
+        }
     };
 }();

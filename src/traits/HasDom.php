@@ -168,6 +168,6 @@ trait HasDom
      */
     public function hasClass($name)
     {
-        return $this->class && !stristr($this->class, $name);
+        return $this->class && stristr(' ' . $this->class, ' ' . $name);
     }
 }
