@@ -196,8 +196,12 @@ class MultipleToolbar extends Toolbar
         if ($label == '添加') {
             $label = __blang('bilder_action_add');
         }
-        $this->actions['add'] = 'add';
-        $this->linkBtn('add', $label)->href($url)->icon($icon)->type($type)->addAttr($attr);
+        $action = 'add';
+        if (isset($this->actions[$action])) {
+            $action .= mt_rand(100, 999);
+        }
+        $this->actions[$action] = $action;
+        $this->linkBtn($action, $label)->href($url)->icon($icon)->type($type)->addAttr($attr);
         return $this;
     }
 
@@ -397,7 +401,7 @@ class MultipleToolbar extends Toolbar
     public function btnExport($postUrl = '', $label = '导出', $type = '', $icon = 'mdi-export', $attr = 'title="导出"')
     {
         if (empty($postUrl)) {
-            $postUrl = url('export');
+            $postUrl = (string)url('export');
         }
 
         if (!Builder::checkUrl($postUrl)) {
@@ -409,8 +413,12 @@ class MultipleToolbar extends Toolbar
         if ($attr == 'title="导出"') {
             $attr = 'title="' . __blang('bilder_action_export') . '"';
         }
-        $this->actions['export'] = 'export';
-        $this->linkBtn('export', $label)->type($type)->icon($icon)->href($postUrl);
+        $action = 'export';
+        if (isset($this->actions[$action])) {
+            $action .= mt_rand(100, 999);
+        }
+        $this->actions[$action] = $action;
+        $this->linkBtn($action, $label)->type($type)->icon($icon)->href($postUrl);
         return $this;
     }
 
@@ -428,7 +436,7 @@ class MultipleToolbar extends Toolbar
     public function btnExports($items = [], $postUrl = '', $label = '导出', $type = '', $icon = 'mdi-export', $attr = 'title="导出"')
     {
         if (empty($postUrl)) {
-            $postUrl = url('export');
+            $postUrl = (string)url('export');
         }
 
         if (empty($items)) {
