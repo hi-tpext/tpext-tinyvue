@@ -31,7 +31,7 @@ class Button extends Field
         'circle' => false,
         'reset-time' => 500,
         'round' => false,
-        'plain' => false,
+        'plain' => true,
         'ghost' => false,
     ];
 

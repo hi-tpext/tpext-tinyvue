@@ -645,7 +645,8 @@ class Table extends TWrapper implements Renderable
             pageSizes: {$pagesizeDropdown},
             total: {$this->dataTotal},
             align: 'center',
-            layout: '{$layout}'
+            layout: '{$layout}',
+            size : 'mini',
         }
     });
 
@@ -701,11 +702,9 @@ class Table extends TWrapper implements Renderable
                 },
                 timeout: 10000,
             }).then(res => {
+                {$table}Loading.value = false;
                 {$table}MultipleToolbarDisabled.value = true;//重置多选工具栏状态
                 let data = res.data || {};
-                setTimeout(() => {
-                    {$table}Loading.value = false;
-                }, 500);
                 {$table}ActiveRow.value = {__pk__ : null};
                 resolve({ result : data.list, page: { total : data.total } });
             }).catch(e => {

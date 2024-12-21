@@ -37,7 +37,7 @@
                         mainheight = app.height();
                         if (mainheight > 50) {
                             clearInterval(intv);
-                            mainheight += 10;
+                            mainheight += 15;
                             if (mainheight < 400) {
                                 mainheight = 400;
                             }

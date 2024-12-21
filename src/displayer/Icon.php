@@ -25,13 +25,13 @@ class Icon extends Text
     protected $jsOptions = [
         'dialogOp' => [
             'top' => '10%',
-            'width' => '800px',
+            'width' => '525px',
             'dialogClass' => 'icon-selector-dialog',
             'modal' => false,
         ],
         'gridOp' => [
             'show-header' => false,
-            'height' => 210,
+            'height' => 225,
             'size' => 'mini',
             'border' => true,
             'optimization' => [
@@ -64,7 +64,8 @@ class Icon extends Text
             pageSizes: [112, 192, 256, 320, 448, 576, 640, 768, 896, 1024, 2048],
             total: 0,
             align: 'center', // 可选值：['left', 'center', 'right']
-            layout: 'pager, sizes'
+            layout: 'pager, sizes',
+            size: 'mini',
         }
     });
 

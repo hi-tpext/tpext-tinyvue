@@ -307,7 +307,7 @@ class MultipleToolbar extends Toolbar
      * @param string $attr
      * @return $this
      */
-    public function btnRefresh($label = '', $type = '', $icon = 'mdi-refresh', $attr = 'title="刷新"')
+    public function btnRefresh($label = '', $type = 'info', $icon = 'mdi-refresh', $attr = 'title="刷新"')
     {
         if ($attr == 'title="刷新"') {
             $attr = 'title="' . __blang('bilder_action_refresh') . '"';

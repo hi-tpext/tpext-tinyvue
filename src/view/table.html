@@ -21,7 +21,7 @@
                 {$emptyText|raw}
             </template>
             {if condition="$useCheckbox"}
-            <tiny-grid-column type="selection" width="30" fixed="left"></tiny-grid-column>
+            <tiny-grid-column type="selection" width="50" fixed="left"></tiny-grid-column>
             {/if}
             {foreach name="list" id="displayer" key="co"}
             <tiny-grid-column v-bind="{$id}Columns['{$co}']">

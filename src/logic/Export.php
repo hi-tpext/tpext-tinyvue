@@ -131,6 +131,9 @@ class Export
         if ($text === '' || $text === null) {
             return '';
         }
+        if (!is_string($text)) {
+            $text = json_encode($text, JSON_UNESCAPED_UNICODE);
+        }
         $text = strip_tags($text);
         $text = str_replace(['\u00A0', '\u0020', '\u2800', '\u3000', '　'], '', $text);
         $text = str_replace(['&nbsp;', '&gt;', '&lt;', '&eq;', '&egt;', '&elt;'], [' ', '>', '<', '=', '>=', '<='], $text);

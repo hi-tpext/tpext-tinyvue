@@ -25,7 +25,7 @@ class Text extends Field
     protected $jsOptions = [
         'maxlength' => '',
         'show-word-limit' => false,
-        'clearable' => true,
+        'clearable' => false,
     ];
 
     /**

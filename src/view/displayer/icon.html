@@ -15,7 +15,7 @@
     <template #default>
         <tiny-grid ref="{$id}GridRef" v-bind="{$id}Op.gridOp" :fetch-data="{$id}FetchData" :pager="{$id}PagerConfig"
             @cell-click="{$id}CellClick">
-            <tiny-grid-column v-for="col in 16" :align="'center'">
+            <tiny-grid-column v-for="col in 16" :align="'center'" :width="32">
                 <template #default="{row, column, skip}">
                     <i :title="row[col-1]" :class="row[col-1]"></i>
                 </template>

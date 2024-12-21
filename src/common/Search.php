@@ -37,7 +37,7 @@ class Search extends SWrapper implements Renderable
     protected $searchButtonsCalled = false;
     protected $defaultDisplayerSize = [4, 8];
     protected $defaultDisplayerColSize = 2;
-    protected $butonsSizeClass = 'mini';
+    protected $butonsSizeClass = 'small';
     protected $open = true;
     protected $tableId = '';
     protected $formData = [];
@@ -297,11 +297,11 @@ class Search extends SWrapper implements Renderable
                 ->size('3 col-lg-4 col-sm-2 col-xs-12', '9 col-xl-8 col-lg-8 col-sm-8 col-xs-12')
                 ->with(
                     $this->button('submit', __blang('bilder_button_filter'), '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6')
-                        ->type('primary')
+                        ->type('info')
                         ->buttonSize($this->butonsSizeClass)
                         ->onClick($this->id . 'Submit();'),
                     $this->button('button', __blang('bilder_button_reset'), '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6')
-                        ->type('')
+                        ->type('primary')
                         ->buttonSize($this->butonsSizeClass)
                         ->onClick($this->id . 'Reset();')
                 );
@@ -319,7 +319,7 @@ class Search extends SWrapper implements Renderable
      * @param string $type
      * @return $this
      */
-    public function btnSubmit($label = '筛&nbsp;&nbsp;选', $size = '2 col-xl-2 col-lg-2 col-sm-6 col-xs-12', $type = 'primary')
+    public function btnSubmit($label = '筛&nbsp;&nbsp;选', $size = '2 col-xl-2 col-lg-2 col-sm-6 col-xs-12', $type = 'info')
     {
         if ($label == '筛&nbsp;&nbsp;选') {
             $label = __blang('bilder_button_filter');
@@ -496,7 +496,7 @@ EOT;
 
     const {$form}Op = ref({
         'label-width' : '0',
-        'size' : 'mini',
+        'size' : 'samll',
         'show-message': false,
     });
 
@@ -583,7 +583,7 @@ EOT;
             }
 
             $displayer->extKey($this->tableId);
-            $displayer->labelClass('tiny-form-item--mini');
+            $displayer->labelClass('tiny-form-item--samll');
 
             if ($displayer instanceof Text) {
                 $displayer->befor('');

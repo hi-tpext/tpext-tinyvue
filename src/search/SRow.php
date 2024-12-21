@@ -5,8 +5,6 @@ namespace tpext\builder\search;
 use tpext\builder\common\Search;
 use tpext\builder\traits\HasDom;
 use tpext\builder\traits\HasRow;
-use tpext\builder\displayer\Items;
-use tpext\builder\displayer\Fields;
 use tpext\builder\inface\Renderable;
 
 class SRow extends SWrapper implements Renderable

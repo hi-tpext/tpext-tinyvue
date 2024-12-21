@@ -557,7 +557,7 @@ class Form extends FWrapper implements Renderable
      * @param string $type
      * @return $this
      */
-    public function btnSubmit($label = '提&nbsp;&nbsp;交', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = 'primary')
+    public function btnSubmit($label = '提&nbsp;&nbsp;交', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = 'info')
     {
         if ($label == '提&nbsp;&nbsp;交') {
             $label = __blang('bilder_button_submit');
@@ -601,7 +601,7 @@ class Form extends FWrapper implements Renderable
      * @param string $type
      * @return $this
      */
-    public function btnBack($label = '返&nbsp;&nbsp;回', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = '')
+    public function btnBack($label = '返&nbsp;&nbsp;回', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = 'info')
     {
         if ($label == '返&nbsp;&nbsp;回') {
             $label = __blang('bilder_button_go_back');
@@ -623,7 +623,7 @@ class Form extends FWrapper implements Renderable
      * @param string $type
      * @return $this
      */
-    public function btnLayerClose($label = '返&nbsp;&nbsp;回', $size = 12, $type = '')
+    public function btnLayerClose($label = '返&nbsp;&nbsp;回', $size = 12, $type = 'info')
     {
         if ($label == '返&nbsp;&nbsp;回') {
             $label = __blang('bilder_button_go_back');
