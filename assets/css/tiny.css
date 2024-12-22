@@ -1472,12 +1472,21 @@ th {
   min-height: 29px;
 }
 
-.column-field-wrapper {
+.table-wrapper .column-field-wrapper {
   line-height: 24px;
 }
 
-.column-field-wrapper.displayer-Number {
-  height: 24px;
+.table-wrapper .column-field-wrapper.displayer-Number {
+  height: 25px;
+  overflow: hidden;
+}
+
+.items-content .column-field-wrapper {
+  line-height: 28px;
+}
+
+.items-content .column-field-wrapper.displayer-Number {
+  height: 29px;
   overflow: hidden;
 }
 

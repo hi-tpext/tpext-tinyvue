@@ -34,7 +34,6 @@
       <tiny-image v-if="previewList.length" ref="previewRef" :z-index="3000" show-index="true" fit="scale-down" :src="previewImageUrl"
           :preview-src-list="previewList">
       </tiny-image>
-      {{previewList}}
       <a ref="downloadRef" :href="previewImageUrl" target="_blank">{{previewImageUrl}}</a>
     </div>
   </div>
@@ -96,8 +95,8 @@
 
       const previewRef = ref(null);
       const downloadRef = ref(null);
-      const previewImageUrl = ref('/assets/tpexttinyvue/images/default.png');
-      const previewList = ref(['/assets/tpexttinyvue/images/default.png']);
+      const previewImageUrl = ref();
+      const previewList = ref([]);
 
       const previewFile = (file, files, isImage) => {
           if(!Array.isArray(files)) {
@@ -124,9 +123,12 @@
               for(let j = 0; j < i; j+=1) {
                   arr.push(images[j]);
               }
-              previewList.value = arr;
+              previewList.value = [];
               nextTick(() => {
+                previewList.value = arr;
+                nextTick(() => {
                   previewRef.value.clickHandler();
+                });
               });
           } else {
               nextTick(() => {
