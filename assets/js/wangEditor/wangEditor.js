@@ -797,7 +797,7 @@ function isFunction(fn) {
 // 构造函数
 function Bold(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-bold"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-bold"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1396,7 +1396,7 @@ Link.prototype = {
                 // tab 的标题
                 title: '链接',
                 // 模板
-                tpl: '<div>\n                            <input id="' + inputTextId + '" type="text" class="block" value="' + text + '" placeholder="\u94FE\u63A5\u6587\u5B57"/></td>\n                            <input id="' + inputLinkId + '" type="text" class="block" value="' + link + '" placeholder="http://..."/></td>\n                            <div class="w-e-button-container">\n                                <button id="' + btnOkId + '" class="right">\u63D2\u5165</button>\n                                <button id="' + btnDelId + '" class="gray right" style="display:' + delBtnDisplay + '">\u5220\u9664\u94FE\u63A5</button>\n                            </div>\n                        </div>',
+                tpl: '<div><input id="' + inputTextId + '" type="text" class="block" value="' + text + '" placeholder="\u94FE\u63A5\u6587\u5B57"/></td><input id="' + inputLinkId + '" type="text" class="block" value="' + link + '" placeholder="http://..."/></td><div class="w-e-button-container"><button id="' + btnOkId + '" class="right">\u63D2\u5165</button><button id="' + btnDelId + '" class="gray right" style="display:' + delBtnDisplay + '">\u5220\u9664\u94FE\u63A5</button></div></div>',
                 // 事件绑定
                 events: [
                 // 插入链接
@@ -1492,7 +1492,7 @@ Link.prototype = {
 // 构造函数
 function Italic(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-italic"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-italic"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1545,7 +1545,7 @@ Italic.prototype = {
 // 构造函数
 function Redo(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-redo"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-redo"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1573,7 +1573,7 @@ Redo.prototype = {
 // 构造函数
 function StrikeThrough(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-strikethrough"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-strikethrough"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1626,7 +1626,7 @@ StrikeThrough.prototype = {
 // 构造函数
 function Underline(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-underline"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-underline"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1679,7 +1679,7 @@ Underline.prototype = {
 // 构造函数
 function Undo(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-undo"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-undo"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1910,7 +1910,7 @@ BackColor.prototype = {
 // 构造函数
 function Quote(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-quotes-left"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-quotes-left"></i></div>');
     this.type = 'click';
 
     // 当前是否 active 状态
@@ -1978,7 +1978,7 @@ Quote.prototype = {
 // 构造函数
 function Code(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-terminal"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-terminal"></i></div>');
     this.type = 'panel';
 
     // 当前是否 active 状态
@@ -2037,7 +2037,7 @@ Code.prototype = {
                 // 标题
                 title: '插入代码',
                 // 模板
-                tpl: '<div>\n                        <textarea id="' + textId + '" style="height:145px;;">' + value + '</textarea>\n                        <div class="w-e-button-container">\n                            <button id="' + btnId + '" class="right">\u63D2\u5165</button>\n                        </div>\n                    <div>',
+                tpl: '<div><textarea id="' + textId + '" style="height:145px;;">' + value + '</textarea><div class="w-e-button-container"><button id="' + btnId + '" class="right">\u63D2\u5165</button></div><div>',
                 // 事件绑定
                 events: [
                 // 插入代码
@@ -2113,7 +2113,7 @@ Code.prototype = {
 // 构造函数
 function Emoticon(editor) {
     this.editor = editor;
-    this.$elem = $('<div class="w-e-menu">\n            <i class="w-e-icon-happy"></i>\n        </div>');
+    this.$elem = $('<div class="w-e-menu"><i class="w-e-icon-happy"></i></div>');
     this.type = 'panel';
 
     // 当前是否 active 状态
@@ -2257,7 +2257,7 @@ Table.prototype = {
                 // 标题
                 title: '插入表格',
                 // 模板
-                tpl: '<div>\n                        <p style="text-align:left; padding:5px 0;">\n                            \u521B\u5EFA\n                            <input id="' + textRowNum + '" type="text" value="5" style="width:40px;text-align:center;"/>\n                            \u884C\n                            <input id="' + textColNum + '" type="text" value="5" style="width:40px;text-align:center;"/>\n                            \u5217\u7684\u8868\u683C\n                        </p>\n                        <div class="w-e-button-container">\n                            <button id="' + btnInsertId + '" class="right">\u63D2\u5165</button>\n                        </div>\n                    </div>',
+                tpl: '<div><p style="text-align:left; padding:5px 0;">\u521B\u5EFA<input id="' + textRowNum + '" type="text" value="5" style="width:40px;text-align:center;"/>\u884C\n<input id="' + textColNum + '" type="text" value="5" style="width:40px;text-align:center;"/>\u5217\u7684\u8868\u683C</p><div class="w-e-button-container"><button id="' + btnInsertId + '" class="right">\u63D2\u5165</button></div></div>',
                 // 事件绑定
                 events: [{
                     // 点击按钮，插入表格
@@ -2336,7 +2336,7 @@ Table.prototype = {
                 // 标题
                 title: '编辑表格',
                 // 模板
-                tpl: '<div>\n                        <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                            <button id="' + addRowBtnId + '" class="left">\u589E\u52A0\u884C</button>\n                            <button id="' + delRowBtnId + '" class="red left">\u5220\u9664\u884C</button>\n                            <button id="' + addColBtnId + '" class="left">\u589E\u52A0\u5217</button>\n                            <button id="' + delColBtnId + '" class="red left">\u5220\u9664\u5217</button>\n                        </div>\n                        <div class="w-e-button-container">\n                            <button id="' + delTableBtnId + '" class="gray left">\u5220\u9664\u8868\u683C</button>\n                        </dv>\n                    </div>',
+                tpl: '<div><div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;"><button id="' + addRowBtnId + '" class="left">\u589E\u52A0\u884C</button><button id="' + delRowBtnId + '" class="red left">\u5220\u9664\u884C</button><button id="' + addColBtnId + '" class="left">\u589E\u52A0\u5217</button><button id="' + delColBtnId + '" class="red left">\u5220\u9664\u5217</button></div><div class="w-e-button-container"><button id="' + delTableBtnId + '" class="gray left">\u5220\u9664\u8868\u683C</button></dv></div>',
                 // 事件绑定
                 events: [{
                     // 增加行
@@ -2595,7 +2595,7 @@ Video.prototype = {
                 // 标题
                 title: '插入视频',
                 // 模板
-                tpl: '<div>\n                        <input id="' + textValId + '" type="text" class="block" placeholder="\u683C\u5F0F\u5982\uFF1A<iframe src=... ></iframe>"/>\n                        <div class="w-e-button-container">\n                            <button id="' + btnId + '" class="right">\u63D2\u5165</button>\n                        </div>\n                    </div>',
+                tpl: '<div><input id="' + textValId + '" type="text" class="block" placeholder="\u683C\u5F0F\u5982\uFF1A<iframe src=... ></iframe>"/><div class="w-e-button-container"><button id="' + btnId + '" class="right">\u63D2\u5165</button></div></div>',
                 // 事件绑定
                 events: [{
                     selector: '#' + btnId,
@@ -2678,7 +2678,7 @@ Image.prototype = {
         // tab 配置
         var tabsConfig = [{
             title: '编辑图片',
-            tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                        <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span>\n                        <button id="' + width30 + '" class="left">30%</button>\n                        <button id="' + width50 + '" class="left">50%</button>\n                        <button id="' + width100 + '" class="left">100%</button>\n                    </div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
+            tpl: '<div><div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;"><span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span><button id="' + width30 + '" class="left">30%</button><button id="' + width50 + '" class="left">50%</button><button id="' + width100 + '" class="left">100%</button></div><div class="w-e-button-container"><button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button></dv></div>',
             events: [{
                 selector: '#' + width30,
                 type: 'click',
@@ -2751,7 +2751,7 @@ Image.prototype = {
         // tabs 的配置
         var tabsConfig = [{
             title: '上传图片',
-            tpl: '<div class="w-e-up-img-container">\n                    <div id="' + upTriggerId + '" class="w-e-up-btn">\n                        <i class="w-e-icon-upload2"></i>\n                    </div>\n                    <div style="display:none;">\n                        <input id="' + upFileId + '" type="file" multiple="multiple" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/>\n                    </div>\n                </div>',
+            tpl: '<div class="w-e-up-img-container"><div id="' + upTriggerId + '" class="w-e-up-btn"><i class="w-e-icon-upload2"></i></div><div style="display:none;"><input id="' + upFileId + '" type="file" multiple="multiple" accept="image/jpg,image/jpeg,image/png,image/gif,image/bmp"/></div></div>',
             events: [{
                 // 触发选择图片
                 selector: '#' + upTriggerId,
@@ -2791,7 +2791,7 @@ Image.prototype = {
         }, // first tab end
         {
             title: '网络图片',
-            tpl: '<div>\n                    <input id="' + linkUrlId + '" type="text" class="block" placeholder="\u56FE\u7247\u94FE\u63A5"/></td>\n                    <div class="w-e-button-container">\n                        <button id="' + linkBtnId + '" class="right">\u63D2\u5165</button>\n                    </div>\n                </div>',
+            tpl: '<div><input id="' + linkUrlId + '" type="text" class="block" placeholder="\u56FE\u7247\u94FE\u63A5"/></td><div class="w-e-button-container"><button id="' + linkBtnId + '" class="right">\u63D2\u5165</button></div></div>',
             events: [{
                 selector: '#' + linkBtnId,
                 type: 'click',
