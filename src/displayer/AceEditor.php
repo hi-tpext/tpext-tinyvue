@@ -77,7 +77,7 @@ class AceEditor extends Field
     aceeditor.setReadOnly(readonly);
     aceeditor.getSession().setUseWrapMode(true);
     aceeditor.setShowPrintMargin(false);
-    aceeditor.setValue({$VModel});
+    aceeditor.setValue($('#{$fieldId}').val());
     aceeditor.moveCursorTo(0, 0);
     aceeditor.session.on('change', function(e) {
         {$VModel} = aceeditor.getValue();
