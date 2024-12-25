@@ -6,12 +6,18 @@
         var success = '{$success}' == '1';
         var msg = '{$msg}';
         if (parent && parent.layer) {
-            parent.TinyNotify({
-                type: success ? 'success' : 'danger',
-                message: msg,
-                position: 'top-right',
-                duration: 2000,
-            });
+            if (parent.TinyNotify) {
+                parent.TinyNotify({
+                    type: success ? 'success' : 'danger',
+                    message: msg,
+                    position: 'top-right',
+                    duration: 2000,
+                });
+            } else if (parent.lightyear) {
+                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+            } else {
+                parent.layer.msg(msg);
+            }
 
             var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
             parent.layer.close(index);
