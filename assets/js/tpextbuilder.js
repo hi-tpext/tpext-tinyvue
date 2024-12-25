@@ -87,12 +87,18 @@
 
     w.closeLayer = (msg, style) => {
         if (parent && parent.layer) {
-            parent.TinyNotify({
-                type: style,
-                message: msg,
-                position: 'top-right',
-                duration: 2000,
-            });
+            if (parent.TinyNotify) {
+                parent.TinyNotify({
+                    type: success ? 'success' : 'danger',
+                    message: msg,
+                    position: 'top-right',
+                    duration: 2000,
+                });
+            } else if (parent.lightyear) {
+                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+            } else {
+                parent.layer.msg(msg);
+            }
             w.ayerCloseWindow();
         } else {
             parent.TinyNotify({
@@ -106,12 +112,18 @@
 
     w.closeLayerRefresh = (msg, style) => {
         if (parent && parent.layer) {
-            parent.TinyNotify({
-                type: style,
-                message: msg,
-                position: 'top-right',
-                duration: 2000,
-            });
+            if (parent.TinyNotify) {
+                parent.TinyNotify({
+                    type: success ? 'success' : 'danger',
+                    message: msg,
+                    position: 'top-right',
+                    duration: 2000,
+                });
+            } else if (parent.lightyear) {
+                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+            } else {
+                parent.layer.msg(msg);
+            }
             if (parent.refreshTable) {
                 parent.refreshTable();
             } else if (parent !== top) {
@@ -132,12 +144,18 @@
 
     w.closeLayerGo = (msg, url, style) => {
         if (parent && parent.layer) {
-            parent.TinyNotify({
-                type: style,
-                message: msg,
-                position: 'top-right',
-                duration: 2000,
-            });
+            if (parent.TinyNotify) {
+                parent.TinyNotify({
+                    type: success ? 'success' : 'danger',
+                    message: msg,
+                    position: 'top-right',
+                    duration: 2000,
+                });
+            } else if (parent.lightyear) {
+                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+            } else {
+                parent.layer.msg(msg);
+            }
             if (parent.layer) {
                 setTimeout(function () {
                     parent.location.replace(url)
