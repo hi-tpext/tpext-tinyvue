@@ -78,8 +78,8 @@ class Attachment extends Controller
     {
         $search = $this->search;
 
-        $search->text('name', __blang('bilder_attachment_name'), '6 col-xs-6')->size('4 col-xs-4', '8 col-xs-8')->maxlength(55);
-        $search->text('url', __blang('bilder_attachment_url'), '6 col-xs-6')->size('4 col-xs-4', '8 col-xs-8')->maxlength(200);
+        $search->text('name', __blang('bilder_attachment_name'), '6 col-xs-6')->maxlength(55);
+        $search->text('url', __blang('bilder_attachment_url'), '6 col-xs-6')->maxlength(200);
 
         $exts = [];
         $arr = [];
@@ -96,7 +96,7 @@ class Attachment extends Controller
             $exts[$a] = $a;
         }
 
-        $search->multipleSelect('suffix', __blang('bilder_attachment_suffix'), '6 col-xs-6')->size('4 col-xs-4', '8 col-xs-8')->options($exts);
+        $search->multipleSelect('suffix', __blang('bilder_attachment_suffix'), '6 col-xs-6')->options($exts);
     }
     /**
      * 构建表格

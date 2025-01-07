@@ -89,13 +89,13 @@
         if (parent && parent.layer) {
             if (parent.TinyNotify) {
                 parent.TinyNotify({
-                    type: success ? 'success' : 'danger',
+                    type: style,
                     message: msg,
                     position: 'top-right',
                     duration: 2000,
                 });
             } else if (parent.lightyear) {
-                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+                parent.lightyear.notify(msg, style);
             } else {
                 parent.layer.msg(msg);
             }
@@ -114,13 +114,13 @@
         if (parent && parent.layer) {
             if (parent.TinyNotify) {
                 parent.TinyNotify({
-                    type: success ? 'success' : 'danger',
+                    type: style,
                     message: msg,
                     position: 'top-right',
                     duration: 2000,
                 });
             } else if (parent.lightyear) {
-                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+                parent.lightyear.notify(msg, style);
             } else {
                 parent.layer.msg(msg);
             }
@@ -146,13 +146,13 @@
         if (parent && parent.layer) {
             if (parent.TinyNotify) {
                 parent.TinyNotify({
-                    type: success ? 'success' : 'danger',
+                    type: style,
                     message: msg,
                     position: 'top-right',
                     duration: 2000,
                 });
             } else if (parent.lightyear) {
-                parent.lightyear.notify(msg, success ? 'success' : 'danger');
+                parent.lightyear.notify(msg, style);
             } else {
                 parent.layer.msg(msg);
             }

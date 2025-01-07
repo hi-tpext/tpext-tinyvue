@@ -2,9 +2,11 @@
 
 namespace tpext\builder\displayer;
 
-use tpext\builder\traits\HasStorageDriver;
-use tpext\builder\traits\HasImageDriver;
+use tpext\think\App;
 use tpext\builder\common\Module;
+use tpext\builder\logic\ImageHandler;
+use tpext\builder\traits\HasImageDriver;
+use tpext\builder\traits\HasStorageDriver;
 
 /**
  * MultipleFile class
@@ -309,7 +311,6 @@ class MultipleFile extends Field
             'image_commonds' => $this->getImageCommands()
         ]);
         $this->jsOptions['chooseUrl'] = url(Module::getInstance()->getChooseUrl()) . '?';
-
         return parent::beforRender();
     }
 
@@ -561,7 +562,6 @@ EOT;
         ]);
 
         $script = <<<EOT
-
         //兼容jquery修改input的值 $('#inputid').val('url').trigger('change');
         $('#{$fieldId}-input-div').find('input').attr('id', '{$fieldId}');
         
@@ -606,5 +606,69 @@ EOT;
         }
 
         throw new \InvalidArgumentException(__blang('bilder_invalid_argument_exception') . ' : ' . $name);
+    }
+
+    /**
+     * 获取缩略图
+     * @return array
+     */
+    public function thumbs()
+    {
+        $files = explode(',',$this->renderValue());
+        if ($this->canUpload) {//可上传图片时，不使用缩略图
+            return [];
+        }
+
+        $handler = new ImageHandler();
+        $options = [
+            'width' => $this->jsOptions['thumbnailWidth'] * 2,
+            'height' => $this->jsOptions['thumbnailHeight'] * 2,
+        ];
+
+        if (!is_dir(App::getPublicPath() . '/thumb/')) {
+            mkdir(App::getPublicPath() . '/thumb/', 0777, true);
+        }
+
+        $thumbs = [];
+
+        foreach ($files as $file) {
+            if (strstr($file, '/assets/tpextbuilder/images/')) {
+                $thumbs[] = $file;
+                continue;
+            }
+
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            if (!in_array($ext, ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'webp'])) {
+                $thumbs[] = $file;
+                continue;
+            }
+
+            $thumbFile = './thumb/' . md5($file) . '-' . $options['width'] . 'x' . $options['height'] . '.' . $ext;
+
+            if (is_file($thumbFile)) {
+                $thumbs[] = ltrim($thumbFile, '.');
+                continue;
+            }
+
+            if (strstr($file, 'http')) {
+                $data = @file_get_contents($file);
+                if (!$data) {
+                    $thumbs[] = $file;
+                    continue;
+                }
+                if (!@file_put_contents($thumbFile, $data)) {
+                    $thumbs[] = $file;
+                    continue;
+                }
+                $file = $thumbFile;
+            } else if (!is_file(App::getPublicPath() . $file)) {
+                $thumbs[] = $file;
+                continue;
+            }
+            $options['to_path'] = $thumbFile;
+            $thumbs[] = $handler->resize($file, $options);
+        }
+
+        return $thumbs;
     }
 }

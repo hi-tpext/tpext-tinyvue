@@ -6,7 +6,7 @@
                 <div class="tiny-upload-list__item">
                     <div class="pic-item-cover" {$thumbnailStyle|raw}>
                         <figure>
-                            <img object-fit="fill" :src="$__getImageOrFileIco(file, {$id}Op.isImage)" :alt="file" />
+                            <img object-fit="fill" :src="$__getImageOrFileIco({$VModel}__thumbs[index] || file, {$id}Op.isImage)" :alt="file" />
                             <figcaption>
                                 <span title="{:__blang('bilder_action_view')}" class="opt-btn preview-file"
                                     @click="previewFile(file, {$VModel}, {$id}Op.isImage)">

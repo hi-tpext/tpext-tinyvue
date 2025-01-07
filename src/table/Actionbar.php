@@ -170,7 +170,7 @@ class Actionbar extends Toolbar
 
             $elm->initLayer();
 
-            $this->actionConfig[$elm->getId()] = [
+            $config = [
                 'href' => $elm->getHref(),
                 'label' => $elm->parseLabel(),
                 'hidden' => in_array('hidden', $matchClass),
@@ -178,10 +178,28 @@ class Actionbar extends Toolbar
                 'dbl_click' => $elm->hasClass('dbl-click'),
                 'layer_size' => $elm->getLayerSize(),
                 'layer_title' => $elm->parseLabel() ?: ($elm->getAttrByName('data-title') ?: $elm->getAttrByName('title')),
-                'class' => $elm->getClass(),
-                'name' => $elm->getName(),
-                'attr' => $elm->getAttr(),
             ];
+
+            if (!$config['href']) {
+                unset($config['href']);
+            }
+            if (!$config['label']) {
+                unset($config['label']);
+            }
+            if (!$config['hidden']) {
+                unset($config['hidden']);
+            }
+            if (!$config['disabled']) {
+                unset($config['disabled']);
+            }
+            if (!$config['dbl_click']) {
+                unset($config['dbl_click']);
+            }
+            if (!$config['layer_size']) {
+                unset($config['layer_size']);
+            }
+
+            $this->actionConfig[$elm->getId()] = $config;
         }
 
         if (count($btnGropps)) {
@@ -219,7 +237,7 @@ class Actionbar extends Toolbar
     public function btnEdit($url = '', $label = '', $type = 'primary', $icon = 'mdi-lead-pencil', $attr = 'title="编辑"')
     {
         if (empty($url)) {
-            $url = (string)url('edit', ['id' => '__data.pk__']);
+            $url = (string) url('edit', ['id' => '__data.pk__']);
         }
         if ($attr == 'title="编辑"') {
             $attr = 'title="' . __blang('bilder_action_edit') . '"';
@@ -241,7 +259,7 @@ class Actionbar extends Toolbar
     public function btnView($url = '', $label = '', $type = 'success', $icon = 'mdi-eye-outline', $attr = 'title="查看"')
     {
         if (empty($url)) {
-            $url = (string)url('view', ['id' => '__data.pk__']);
+            $url = (string) url('view', ['id' => '__data.pk__']);
         }
         if ($attr == 'title="查看"') {
             $attr = 'title="' . __blang('bilder_action_view') . '"';
@@ -264,7 +282,7 @@ class Actionbar extends Toolbar
     public function btnDelete($postUrl = '', $label = '', $type = 'danger', $icon = 'mdi-delete', $attr = 'title="删除"', $confirm = true)
     {
         if (empty($postUrl)) {
-            $postUrl = (string)url('delete');
+            $postUrl = (string) url('delete');
         }
         if ($attr == 'title="删除"') {
             $attr = 'title="' . __blang('bilder_action_delete') . '"';
@@ -287,7 +305,7 @@ class Actionbar extends Toolbar
     public function btnDisable($postUrl = '', $label = '', $type = 'warning', $icon = 'mdi-block-helper', $attr = 'title="禁用"', $confirm = true)
     {
         if (empty($postUrl)) {
-            $postUrl = (string)url('enable', ['state' => 0]);
+            $postUrl = (string) url('enable', ['state' => 0]);
         }
         if ($attr == 'title="禁用"') {
             $attr = 'title="' . __blang('bilder_action_disable') . '"';
@@ -310,7 +328,7 @@ class Actionbar extends Toolbar
     public function btnEnable($postUrl = '', $label = '', $type = 'success', $icon = 'mdi-check', $attr = 'title="启用"', $confirm = true)
     {
         if (empty($postUrl)) {
-            $postUrl = (string)url('enable', ['state' => 1]);
+            $postUrl = (string) url('enable', ['state' => 1]);
         }
         if ($attr == 'title="启用"') {
             $attr = 'title="' . __blang('bilder_action_enable') . '"';

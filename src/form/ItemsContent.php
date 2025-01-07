@@ -13,6 +13,7 @@ use tpext\builder\common\Builder;
 use tpext\builder\displayer\Field;
 use tpext\builder\table\Actionbar;
 use tpext\builder\displayer\Fields;
+use tpext\builder\displayer\MultipleFile;
 
 class ItemsContent extends FWrapper
 {
@@ -342,6 +343,11 @@ class ItemsContent extends FWrapper
 
             $displayer = $colunm->getDisplayer();
             $title = $displayer->getLabel();
+            $params = array_merge($displayer->fieldInfo(), [
+                'isInput' => $displayer->isInput(),
+                'displayerType' => $displayer->getDisplayerType(),
+                'required' => $displayer->isRequired(),
+            ]);
 
             $this->tableColumns[$col] = [
                 'align' => ($displayer->getStyleByName('text-align') ?: ($colunm->getStyleByName('text-align') ?: 'center')),
@@ -354,7 +360,7 @@ class ItemsContent extends FWrapper
                 'width' => $colunm->getStyleByName('width') ?: 'auto',
                 'min-width' => $colunm->getStyleByName('min-width') ?: '90',
                 // 'max-width' => $colunm->getStyleByName('max-width') ?: ($displayer->getStyleByName('max-width') ?: '100%'),//暂不支持
-                'params' => $displayer->fieldInfo(),
+                'params' => $params,
                 //非标准参数
                 'title_raw' => $title, //用于header中显示html
                 'wrapperStyle' => $colunm->getStyle(),
@@ -394,6 +400,9 @@ class ItemsContent extends FWrapper
                     $value = $displayer->renderValue();
                     Arr::set($item, $name, $value);
                     $item['__field_info__'][$name] = $displayer->fieldInfo();
+                    if ($displayer instanceof MultipleFile) {
+                        Arr::set($item, $name . '__thumbs', $displayer->thumbs());
+                    }
 
                     //还原属性
                     $displayer->readonly($readonly);
@@ -424,6 +433,9 @@ class ItemsContent extends FWrapper
 
                             $value = $sDisplayer->renderValue();
                             Arr::set($item, $name, $value);
+                            if ($sDisplayer instanceof MultipleFile) {
+                                Arr::set($item, $name . '__thumbs', $sDisplayer->thumbs());
+                            }
                             $item['__field_info__'][$name] = $sDisplayer->fieldInfo();
                             if (!isset($filled[$name])) {
                                 $filled[$name] = true;
@@ -503,11 +515,11 @@ EOT;
             let row = {$table}InitData.value[key];
             for(let field in row) {
                 if(field=='__pk__' || field=='__del__' || !row.hasOwnProperty('__field_info__') || !row.__field_info__.hasOwnProperty(field) || row.__del__ == 1) {
-                    console.log('{$label} - ' + field + ' pass validate',row);
+                    // console.log('{$label} - ' + field + ' pass validate',row);
                     continue;    
                 }
-                if(row.__field_info__[field].required && !row[field]) {
-                    let firstError = '[{$label} - ' + row.__field_info__[field].title + ']' + __blang.bilder_validate_required;
+                if({$table}Columns.value[field].params.required && !row[field]) {
+                    let firstError = '[{$label} - ' + {$table}Columns.value[field].title + ']' + __blang.bilder_validate_required;
                     TinyModal.message({ message: __blang.bilder_validate_form_failed + firstError, status: 'warning', messageClosable: true });
 
                     {$form}Data.__form_error____display__only = firstError;
@@ -590,7 +602,7 @@ EOT;
                 if(field=='__pk__' || field=='__del__' || !row.hasOwnProperty('__field_info__') || !row.__field_info__.hasOwnProperty(field)) {
                     continue;    
                 }
-                if(row.__field_info__[field].required && !row[field] && row.__del__ != 1) {
+                if({$table}Columns.value[field].params.required && !row[field] && row.__del__ != 1) {
                     {$table}Errors.value[row.__pk__][field] = 'is-error';
                 } else {
                     {$table}Errors.value[row.__pk__][field] = '';

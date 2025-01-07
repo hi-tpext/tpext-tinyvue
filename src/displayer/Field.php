@@ -1414,6 +1414,11 @@ EOT;
         $renderValue = $displayer->renderValue();
         $displayer->getForm()->addFormData($fieldName, $renderValue);
 
+        if ($displayer instanceof MultipleFile) {
+            $thumbs = $displayer->thumbs();
+            $displayer->getForm()->addFormData($fieldName . '__thumbs', $thumbs);
+        }
+
         if (
             (($displayer->isInput() || $this->isDisplayerType('items')))
             && $displayer->isRequired() && !$displayer->isReadonly() && !$displayer->isDisabled()
@@ -1448,9 +1453,6 @@ EOT;
     public function fieldInfo()
     {
         $matchClass = explode(' ', $this->parseMapClass());
-        $displayerType = $this->getDisplayerType();
-        $isFile = in_array($displayerType, ['File', 'Image', 'MultipleFile', 'MultipleImage']);
-        $isImage = in_array($displayerType, ['Image', 'MultipleImage']);
 
         if ($this->isRequired()) {
             $matchClass[] = 'is-required';
@@ -1464,22 +1466,14 @@ EOT;
             $matchClass[] = 'readonly';
         }
 
-        $title = $this->getLabel();
-
-        return [
-            'hidden' => in_array('hidden', $matchClass),
-            'disabled' => $this->isDisabled() || in_array('disabled', $matchClass) || in_array('disable', $matchClass),
-            'readonly' => $this->isReadonly() || in_array('readonly', $matchClass),
-            'displayerType' => $this->displayerType,
-            'required' => $this->isRequired(),
-            'title' => strip_tags(str_replace(['<br>', '<br/>', '<br />', '<br >'], " | ", $title)),
-            'title_raw' => $title,
-            'isFile' => $isFile,
-            'isImage' => $isImage,
-            'isInput' => $this->isInput(),
+        $info = [
             'matchClass' => array_values(array_filter($matchClass)),
-            'wrapperStyle' => $this->getWrapper()->getStyle(),
         ];
+        if (!$info['matchClass']) {
+            unset($info['matchClass']);
+        }
+
+        return $info;
     }
 
     /**
