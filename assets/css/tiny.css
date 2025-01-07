@@ -858,10 +858,17 @@ th {
   }
 }
 
+
+
 @media screen and (max-width: 767px) {
   .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label {
-    text-align: left;
     --ti-form-item-small-line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .tiny-form-item.control-label label.tiny-form-item__label {
+    text-align: left;
   }
 }
 

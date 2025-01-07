@@ -604,7 +604,22 @@ class Table extends TWrapper implements Renderable
     {
         if ($this->usePagesizeDropdown && $this->pageSize && empty($this->pagesizeDropdown)) {
             $items = [
-                $this->pageSize, 6, 10, 14, 20, 30, 40, 50, 60, 90, 120, 200, 350, 500, 800, 1000,
+                $this->pageSize,
+                6,
+                10,
+                14,
+                20,
+                30,
+                40,
+                50,
+                60,
+                90,
+                120,
+                200,
+                350,
+                500,
+                800,
+                1000,
             ];
             $this->pagesizeDropdown = $items;
         }
@@ -850,6 +865,7 @@ class Table extends TWrapper implements Renderable
     };
 
     const {$table}CellDblclick = ({ row, rowIndex, column, columnIndex }) => {
+        console.log(column)
         if (column.property == '__action__' || (column.params && column.params.isInput)) {
             return;
         }
@@ -1068,6 +1084,11 @@ EOT;
 
                 $displayer = $colunm->getDisplayer();
                 $title = $displayer->getLabel();
+                $params = array_merge($displayer->fieldInfo(), [
+                    'isInput' => $displayer->isInput(),
+                    'displayerType' => $displayer->getDisplayerType(),
+                    'required' => $displayer->isRequired(),
+                ]);
 
                 $this->tableColumns[$col] = [
                     'align' => $colAttr['align'] ?: ($displayer->getStyleByName('text-align') ?: ($colunm->getStyleByName('text-align') ?: $this->textAlign)),
@@ -1081,7 +1102,7 @@ EOT;
                     'min-width' => $colAttr['min-width'] ?: ($colunm->getStyleByName('min-width') ?: ($displayer->getStyleByName('min-width') ?: '90')),
                     // 'max-width' => $colunm->getStyleByName('max-width') ?: ($displayer->getStyleByName('max-width') ?: '100%'),//暂不支持
                     'visible' => $colAttr['hidden'] ? false : ($useChooseColumns && ($useChooseColumns[0] == '*' || in_array($col, $useChooseColumns))),
-                    'params' => $displayer->fieldInfo(),
+                    'params' => $params,
                     //非标准参数
                     'title_raw' => $title, //用于header中显示html
                     'wrapperStyle' => $colunm->getStyle(),
@@ -1112,6 +1133,9 @@ EOT;
                         ->beforRender();
                     Arr::set($this->dataList[$key], $col, $displayer->renderValue());
                     $this->dataList[$key]['__field_info__'][$col] = $displayer->fieldInfo();
+                    if ($displayer instanceof MultipleFile) {
+                        Arr::set($this->dataList[$key], $col . '__thumbs', $displayer->thumbs());
+                    }
 
                     if ($displayer instanceof Fields) {
                         $fieldCols = $displayer->getContent()->getCols();
@@ -1127,6 +1151,9 @@ EOT;
                                 ->beforRender();
                             Arr::set($this->dataList[$key], $sDisplayer->getName(), $sDisplayer->renderValue());
                             $this->dataList[$key]['__field_info__'][$sDisplayer->getName()] = $sDisplayer->fieldInfo();
+                            if ($sDisplayer instanceof MultipleFile) {
+                                Arr::set($this->dataList[$key], $sDisplayer->getName() . '__thumbs', $sDisplayer->thumbs());
+                            }
                         }
                     }
                 }

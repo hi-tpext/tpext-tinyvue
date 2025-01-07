@@ -26,11 +26,11 @@
             {foreach name="list" id="displayer" key="co"}
             <tiny-grid-column v-bind="{$id}Columns['{$co}']">
                 <template #header="{column}">
-                    <div class="table-column-header" v-html="{$id}Columns['{$co}'].params.title_raw"></div>
+                    <div class="table-column-header" v-html="{$id}Columns['{$co}'].title_raw"></div>
                 </template>
                 <template #default="{row, column, skip}">
                     <div v-if="!skip && row && row.{$co}!==undefined" class="column-field-wrapper"
-                        :class="[...row.__field_info__['{$co}'].matchClass, 'displayer-' + row.__field_info__['{$co}'].displayerType]">
+                        :class="[...(row.__field_info__['{$co}'].matchClass||[]), 'displayer-' + {$id}Columns['{$co}'].params.displayerType]">
                         {:$displayer->render()}
                     </div>
                 </template>

@@ -13,12 +13,12 @@
         <div class="table-column-header">
           <strong v-if="{$id}Columns['{$co}'].params.required" title="{:__blang('bilder_this_field_is_required')}"
             class="field-required">*&nbsp;</strong>
-          <span v-html="{$id}Columns['{$co}'].params.title_raw"></span>
+          <span v-html="{$id}Columns['{$co}'].title_raw"></span>
         </div>
       </template>
       <template #default="{row, column, skip}">
         <div v-if="!skip && row && row.{$co}!==undefined" class="column-field-wrapper"
-          :class="[...row.__field_info__['{$co}'].matchClass, 'displayer-' + row.__field_info__['{$co}'].displayerType, {$id}Errors[row.__pk__]['{$co}']]">
+          :class="[...(row.__field_info__['{$co}'].matchClass||[]), 'displayer-' + {$id}Columns['{$co}'].params.displayerType, {$id}Errors[row.__pk__]['{$co}']]">
           {:$displayer->render()}
         </div>
       </template>
