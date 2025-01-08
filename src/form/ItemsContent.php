@@ -408,6 +408,20 @@ class ItemsContent extends FWrapper
                     $displayer->readonly($readonly);
                     $displayer->disabled($disabled);
 
+                    if (
+                        !empty($data['__readonly__fields__'])
+                        && (in_array($col, $row['__readonly__fields__']) || $row['__readonly__fields__'][0] == '*')
+                    ) {
+                        $displayer->readonly();
+                    }
+    
+                    if (
+                        !empty($data['__disabled__fields__'])
+                        && (in_array($col, $row['__disabled__fields__']) || $row['__disabled__fields__'][0] == '*')
+                    ) {
+                        $displayer->disabled();
+                    }
+
                     if (!isset($filled[$name])) {
                         $filled[$name] = true;
                         $this->initScripts[] = $displayer->getInitRowScript();
