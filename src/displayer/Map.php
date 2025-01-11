@@ -10,8 +10,6 @@ class Map extends Text
 
     protected $type = 'amap';
 
-    protected $minify = false;
-
     protected $prefix = '<i class="mdi mdi-map-marker-radius"></i>';
 
     protected $jsOptions = [];

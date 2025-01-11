@@ -341,7 +341,7 @@ class Search extends SWrapper implements Renderable
      * @param string $type
      * @return $this
      */
-    public function btnReset($label = '重&nbsp;&nbsp;置', $size = '2 col-xl-2 col-lg-2 col-sm-6 col-xs-12', $type = 'default')
+    public function btnReset($label = '重&nbsp;&nbsp;置', $size = '2 col-xl-2 col-lg-2 col-sm-6 col-xs-12', $type = 'primary')
     {
         if ($label == '重&nbsp;&nbsp;置') {
             $label = __blang('bilder_button_reset');

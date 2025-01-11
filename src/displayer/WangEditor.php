@@ -12,8 +12,6 @@ class WangEditor extends Field
 
     protected $view = 'wangeditor';
 
-    protected $minify = false;
-
     protected $js = [
         '/assets/tpexttinyvue/js/wangEditor/wangEditor.min.js',
     ];

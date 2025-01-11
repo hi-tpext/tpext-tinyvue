@@ -12,8 +12,6 @@ class MDEditor extends Field
 
     protected $view = 'mdeditor';
 
-    protected $minify = false;
-
     protected $js = [
         '/assets/buildermdeditor/editormd.min.js',
     ];

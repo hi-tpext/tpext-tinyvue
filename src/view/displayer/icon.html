@@ -17,7 +17,7 @@
             @cell-click="{$id}CellClick">
             <tiny-grid-column v-for="col in 16" :align="'center'" :width="32">
                 <template #default="{row, column, skip}">
-                    <i :title="row[col-1]" :class="row[col-1]"></i>
+                    <i v-if="row && row.length >= col" :title="row[col-1]" :class="row[col-1]"></i>
                 </template>
             </tiny-grid-column>
             <template #empty>

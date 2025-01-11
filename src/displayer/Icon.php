@@ -164,11 +164,11 @@ class Icon extends Text
             {$fieldId}Data = {$fieldId}IconList;
             if({$fieldId}Row) {
                 if(list.length && !{$fieldId}Row.{$fieldName}) {
-                    {$fieldId}Row.{$fieldName} = {$fieldId}IconList[0].name;
+                    {$fieldId}Row.{$fieldName} = {$fieldId}IconList[0];
                 }
             } else {
                 if(list.length && !{$VModel}) {
-                    {$VModel} = {$fieldId}IconList[0].name;
+                    {$VModel} = {$fieldId}IconList[0];
                 }
             }
            

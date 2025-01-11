@@ -14,8 +14,6 @@ class MDReader extends Field
 
     protected $input = false;
 
-    protected $minify = false;
-
     protected $js = [
         '/assets/buildermdeditor/lib/marked.min.js',
         '/assets/buildermdeditor/lib/prettify.min.js',
