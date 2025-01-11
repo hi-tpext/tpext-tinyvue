@@ -12,8 +12,6 @@ class UEditor extends Field
 
     protected $view = 'ueditor';
 
-    protected $minify = false;
-
     protected $js = [
         '/assets/builderueditor/ueditor.all.min.js',
     ];

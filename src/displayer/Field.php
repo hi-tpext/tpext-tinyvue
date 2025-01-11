@@ -69,7 +69,7 @@ class Field implements Fillable
     protected static $templPath;
     protected $mapClass = [];
     protected $required = false;
-    protected $minify = true;
+    protected $minify = false;
     protected $to = '';
     protected $data = [];
     protected $jsOptions = [];
@@ -637,7 +637,7 @@ class Field implements Fillable
 
     /**
      * 添加自定义js，不会被minify
-     *
+     * vue 版本取消minify，和addJs一样效果
      * @param array|string $val
      * @return $this
      */
@@ -652,7 +652,7 @@ class Field implements Fillable
 
     /**
      * 添加自定义css，不会被minify
-     *
+     * vue 版本取消minify，和addCss一样效果
      * @param array|string $val
      * @return $this
      */

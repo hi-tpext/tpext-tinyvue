@@ -6,8 +6,6 @@ class AceEditor extends Field
 {
     protected $view = 'aceeditor';
 
-    protected $minify = false;
-
     protected $js = [
         //core
         '/assets/tpexttinyvue/js/ace/ace.js',
