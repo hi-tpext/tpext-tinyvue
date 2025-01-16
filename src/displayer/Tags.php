@@ -66,17 +66,19 @@ class Tags extends Field
     const {$fieldId}Input2Ref = {};
     let {$fieldId}Row = null;//如果是在items中，保持当前行的实例
 
-    const {$fieldId}AddInput1Ref = (el) => {
+    const {$fieldId}AddInput1Ref = (el, row) => {
         if(!el) {
             return;
         }
-        {$fieldId}Input1Ref[el._.attrs.id] = el;
+        const key = row ? '{$fieldId}input1_row_' + row.__pk__ : '{$fieldId}input1_row_0';
+        {$fieldId}Input1Ref[key] = el;
     };
-    const {$fieldId}AddInput2Ref = (el) => {
+    const {$fieldId}AddInput2Ref = (el, row) => {
         if(!el) {
             return;
         }
-        {$fieldId}Input2Ref[el._.attrs.id] = el;
+        const key = row ? '{$fieldId}input2_row_' + row.__pk__ : '{$fieldId}input2_row_0';
+        {$fieldId}Input2Ref[key] = el;
     };
 
     const {$fieldId}HandleClose = (row, index) => {

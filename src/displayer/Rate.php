@@ -22,4 +22,25 @@ class Rate extends Text
         'show-text' => true,
         'texts' => ['很差', '差', '一般', '好', '很好'],
     ];
+
+    /**
+     * @param array $val
+     * @return $this
+     */
+    public function texts($val)
+    {
+        $this->jsOptions['texts'] = $val;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $val
+     * @return $this
+     */
+    public function allowHalf($val = true)
+    {
+        $this->jsOptions['allow-half'] = $val;
+        return $this;
+    }
 }

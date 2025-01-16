@@ -20,6 +20,8 @@ class Transfer extends Field
 
     protected $disabledOptions = [];
 
+    protected $postAsString = false;
+
     protected $jsOptions = [
         'button-texts' => [],
         'titles' => ['待选择', '已选择'],
@@ -50,6 +52,18 @@ class Transfer extends Field
     }
 
     /**
+     * 提交时是否把数组转成字符串
+     * 
+     * @param boolean $val
+     * @return $this
+     */
+    public function postAsString($val = true)
+    {
+        $this->postAsString = $val;
+        return $this;
+    }
+
+    /**
      * Undocumented function
      *
      * @param string|array $val
@@ -57,7 +71,7 @@ class Transfer extends Field
      */
     public function disabledOptions($val)
     {
-        $this->disabledOptions = $val;
+        $this->disabledOptions = is_array($val) ? $val : explode(',', $val);
         return $this;
     }
 
@@ -69,7 +83,7 @@ class Transfer extends Field
 
         foreach ($this->options as $key => $label) {
             $options[] = [
-                'key' => (string)$key,
+                'key' => (string) $key,
                 'text' => $label,
                 'disabled' => in_array($key, $this->disabledOptions),
             ];
@@ -86,7 +100,20 @@ EOT;
         $this->addVueToken([
             "{$fieldId}Options",
         ]);
-        
+
         $this->whenScript();
+
+        if ($this->postAsString) {
+            $VModel = $this->getVModel();
+
+            $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+            $this->convertScript[] = $script;
+        }
     }
 }

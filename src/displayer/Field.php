@@ -37,6 +37,7 @@ class Field implements Fillable
     protected $css = [];
     protected $stylesheet = '';
     protected $onMountedScript = [];
+    protected $convertScript = [];
     protected $setupScript = [];
     protected $view = 'field';
     protected $input = true; //是否为可输入元素
@@ -1182,6 +1183,10 @@ EOT;
 
         if (!empty($this->setupScript)) {
             Builder::getInstance()->addSetupScript($this->setupScript);
+        }
+        
+        if ($this->formMode == 'form' && !empty($this->convertScript)) {
+            $this->getForm()->addConvertScript($this->convertScript);
         }
 
         if (!empty($this->stylesheet)) {

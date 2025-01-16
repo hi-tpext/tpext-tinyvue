@@ -11,7 +11,8 @@ class Password extends Text
      */
     protected $jsOptions = [
         'maxlength' => '',
-        'show-password' => false,
+        'show-password' => true,
+        'autocomplete' => 'new-password',
     ];
 
     protected $view = 'password';

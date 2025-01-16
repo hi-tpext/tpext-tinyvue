@@ -86,4 +86,20 @@ class DateTimeRange extends DateTime
 
         return $this->renderValue;
     }
+
+    protected function fieldScript()
+    {
+        $VModel = $this->getVModel();
+
+        $separator = $this->jsOptions['range-separator'];
+
+        $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join('{$separator}');
+        }
+
+EOT;
+        $this->convertScript[] = $script;
+    }
 }

@@ -13,6 +13,8 @@ class MultipleSelect extends Select
      */
     protected $default = [];
 
+    protected $postAsString = false;
+
     /**
      * Undocumented variable
      *
@@ -50,6 +52,18 @@ class MultipleSelect extends Select
         return $this;
     }
 
+     /**
+     * 提交时是否把数组转成字符串
+     * 
+     * @param boolean $val
+     * @return $this
+     */
+    public function postAsString($val = true)
+    {
+        $this->postAsString = $val;
+        return $this;
+    }
+
     /**
      * Undocumented function
      *
@@ -60,5 +74,23 @@ class MultipleSelect extends Select
     {
         $this->default = $val;
         return $this;
+    }
+
+    protected function fieldScript()
+    {
+        parent::fieldScript();
+        
+        if ($this->postAsString) {
+            $VModel = $this->getVModel();
+
+            $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+            $this->convertScript[] = $script;
+        }
     }
 }

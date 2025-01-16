@@ -15,6 +15,8 @@ class Tree extends Field
 
     protected $enableCheck = true;
 
+    protected $postAsString = false;
+
     /**
      * Undocumented variable
      *
@@ -74,6 +76,18 @@ class Tree extends Field
     {
         $this->multiple = $val;
         $this->valueType = $val ? 'array' : 'string';
+        return $this;
+    }
+
+    /**
+     * 提交时是否把数组转成字符串
+     * 
+     * @param boolean $val
+     * @return $this
+     */
+    public function postAsString($val = true)
+    {
+        $this->postAsString = $val;
         return $this;
     }
 
@@ -138,10 +152,10 @@ class Tree extends Field
         $script = <<<EOT
 
     const {$fieldId}Options = ref({$options});
-    const {$fieldId}multiple = {$multiple};
+    const {$fieldId}Multiple = {$multiple};
 
     const {$fieldId}NodeCheck = (data, currentChecked) => {
-        {$VModel} = {$fieldId}multiple ? currentChecked.checkedKeys : data.id;
+        {$VModel} = {$fieldId}Multiple ? currentChecked.checkedKeys : data.id;
     };
 
 EOT;
@@ -150,5 +164,18 @@ EOT;
             "{$fieldId}Options",
             "{$fieldId}NodeCheck",
         ]);
+
+        if ($this->postAsString) {
+            $VModel = $this->getVModel();
+
+            $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+            $this->convertScript[] = $script;
+        }
     }
 }
