@@ -398,7 +398,14 @@ EOT;
             {$fieldId}Options.value = options;
         });
     } else if('{$formMode}' == 'form' && !{$fieldId}InTable) {
-        if({$VModel} !== '') {
+        if({$VModel} !== '' && {$VModel} !== []) {
+            let selected = {$fieldId}Op.value.multiple ? {$VModel} : [{$VModel}];
+            {$fieldId}Options.value = selected.map(x => {
+                return {
+                    value: x,
+                    label: __blang.bilder_loading
+                };
+            });
             {$fieldId}LoadData({$VModel}).then(options => {
                 {$fieldId}Options.value = options;
                 if(options.length == 0) {
@@ -504,12 +511,19 @@ EOT;
 
         $script = <<<EOT
         
-        if(row.{$fieldName} !== '') {
-            {$fieldId}LoadData(row.{$fieldName}).then(options => {
+        if(row.{$fieldName} !== '' && row.{$fieldName} !== []) {
+            let selected = {$fieldId}Op.value.multiple ? row.{$fieldName} : [row.{$fieldName}];
+            row.__field_info__['{$fieldName}'].options = selected.map(x => {
+                return {
+                    value: x,
+                    label: __blang.bilder_loading
+                };
+            });
+            {$fieldId}LoadData(selected).then(options => {
                 row.__field_info__['{$fieldName}'].options = options;
                 {$fieldId}Options.value = options;
                 if(options.length == 0) {
-                    row.{$fieldName} = '';
+                    row.{$fieldName} = {$fieldId}Op.value.multiple ? [] : '';
                 }
             });
         }

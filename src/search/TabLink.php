@@ -16,7 +16,7 @@ class TabLink implements Renderable
 
     protected $view = 'tab';
 
-    protected $active = '';
+    protected $active = null;
     protected $id = '';
     protected $key = '';
     protected $searchId = '';
@@ -80,7 +80,11 @@ class TabLink implements Renderable
 
     public function getActive()
     {
-        return $this->active ?: (array_keys($this->options)[0] ?? '');
+        if (is_null($this->active) && count($this->options)) {
+            $this->active = array_keys($this->options)[0] ?? '';
+        }
+
+        return $this->active;
     }
 
     /**
@@ -149,7 +153,7 @@ EOT;
 
         $vars = [
             'options' => $options,
-            'active' => $this->active,
+            'active' => $this->getActive(),
             'id' => $this->getId(),
             'class' => $this->class,
             'attr' => $this->getAttrWithStyle(),

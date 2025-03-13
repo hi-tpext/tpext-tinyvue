@@ -349,7 +349,7 @@ EOT;
             layerOpenLink(row.__action__.{$btnId}.href, '{$label}', '{$this->layerSize}');
         }
         else {
-            console.log(row);
+            // console.log(row);
             //自行处理按钮事件
             {$this->onClick}
         }

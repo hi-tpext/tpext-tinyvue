@@ -271,8 +271,6 @@ EOT;
     {
         $template = Module::getInstance()->getViewsPath() . $this->view . '.html';
 
-        isset($this->rows[$this->active]) ? $this->rows[$this->active]['active'] = 'in active' : false;
-
         $vars = [
             'rows' => $this->rows,
             'id' => $this->getId(),

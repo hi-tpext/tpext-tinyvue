@@ -837,7 +837,7 @@ th {
   --tv-FormItem-margin-bottom: 6px;
 }
 .tiny-form .tiny-form-item.tiny-form-item--small {
-  --tv-FormItem-margin-bottom-sm: 6px;
+  --tv-FormItem-margin-bottom-sm: 10px;
 }
 
 .tiny-form .tiny-form-item.tiny-form-item--small .tiny-date-container {
@@ -845,7 +845,7 @@ th {
 }
 
 .tiny-form-item .tiny-form-item.tiny-form-item--small {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .tiny-input-group__append,

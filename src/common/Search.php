@@ -384,6 +384,7 @@ class Search extends SWrapper implements Renderable
                 $this->searchButtons();
             }
         } else {
+            $this->open = false;
             $this->addClass('form-empty');
             $this->button('submit', 'submit', '1')->getWrapper()->addClass('hidden');
         }

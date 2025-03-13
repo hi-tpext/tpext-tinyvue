@@ -270,7 +270,7 @@ EOT;
         if(data.id === '__root__') {
             {$searchId}Data['{$field}'] = '';
         } else {
-            {$searchId}Data['{$field}'] = {$treeId}multiple ? currentChecked.checkedKeys : data.id;
+            {$searchId}Data['{$field}'] = {$treeId}multiple ? currentChecked.checkedKeys.join(',') : data.id;
         }
         {$searchId}Submit();
 EOT;

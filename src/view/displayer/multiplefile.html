@@ -24,7 +24,7 @@
                 </div><!--v-if-->
             </li>
             {if condition="$canUpload && $cover"}
-            <li v-show="{$id}Op.fileNumLimit < 1 || {$VModel}.length < {$id}Op.fileNumLimit"
+            <li v-show="{$id}Op.fileNumLimit < 1 || {$VModel}.split(',').filter(x => x.trim()).length < {$id}Op.fileNumLimit"
                 class="tiny-upload-list__li">
                 <div class="tiny-upload-list__item">
                     <div class="pic-item-cover" {$thumbnailStyle|raw}>
@@ -69,7 +69,7 @@
             {if condition="$showUploadBtn"}
             <span title="{:__blang('bilder_upload_nwe_file')}" class="opt-btn upload-file"
                 @click="{$id}UploadFile(row)">
-                <i class="mdi mdi-folder-open "></i>{:__blang('bilder_upload_file_button')}
+                <i class="mdi mdi-folder-open"></i>{:__blang('bilder_upload_file_button')}
             </span>
             {/if}
             {if condition="$showChooseBtn"}
@@ -87,7 +87,7 @@
         {if condition="$showUploadBtn"}
         <tiny-button size="mini" title="{:__blang('bilder_upload_nwe_file')}">
             <span class="opt-btn upload-file" @click="{$id}UploadFile(row)">
-                <i class="mdi mdi-folder-open "></i>
+                <i class="mdi mdi-folder-open"></i>
                 {if condition="!$inTable"}
                 {:__blang('bilder_upload_file_button')}
                 {/if}

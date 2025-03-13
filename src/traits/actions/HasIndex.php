@@ -97,9 +97,9 @@ trait HasIndex
 
             if ($this->asTreeList()) {
                 //树形显示，不分页
-                $this->table->paginator($this->pagesize, 99999999);
+                $this->table->paginator($this->pagesize, 1000);
             } else {
-                $this->table->paginator(99999999, $this->pagesize);
+                $this->table->paginator(1000, $this->pagesize);
             }
         }
         return $builder->render();

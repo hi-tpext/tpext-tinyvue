@@ -137,20 +137,18 @@ class Form extends FWrapper implements Renderable
      */
     public function readonly($val = true)
     {
-        if ($val) {
-            foreach ($this->rows as $row) {
+        foreach ($this->rows as $row) {
 
-                if ($row instanceof Tab || $row instanceof Step) {
-                    $row->readonly($val);
-                    continue;
-                }
-
-                if (!($row instanceof FRow)) {
-                    continue;
-                }
-
-                $row->getDisplayer()->readonly($val);
+            if ($row instanceof Tab || $row instanceof Step) {
+                $row->readonly($val);
+                continue;
             }
+
+            if (!($row instanceof FRow)) {
+                continue;
+            }
+
+            $row->getDisplayer()->readonly($val);
         }
 
         $this->readonly = $val;
@@ -537,13 +535,13 @@ class Form extends FWrapper implements Renderable
             return $this;
         }
         $this->allContentsEnd();
-        $this->html('', '', '12 col-lg-12 col-sm-12 col-xs-12')->getWrapper()->style('height:12px'); //这里时一个空行
+        $this->html('', '', '12 col-lg-12 col-sm-12 col-xs-12')->getWrapper()->style('height:12px'); //这里是一个空行
         //此处开启了一个fields装载后面的操作按钮，不会调用fieldsEnd了，正常情况下，底部按钮后面不会有其他元素了。如果有，需要调用fieldsEnd结束按钮区域
         //col-lg 比例:      左(4) | 中部按钮组(4) | 右(4)
         //clo-md 比例:      左(4) | 中部按钮组(4) | 右(4)
         //col-sm 比例:      左(3) | 中部按钮组(6) | 右(3)
         //col-xs 比例:      左(2) | 中部按钮组(8) | 右(2)
-        $this->html('', '', '4 col-xl-4 col-lg-4 col-sm-3 col-xs-2')->showLabel(false); //左侧offset 4,4,3,2
+        $this->html('', '', '4 col-xl-4 col-lg-4 col-sm-3 col-xs-2')->showLabel(false)->getWrapper()->style('height:40px;margin:0;padding:0;'); //左侧offset 4,4,3,2
         $this->fields('bottom_buttons', '', '4 col-xl-4 col-lg-4 col-sm-6 col-xs-8') //中间按钮组 4,4,6,8
             ->size(0, 12)->showLabel(false);
         $this->bottomOffsetCalled = true;
@@ -725,7 +723,7 @@ class Form extends FWrapper implements Renderable
     public function logs($label, $dataList, $itemsCall = null, $size = [12, 12])
     {
         $this->itemsEnd();
-        $displayer =  $this->items('logs' . mt_rand(100, 999), $label, 12)->size($size[0], $size[1])->readonly();
+        $displayer =  $this->items('logs' . mt_rand(100, 999) . '__display__only', $label, 12)->size($size[0], $size[1])->readonly();
 
         if (is_array($dataList)) {
             $displayer->fill($dataList);

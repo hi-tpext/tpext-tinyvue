@@ -143,7 +143,7 @@ class Attachment extends Controller
 
         let chooseUrlLimit = {$limit};
 
-        let selected = {$tableId}Ref.value.getSelectRecords();//获取选中的行数据
+        let selected = {$tableId}GetCheckedRows();//获取选中的行数据
         if(selected.length == 0) {
             TinyModal.message({ message: __blang.bilder_no_data_was_selected, status: 'warning', messageClosable: true });
             return;

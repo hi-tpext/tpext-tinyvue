@@ -69,6 +69,7 @@ class LinkBtn extends Bar
 
         if(openCheckedUrl) {
             {$btnId}OpenChecked(ids, openCheckedUrl);
+            return false;
         }
         let confirm = '{$this->confirm}';
         if (confirm && confirm != '0' && confirm != 'false') {
@@ -90,7 +91,6 @@ class LinkBtn extends Bar
 
             return false;
         }
-        {$btnId}PostChecked(postCheckedUrl, ids);
     };
 
     const {$btnId}PostChecked = (url, ids) => {

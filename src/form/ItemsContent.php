@@ -49,6 +49,7 @@ class ItemsContent extends FWrapper
     protected $label = '';
     protected $template = [];
     protected $initScripts = [];
+    protected $convertScripts = [];
 
     /**
      * Undocumented variable
@@ -345,12 +346,14 @@ class ItemsContent extends FWrapper
             $title = $displayer->getLabel();
             $params = array_merge($displayer->fieldInfo(), [
                 'isInput' => $displayer->isInput(),
-                'displayerType' => $displayer->getDisplayerType(),
+                'displayerType' => strtolower($displayer->getDisplayerType()),
                 'required' => $displayer->isRequired(),
+                'titleRaw' => $title, //用于header中显示html
+                'wrapperStyle' => $colunm->getStyle(),
             ]);
 
             $this->tableColumns[$col] = [
-                'align' => ($displayer->getStyleByName('text-align') ?: ($colunm->getStyleByName('text-align') ?: 'center')),
+                'align' => $displayer->getStyleByName('text-align') ?: ($colunm->getStyleByName('text-align') ?: 'center'),
                 'header-align' => 'center',
                 'field' => $col,
                 'fixed' => $col == $this->pk ? 'left' : '',
@@ -361,9 +364,6 @@ class ItemsContent extends FWrapper
                 'min-width' => $colunm->getStyleByName('min-width') ?: '90',
                 // 'max-width' => $colunm->getStyleByName('max-width') ?: ($displayer->getStyleByName('max-width') ?: '100%'),//暂不支持
                 'params' => $params,
-                //非标准参数
-                'title_raw' => $title, //用于header中显示html
-                'wrapperStyle' => $colunm->getStyle(),
             ];
 
             $this->list[$col] = $displayer;
@@ -461,20 +461,21 @@ class ItemsContent extends FWrapper
                             }
                         }
                     }
+                    $this->convertScripts = array_merge($this->convertScripts, $displayer->getConvertScript());
                 }
                 $this->dataList[] = $item;
             }
         } else {
-            if ($this->canAdd) {
-                //填充模板默认值
-                foreach ($this->cols as $col => $colunm) {
-                    if (!($colunm instanceof FRow)) {
-                        continue;
-                    }
-                    $displayer = $colunm->getDisplayer();
-                    Arr::set($this->template, $col, $displayer->lockValue(false)->value('')->beforRender()->renderValue());
-                    $this->template['__field_info__'][$col] = $displayer->fieldInfo();
+            //填充模板默认值
+            foreach ($this->cols as $col => $colunm) {
+                if (!($colunm instanceof FRow)) {
+                    continue;
                 }
+                $displayer = $colunm->getDisplayer();
+                $value = $displayer->lockValue(false)->value('')->beforRender()->renderValue();
+                Arr::set($this->template, $col, $value);
+                $this->template['__field_info__'][$col] = $displayer->fieldInfo();
+                $this->convertScripts = array_merge($this->convertScripts, $displayer->getConvertScript());
             }
         }
 
@@ -509,7 +510,6 @@ EOT;
             Builder::getInstance()->addOnMountedScript($script);
         }
     }
-
 
     /**
      * Undocumented function
@@ -560,6 +560,12 @@ EOT;
         $tableColumns = json_encode($this->tableColumns, JSON_UNESCAPED_UNICODE);
         $initData = json_encode($this->dataList, JSON_UNESCAPED_UNICODE);
         $template = json_encode($this->template, JSON_UNESCAPED_UNICODE);
+        
+        $this->convertScripts = array_filter($this->convertScripts, 'strlen');
+        $convertScripts = '';
+        if (count($this->convertScripts)) {
+            $convertScripts = implode("\n\t\t\t", $this->convertScripts);
+        }
 
         $script = <<<EOT
 
@@ -630,8 +636,21 @@ EOT;
                 }, {});
             items[row.__pk__] = data;
         });
-        {$VModel} = Object.keys(items).length === 0 ? undefined : items;
+        {$VModel} = Object.keys(items).length === 0 ? {} : items;
     }
+
+    const {$table}Convert = (rowData) => {
+        let row = Object.keys(rowData)
+            .filter(key => !/\w+__display__only$/.test(key) && !/\w+__tmp$/.test(key) && !/\w+__thumbs$/.test(key)
+            && key != '__can_delete__'
+            )
+            .reduce((acc, key) => {
+                acc[key] = rowData[key];
+                return acc;
+            }, {});
+        {$convertScripts}
+        return row;
+    };
 
     const {$table}Op = ref({
         'header-align': 'center',

@@ -319,4 +319,22 @@ class Items extends Field
         $this->__items_content__->templateFieldCall($callback);
         return $this;
     }
+
+    protected function fieldScript()
+    {
+        $table = $this->__items_content__->getId();
+        $VModel = $this->getVModel();
+
+        $script = <<<EOT
+
+        if ({$VModel}) {
+            {$VModel} = Object.keys({$VModel} ).reduce((acc, key) => {
+                acc[key] = {$table}Convert({$VModel}[key]);
+                return acc;
+            }, {});
+        }
+
+EOT;
+        $this->convertScript[] = $script;
+    }
 }

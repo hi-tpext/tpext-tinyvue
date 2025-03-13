@@ -13,7 +13,7 @@
         <div class="table-column-header">
           <strong v-if="{$id}Columns['{$co}'].params.required" title="{:__blang('bilder_this_field_is_required')}"
             class="field-required">*&nbsp;</strong>
-          <span v-html="{$id}Columns['{$co}'].title_raw"></span>
+          <span v-html="{$id}Columns['{$co}'].params.titleRaw"></span>
         </div>
       </template>
       <template #default="{row, column, skip}">

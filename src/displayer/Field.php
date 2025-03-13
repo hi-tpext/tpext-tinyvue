@@ -806,12 +806,23 @@ class Field implements Fillable
     /**
      * Undocumented function
      *
+     * @return array
+     */
+    public function getConvertScript()
+    {
+        return $this->convertScript;
+    }
+
+    /**
+     * Undocumented function
+     *
      * @return $this
      */
     public function clearScript()
     {
         $this->onMountedScript = [];
         $this->setupScript = [];
+        $this->convertScript = [];
         return $this;
     }
 
@@ -1173,7 +1184,7 @@ EOT;
             }
         }
 
-        if ($this->formMode != 'table' && $this->readonly && $this->isInput() && !($this instanceof MultipleFile)) {
+        if ($this->formMode != 'table' && ($this->readonly || $this->disabled) && $this->isInput() && !($this instanceof MultipleFile)) {
             $this->getWrapper()->addClass('form-field-readonly')->addAttr('title="' . __blang('bilder_readonly') . '"');
         }
 
@@ -1184,8 +1195,8 @@ EOT;
         if (!empty($this->setupScript)) {
             Builder::getInstance()->addSetupScript($this->setupScript);
         }
-        
-        if ($this->formMode == 'form' && !empty($this->convertScript)) {
+
+        if (($this->formMode == 'form' || $this->formMode == 'table') && !empty($this->convertScript)) {
             $this->getForm()->addConvertScript($this->convertScript);
         }
 
@@ -1428,7 +1439,7 @@ EOT;
             (($displayer->isInput() || $this->isDisplayerType('items')))
             && $displayer->isRequired() && !$displayer->isReadonly() && !$displayer->isDisabled()
         ) {
-            $displayer->getForm()->addValidatorRule($displayer->getName(), ['required' => true, 'message' => '[' . $this->label . ']' . __blang('bilder_validate_required')]);
+            $displayer->getForm()->addValidatorRule($fieldName, ['required' => true, 'message' => '[' . $this->label . ']' . __blang('bilder_validate_required')]);
         }
 
         if ($displayer instanceof Fields) {

@@ -77,6 +77,8 @@ class Table extends TWrapper implements Renderable
     protected $sortable = ['id'];
     protected $sortOrder = '';
     protected $partial = false;
+    protected $convertScripts = [];
+
     /**
      * Undocumented variable
      *
@@ -532,6 +534,20 @@ class Table extends TWrapper implements Renderable
     }
 
     /**
+     * Undocumented function
+     * 
+     * @param string|array $script
+     * @return void
+     */
+    public function addConvertScript($script)
+    {
+        if (!is_array($script)) {
+            $script = [$script];
+        }
+        $this->convertScripts = array_merge($this->convertScripts, $script);
+    }
+
+    /**
      * 获取一个搜索
      *
      * @return Search
@@ -603,25 +619,7 @@ class Table extends TWrapper implements Renderable
     protected function tableScript()
     {
         if ($this->usePagesizeDropdown && $this->pageSize && empty($this->pagesizeDropdown)) {
-            $items = [
-                $this->pageSize,
-                6,
-                10,
-                14,
-                20,
-                30,
-                40,
-                50,
-                60,
-                90,
-                120,
-                200,
-                350,
-                500,
-                800,
-                1000,
-            ];
-            $this->pagesizeDropdown = $items;
+            $this->pagesizeDropdown = array_merge([$this->pageSize], [6, 10, 14, 20, 30, 40, 50, 60, 90, 120, 200, 350, 500, 800, 1000]);
         }
 
         $table = $this->id;
@@ -634,6 +632,7 @@ class Table extends TWrapper implements Renderable
         $layout = $this->dataTotal > $this->pageSize ? 'total, prev, pager, next, jumper, sizes' : 'total';
         $useChooseColumns = $this->getToolbar()->getChooseColumns() === false ? '[]'
             : json_encode($this->getToolbar()->getChooseColumns(), JSON_UNESCAPED_UNICODE);
+        $useCheckbox = $this->useCheckbox && $this->useToolbar ? 'true' : 'false';
 
         $script = <<<EOT
 
@@ -652,6 +651,7 @@ class Table extends TWrapper implements Renderable
     let {$table}InitData = {$initData};
     let {$table}InitDataTotal = {$this->dataTotal};
     let {$table}Init = false;
+    const {$table}useCheckbox = {$useCheckbox};
 
     const {$table}PagerConfig = ref({
         attrs: {
@@ -694,6 +694,7 @@ class Table extends TWrapper implements Renderable
             {   __fetch_data__ : 'y',
                 __page__ : page.currentPage,
                 __pagesize__ : page.pageSize,
+                __columns__ : {$table}UseChooseColumns.value.join(','),
             },
             {$search}Data,
             {$table}Sort ? { __sort__ : {$table}Sort } : null,
@@ -763,7 +764,7 @@ class Table extends TWrapper implements Renderable
                     //数据太多，打开页面，分页处理
                     layer.open({
                         type: 2,
-                        title: "{:__blang('bilder_generating_data')}",
+                        title: __blang.bilder_generating_data,
                         scrollbar: false,
                         area: ['400px','150px'],
                         content: data.open_url
@@ -856,7 +857,7 @@ class Table extends TWrapper implements Renderable
     };
 
     const {$table}CellClick = ({ row, rowIndex, column, columnIndex }) => {
-        if (column.property == '__action__' || (column.params && column.params.isInput)) {
+        if (!{$table}useCheckbox || column.property == '__action__' || (column.params && column.params.isInput)) {
             return;
         }
         {$table}Ref.value.toggleRowSelection(row);
@@ -864,7 +865,6 @@ class Table extends TWrapper implements Renderable
     };
 
     const {$table}CellDblclick = ({ row, rowIndex, column, columnIndex }) => {
-        console.log(column)
         if (column.property == '__action__' || (column.params && column.params.isInput)) {
             return;
         }
@@ -906,6 +906,10 @@ class Table extends TWrapper implements Renderable
             };
             layerOpenLink(btn.href, btn.layer_title, btn.layer_size);
         }
+    };
+
+    const {$table}GetCheckedRows = () => {
+        return {$table}Ref.value.getSelectRecords();
     };
 
     const {$table}SelectChange = () => {
@@ -976,7 +980,23 @@ EOT;
         Builder::getInstance()->addSetupScript($script);
 
         if (count($this->autoPost)) {
+
             $scripts = [];
+
+            $this->convertScripts = array_filter($this->convertScripts, 'strlen');
+            $convertScripts = '';
+            if (count($this->convertScripts)) {
+                $convertScripts = implode("\n\t\t\t", $this->convertScripts);
+            }
+
+            $scripts[] = <<<EOT
+
+        const {$table}Convert = (row) => {
+            {$convertScripts}
+            return row;
+        };
+EOT;
+
             foreach ($this->autoPost as $fieldName => $val) {
                 $eventKey = $table . preg_replace('/\W/', '_', $fieldName) . 'Change';
                 $url = $val['url'];
@@ -996,7 +1016,9 @@ EOT;
                     if(!{$table}ActiveRow.value || !{$table}ActiveRow.value.__pk__) {
                         return;
                     }
-                    let value = Array.isArray(newValue) ? newValue.join(',') : newValue;
+                    let rowData = {$table}Convert({ {$fieldName} : newValue });
+                    let value = rowData.{$fieldName};
+                    value = Array.isArray(value) ? value.join(',') : value;
                     {$table}ActiveRowChanged['{$fieldName}'] = value;
                     if($isText) {
                         return;
@@ -1085,8 +1107,9 @@ EOT;
                 $title = $displayer->getLabel();
                 $params = array_merge($displayer->fieldInfo(), [
                     'isInput' => $displayer->isInput(),
-                    'displayerType' => $displayer->getDisplayerType(),
-                    'required' => $displayer->isRequired(),
+                    'displayerType' => strtolower($displayer->getDisplayerType()),
+                    'titleRaw' => $title, //用于header中显示html
+                    'wrapperStyle' => $colunm->getStyle(),
                 ]);
 
                 $this->tableColumns[$col] = [
@@ -1102,9 +1125,6 @@ EOT;
                     // 'max-width' => $colunm->getStyleByName('max-width') ?: ($displayer->getStyleByName('max-width') ?: '100%'),//暂不支持
                     'visible' => $colAttr['hidden'] ? false : ($useChooseColumns && ($useChooseColumns[0] == '*' || in_array($col, $useChooseColumns))),
                     'params' => $params,
-                    //非标准参数
-                    'title_raw' => $title, //用于header中显示html
-                    'wrapperStyle' => $colunm->getStyle(),
                 ];
 
                 $this->list[$col] = $displayer;

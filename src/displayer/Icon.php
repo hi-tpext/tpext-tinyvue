@@ -188,7 +188,6 @@ EOT;
             "{$fieldId}Search",
             "{$fieldId}OpenIconSelector",
             "{$fieldId}CellClick",
-            "{$fieldId}Data",
             "{$fieldId}Open",
             "{$fieldId}GridRef",
             "{$fieldId}PagerConfig",

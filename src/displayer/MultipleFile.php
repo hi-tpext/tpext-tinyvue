@@ -29,6 +29,7 @@ class MultipleFile extends Field
     protected $showUploadBtn = true;
     protected $cover = '/assets/tpexttinyvue/images/cover/file.svg';
     protected $__default = '/assets/tpexttinyvue/images/ext/0.png';
+    protected $postAsString = false;
 
     protected $jsOptions = [
         'accept' => '', //mimeTypes
@@ -53,17 +54,64 @@ class MultipleFile extends Field
         //非组件参数
         'ext' => [
             //
-            'jpg', 'jpeg', 'gif', 'wbmp', 'webp', 'png', 'bmp', 'ico', 'swf', 'psd', 'jpc', 'jp2', 'jpx', 'jb2', 'swc', 'iff', 'xbm', 'svg',
+            'jpg',
+            'jpeg',
+            'gif',
+            'wbmp',
+            'webp',
+            'png',
+            'bmp',
+            'ico',
+            'swf',
+            'psd',
+            'jpc',
+            'jp2',
+            'jpx',
+            'jb2',
+            'swc',
+            'iff',
+            'xbm',
+            'svg',
             //
-            "flv", "mkv", "avi", "rm", "rmvb", "mpeg", "mpg", "ogv", "mov", "wmv", "mp4", "webm",
+            "flv",
+            "mkv",
+            "avi",
+            "rm",
+            "rmvb",
+            "mpeg",
+            "mpg",
+            "ogv",
+            "mov",
+            "wmv",
+            "mp4",
+            "webm",
             //
-            "ogg", "mp3", "wav", "mid",
+            "ogg",
+            "mp3",
+            "wav",
+            "mid",
             //
-            "rar", "zip", "tar", "gz", "7z", "bz2", "cab", "iso",
+            "rar",
+            "zip",
+            "tar",
+            "gz",
+            "7z",
+            "bz2",
+            "cab",
+            "iso",
             //
-            "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf", "txt", "md",
+            "doc",
+            "docx",
+            "xls",
+            "xlsx",
+            "ppt",
+            "pptx",
+            "pdf",
+            "txt",
+            "md",
             //
-            "xml", "json",
+            "xml",
+            "json",
         ],
         'fileSingleSizeLimit' => 250 * 1024 * 1024,
         'fileNumLimit' => 5,
@@ -292,6 +340,18 @@ class MultipleFile extends Field
         $this->jsOptions['thumbnailWidth'] = $w;
         $this->jsOptions['thumbnailHeight'] = $h;
 
+        return $this;
+    }
+
+    /**
+     * 提交时是否把数组转成字符串
+     * 
+     * @param boolean $val
+     * @return $this
+     */
+    public function postAsString($val = true)
+    {
+        $this->postAsString = $val;
         return $this;
     }
 
@@ -568,6 +628,19 @@ EOT;
 EOT;
 
         $this->onMountedScript[] = $script;
+
+        if ($this->postAsString) {
+            $VModel = $this->getVModel();
+
+            $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+            $this->convertScript[] = $script;
+        }
     }
 
     public function customVars()
@@ -614,8 +687,8 @@ EOT;
      */
     public function thumbs()
     {
-        $files = explode(',',$this->renderValue());
-        if ($this->canUpload) {//可上传图片时，不使用缩略图
+        $files = explode(',', $this->renderValue());
+        if ($this->canUpload) { //可上传图片时，不使用缩略图
             return [];
         }
 
@@ -665,8 +738,13 @@ EOT;
                 $thumbs[] = $file;
                 continue;
             }
-            $options['to_path'] = $thumbFile;
-            $thumbs[] = $handler->resize($file, $options);
+            try {
+                $options['to_path'] = $thumbFile;
+                $handler->resize($file, $options);
+                $thumbs[] = $handler->resize($file, $options);
+            } catch (\Exception $e) {
+                $thumbs[] = $file;
+            }
         }
 
         return $thumbs;

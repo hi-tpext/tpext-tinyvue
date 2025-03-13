@@ -10,8 +10,6 @@ class DropdownBtns extends Bar
 
     protected $items = [];
 
-    protected $click = [];
-
     /**
      * Undocumented function
      *
@@ -43,8 +41,6 @@ class DropdownBtns extends Bar
     {
         $btnId = $this->getId();
         $table = $this->tableId;
-
-        $this->click = ["{$btnId}ButtonClick", "{$btnId}ItemClick"];
 
         $script = <<<EOT
 
