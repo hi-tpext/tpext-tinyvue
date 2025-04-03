@@ -1,6 +1,6 @@
 {include file="$begintempl" /}
 {if condition="$group"}
-<tiny-select class="{$class}" placeholder="{$placeholder}" v-bind="{$id}Op" v-model="{$VModel}" @change="{$id}Change"
+<tiny-base-select class="{$class}" placeholder="{$placeholder}" v-bind="{$id}Op" v-model="{$VModel}" @change="{$id}Change"
     @focus="{$id}Focus(row, $event)" {$attr|raw}>
     <template v-for="(group, index) in {$id}Options" :key="index">
         <tiny-option-group :label="group.label" :disabled="!!group.disabled">
@@ -10,9 +10,9 @@
             </template>
         </tiny-option-group>
     </template>
-</tiny-select>
+</tiny-base-select>
 {else/}
-<tiny-select class="{$class}" placeholder="{$placeholder}" :optimization="true"
+<tiny-base-select class="{$class}" placeholder="{$placeholder}" :optimization="true"
     :options="row?row.__field_info__['{$name}']['options']:{$id}Options" v-bind="{$id}Op" v-model="{$VModel}"
     @change="{$id}Change" @focus="{$id}Focus(row, $event)" {$attr|raw}>
     {if condition="$prefix"}
@@ -23,6 +23,6 @@
         <span class="tiny-select-dropdown__empty" v-text="{$id}Error"></span>
     </template>
     {/if}
-</tiny-select>
+</tiny-base-select>
 {/if}
 {include file="$endtempl" /}
