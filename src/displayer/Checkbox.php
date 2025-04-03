@@ -24,6 +24,8 @@ class Checkbox extends Field
 
     protected $disabledOptions = [];
 
+    protected $postAsString = false;
+
     protected $blockStyle = false;
 
     /**
@@ -104,6 +106,18 @@ class Checkbox extends Field
     }
 
     /**
+     * 提交时是否把数组转成字符串
+     * 
+     * @param boolean $val
+     * @return $this
+     */
+    public function postAsString($val = true)
+    {
+        $this->postAsString = $val;
+        return $this;
+    }
+
+    /**
      * Undocumented function
      *
      * @param array|string $val
@@ -168,6 +182,19 @@ EOT;
         ]);
 
         $this->whenScript();
+
+        if ($this->postAsString) {
+            $VModel = $this->getVModel();
+            
+            $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+            $this->convertScript[] = $script;
+        }
     }
 
     /**

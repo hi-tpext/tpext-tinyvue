@@ -52,6 +52,7 @@ class Form extends FWrapper implements Renderable
     protected $readonly = false;
     protected $partial = false;
     protected $formData = [];
+    protected $convertScripts = [];
     protected $validateScripts = [];
     /**
      * Undocumented variable
@@ -790,7 +791,7 @@ class Form extends FWrapper implements Renderable
      */
     public function addJqValidatorRule($name, $rule, $val = true)
     {
-        $this->addFormData($name, [$rule => $val]);
+        $this->addValidatorRule($name, [$rule => $val]);
         return $this;
     }
 
@@ -849,6 +850,20 @@ class Form extends FWrapper implements Renderable
     /**
      * Undocumented function
      * 
+     * @param string|array $script
+     * @return void
+     */
+    public function addConvertScript($script)
+    {
+        if (!is_array($script)) {
+            $script = [$script];
+        }
+        $this->convertScripts = array_merge($this->convertScripts, $script);
+    }
+
+    /**
+     * Undocumented function
+     * 
      * @return void
      */
     protected function eventScript()
@@ -899,10 +914,16 @@ EOT;
         $ajax = $this->ajax ? 'true' : 'false';
         $readonly = $this->readonly ? 'true' : 'false';
         $validateScripts = '';
+        $convertScripts = '';
         $this->validateScripts = array_filter($this->validateScripts, 'strlen');
+        $this->convertScripts = array_filter($this->convertScripts, 'strlen');
 
         if (count($this->validateScripts)) {
             $validateScripts = implode("\n\t\t\t", $this->validateScripts);
+        }
+
+        if (count($this->convertScripts)) {
+            $convertScripts = implode("\n\t\t\t", $this->convertScripts);
         }
 
         $script = <<<EOT
@@ -928,6 +949,11 @@ EOT;
         });
     };
 
+    const {$form}Convert = ({$form}Data) => {
+        {$convertScripts}
+        return {$form}Data;
+    };
+
     const {$form}Post = () => {
         let params = Object.assign(
             {
@@ -941,6 +967,8 @@ EOT;
                 acc[key] = params[key];
                 return acc;
             }, {});
+
+        params = {$form}Convert(params);
         
         let {$form}Loading = TinyLoading.service({
             text: __blang.bilder_loading,

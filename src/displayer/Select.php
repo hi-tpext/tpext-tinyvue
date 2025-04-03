@@ -371,16 +371,14 @@ EOT;
                 },
                 timeout: 60000,
             }).then(res => {
-                let list = res.data.data || res.data || [];
-                let options = [];
-                list.forEach(d => {
-                    options.push({
-                        value: '' + (d.__id__ || d['{$id}'] || d.id),
-                        label: d.__text__ || d['{$text}'] || d.text,
+                let list = (res.data.data || res.data || []).map(x => { 
+                    return {
+                        value: '' + (x.__id__ || x['{$id}'] || x.id),
+                        label: x.__text__ || x['{$text}'] || x.text,
                         disabled: false,
-                    });
+                    };
                 });
-                return resolve(options);
+                return resolve(list);
             })
             .catch(e => {
                 {$fieldId}Error.value = __blang.bilder_network_error;
@@ -392,6 +390,7 @@ EOT;
     let {$fieldId}Page = 1;
     let {$fieldId}Query = '!@#$%^&*()_+';
     let {$fieldId}WithParams = {$withParams};
+    let {$fieldId}NewData = false;
     const {$fieldId}InTable = {$inTable};
 
     if('{$formMode}' == 'search' && !'{$prevId}') {
@@ -403,7 +402,7 @@ EOT;
             {$fieldId}LoadData({$VModel}).then(options => {
                 {$fieldId}Options.value = options;
                 if(options.length == 0) {
-                    {$VModel} = '';
+                    {$VModel} = {$fieldId}Op.value.multiple ? [] : '';
                 }
             });
         }
@@ -413,7 +412,9 @@ EOT;
         if(!query || query != {$fieldId}Query) {
             {$fieldId}Page = 1;
             {$fieldId}Query = query;
-            {$fieldId}Options.value = [];
+            {$fieldId}NewData = true;
+        } else {
+            {$fieldId}NewData = false;
         }
 
         let row = {$fieldId}Row;
@@ -453,17 +454,17 @@ EOT;
             },
             timeout: 60000,
         }).then(res => {
-            let list = res.data.data || res.data || [];
-            list.forEach(d => {
-                {$fieldId}Options.value.push({
-                    value: '' + (d.__id__ || d['{$id}'] || d.id),
-                    label: d.__text__ || d['{$text}'] || d.text,
+            let list = (res.data.data || res.data || []).map(x => { 
+                return {
+                    value: '' + (x.__id__ || x['{$id}'] || x.id),
+                    label: x.__text__ || x['{$text}'] || x.text,
                     disabled: false,
-                });
+                };
             });
-                
-            if(list.length > 0) {
-                {$fieldId}Page += 1;
+            if({$fieldId}NewData) {
+                {$fieldId}Options.value = list;
+            } else {
+                {$fieldId}Options.value.push(...list);
             }
         })
         .catch(e => {

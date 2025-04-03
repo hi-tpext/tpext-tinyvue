@@ -6,17 +6,17 @@
             :content="'{$editText}'+(tag.length < 20?'':tag)" placement="top">
             <tiny-tag v-bind="{$id}Op" :closable="true" @close="{$id}HandleClose(row, index)"
                 @click="{$id}HandleEdit(row, tag, index)" {$attr|raw}>
-                {{ tag.length > 20 ? `${tag.slice(0, 20)}...` : tag }}
+                {{ tag.length > 15 ? `${tag.slice(0, 15)}...` : tag }}
             </tiny-tag>
         </tiny-tooltip>
-        <tiny-input v-else :id="row?'{$id}input1_row_'+row.__pk__:'{$id}input1_row_0'" class="new-tag"
-            v-model="{$id}InputValue1" :ref="{$id}AddInput1Ref" size="small"
-            @keyup.enter="{$id}InputConfirm1(row, index)" @blur="{$id}InputConfirm1(row, index)">
+        <tiny-input v-else class="new-tag" v-model="{$id}InputValue1" :ref="el => {$id}AddInput1Ref(el, row)"
+            size="small" @keyup.enter="{$id}InputConfirm1(row, index)" @blur="{$id}InputConfirm1(row, index)">
         </tiny-input>
     </span>
-    <tiny-input :id="row?'{$id}input2_row_'+row.__pk__:'{$id}input2_row_0'" class="new-tag" placeholder="{$placeholder}"
+    <tiny-input class="new-tag" placeholder="{$placeholder}"
         v-show="{$id}InputVisible[row?'input2_row_'+row.__pk__:'input2_row_0']" v-model="{$id}InputValue2"
-        :ref="{$id}AddInput2Ref" size="small" @keyup.enter="{$id}InputConfirm2(row)" @blur="{$id}InputConfirm2(row)">
+        :ref="el => {$id}AddInput2Ref(el, row)" size="small" @keyup.enter="{$id}InputConfirm2(row)"
+        @blur="{$id}InputConfirm2(row)">
     </tiny-input>
     <span class="tiny-tag-wrap {$class}">
         <tiny-tag v-bind="{$id}Op" :closable="false"

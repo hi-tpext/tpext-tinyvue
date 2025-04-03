@@ -17,6 +17,8 @@ class SelectTree extends Field
 
     protected $checked = '';
 
+    protected $postAsString = false;
+
     protected $jsOptions =  [
         'clearable' => true,
         'filterable' => true,
@@ -97,6 +99,18 @@ class SelectTree extends Field
         return $this;
     }
 
+    /**
+     * 提交时是否把数组转成字符串
+     * 
+     * @param boolean $val
+     * @return $this
+     */
+    public function postAsString($val = true)
+    {
+        $this->postAsString = $val;
+        return $this;
+    }
+
     protected function fieldScript()
     {
         $fieldId = $this->getId();
@@ -117,6 +131,19 @@ EOT;
         ]);
 
         $this->whenScript();
+
+        if ($this->postAsString) {
+            $VModel = $this->getVModel();
+
+            $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+            $this->convertScript[] = $script;
+        }
     }
 
     public function customVars()

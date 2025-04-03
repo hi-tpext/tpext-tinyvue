@@ -6,6 +6,8 @@ class Color extends Text
 {
     protected $view = 'color';
 
+    protected $size = [2, 3];
+
     /**
      *
      * alpha 	  是否启用alpha选择

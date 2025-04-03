@@ -6,8 +6,6 @@ class SwitchBtn extends Field
 {
     protected $view = 'switchbtn';
 
-    protected $checked = '';
-
     protected $pair = ['on' => 1, 'off' => 0];
 
     protected $default = 0;
@@ -26,12 +24,13 @@ class SwitchBtn extends Field
     /**
      * Undocumented function
      * @example 1 (1, 0) / ('yes', 'no') / ('on', 'off') etc...
-     * @param array $val
+     * @param string|mixed $on
+     * @param string|mixed $off
      * @return $this
      */
     public function pair($on = 1, $off = 0)
     {
-        $this->pair = ['on' => $on, 'off' => $off];;
+        $this->pair = ['on' => $on, 'off' => $off];
 
         return $this;
     }
@@ -46,16 +45,10 @@ class SwitchBtn extends Field
         return $this->pair;
     }
 
-    public function render()
+    public function customVars()
     {
-        $vars = $this->commonVars();
-
-        $vars = array_merge($vars, [
+        return [
             'pair' => $this->pair,
-        ]);
-
-        $viewshow = $this->getViewInstance();
-
-        return $viewshow->assign($vars)->getContent();
+        ];
     }
 }

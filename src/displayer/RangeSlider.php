@@ -39,4 +39,18 @@ class RangeSlider extends Field
 
         return $this->renderValue;
     }
+
+    protected function fieldScript()
+    {
+        $VModel = $this->getVModel();
+
+        $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join(',');
+        }
+
+EOT;
+        $this->convertScript[] = $script;
+    }
 }

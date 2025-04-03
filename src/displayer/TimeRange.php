@@ -26,4 +26,20 @@ class TimeRange extends Time
         $this->jsOptions['range-separator'] = $val;
         return $this;
     }
+
+    protected function fieldScript()
+    {
+        $VModel = $this->getVModel();
+
+        $separator = $this->jsOptions['range-separator'];
+
+        $script = <<<EOT
+
+        if (Array.isArray({$VModel})) {
+            {$VModel} = {$VModel}.join('{$separator}');
+        }
+
+EOT;
+        $this->convertScript[] = $script;
+    }
 }
