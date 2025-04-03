@@ -235,7 +235,7 @@ class Tree extends Widget implements Renderable
     const {$treeId}Ref = ref(null);
     const {$treeId}Op = ref({$configs});
     const {$treeId}Options = ref({$options});
-    const {$treeId}multiple = {$multiple};
+    const {$treeId}Multiple = {$multiple};
 
     const {$treeId}NodeCheck = (data, currentChecked) => {
         {$this->onClick}
@@ -270,7 +270,7 @@ EOT;
         if(data.id === '__root__') {
             {$searchId}Data['{$field}'] = '';
         } else {
-            {$searchId}Data['{$field}'] = {$treeId}multiple ? currentChecked.checkedKeys.join(',') : data.id;
+            {$searchId}Data['{$field}'] = {$treeId}Multiple ? currentChecked.checkedKeys.join(',') : data.id;
         }
         {$searchId}Submit();
 EOT;
