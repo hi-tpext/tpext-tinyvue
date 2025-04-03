@@ -1298,7 +1298,9 @@ EOT;
         }
 
         if ($this->partial) {
-            ob_clean();
+            if (ob_get_level()) {
+                ob_clean();
+            }
             return json(['list' => $this->dataList, 'total' => $this->dataTotal, 'pageSize' => $this->pageSize]);
         }
 
