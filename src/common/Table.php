@@ -77,6 +77,7 @@ class Table extends TWrapper implements Renderable
     protected $sortable = ['id'];
     protected $sortOrder = '';
     protected $partial = false;
+    protected $delay = true;//延迟读取数据，调用fill()填充数据后取消延迟
     protected $convertScripts = [];
 
     /**
@@ -286,6 +287,7 @@ class Table extends TWrapper implements Renderable
      */
     public function data($data = [])
     {
+        $this->delay = false;
         $this->data = $data;
 
         return $this;
@@ -319,6 +321,7 @@ class Table extends TWrapper implements Renderable
      */
     public function fill($data = [])
     {
+        $this->delay = false;
         if (empty($data)) {
             return $this;
         }
@@ -633,6 +636,7 @@ class Table extends TWrapper implements Renderable
         $useChooseColumns = $this->getToolbar()->getChooseColumns() === false ? '[]'
             : json_encode($this->getToolbar()->getChooseColumns(), JSON_UNESCAPED_UNICODE);
         $useCheckbox = $this->useCheckbox && $this->useToolbar ? 'true' : 'false';
+        $delayLoad = $this->delay ? 'true' : 'false';
 
         $script = <<<EOT
 
@@ -682,6 +686,13 @@ class Table extends TWrapper implements Renderable
                 resolve({ result : {$table}InitData, page: { total : {$table}InitDataTotal } });
             });
         }
+        if(!{$table}Init && !{$delayLoad}) {
+            {$table}Init = true;
+            {$table}Loading.value = false;
+            return new Promise((resolve) => {
+                resolve({ result : [], page: { total : 0 } });
+            });
+        }
         {$table}Loading.value = true;
         if (sortBy && sortBy.field && sortBy.order) {
             {$table}Sort = sortBy.field + ' ' + sortBy.order;
@@ -722,7 +733,7 @@ class Table extends TWrapper implements Renderable
                 {$table}MultipleToolbarDisabled.value = true;//重置多选工具栏状态
                 let data = res.data || {};
                 {$table}ActiveRow.value = {__pk__ : null};
-                resolve({ result : data.list, page: { total : data.total } });
+                resolve({ result : data.list, page: { total : data.total} });
             }).catch(e => {
                 {$table}Loading.value = false;
                 console.log(e);
