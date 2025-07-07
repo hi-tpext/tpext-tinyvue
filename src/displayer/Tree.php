@@ -27,7 +27,7 @@ class Tree extends Field
     protected $jsOptions =  [
         'accordion' => false, //是否为手风琴模式，每次只打开一个同级树节点展开
         'check-on-click-node' => true,
-        'check-strictly' => false, //[多选]是否严格的遵循父子节点不互相关联的原则，设为true后父节点选中状态会影响子节点的选中状态。
+        'check-strictly' => true, //[多选]是否严格的遵循父子节点不互相关联的原则，设为true后父节点选中状态不会影响子节点的选中状态。。
         'default-expand-all' => true,
         'default-expanded-keys' => [],
         'delete-disabled-keys' => [],
@@ -76,6 +76,18 @@ class Tree extends Field
     {
         $this->multiple = $val;
         $this->valueType = $val ? 'array' : 'string';
+        return $this;
+    }
+
+     /**
+     * 多选时，是否父子节点不级联
+     * @param mixed $val
+     * @return $this
+     */
+    public function noCascaded($val = true)
+    {
+        $this->jsOptions['check-strictly'] = $val;
+
         return $this;
     }
 
