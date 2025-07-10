@@ -903,8 +903,8 @@ EOT;
         }
 
         if (static::$minify) {
-            $this->js = $this->customJs;
-            $this->css = $this->customCss;
+            $this->js = array_merge(['/assets/minify/min.js'], $this->customJs);
+            $this->css = array_merge(['/assets/minify/min.css'], $this->customCss);
         } else {
             $this->js = array_merge($this->js, $this->customJs);
             $this->css = array_merge($this->css, $this->customCss);
