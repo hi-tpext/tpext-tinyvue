@@ -414,7 +414,7 @@ class ItemsContent extends FWrapper
                     ) {
                         $displayer->readonly();
                     }
-    
+
                     if (
                         !empty($data['__disabled__fields__'])
                         && (in_array($col, $row['__disabled__fields__']) || $row['__disabled__fields__'][0] == '*')
@@ -428,6 +428,9 @@ class ItemsContent extends FWrapper
                         if ($this->canAdd) {
                             //填充模板默认值
                             Arr::set($this->template, $name, $displayer->lockValue(false)->value('')->renderValue());
+                            if ($displayer instanceof MultipleFile) {
+                                Arr::set($this->template, $name . '__thumbs', $displayer->thumbs());
+                            }
                             $this->template['__field_info__'][$name] = $displayer->fieldInfo();
                         }
                     }
@@ -467,15 +470,20 @@ class ItemsContent extends FWrapper
             }
         } else {
             //填充模板默认值
-            foreach ($this->cols as $col => $colunm) {
-                if (!($colunm instanceof FRow)) {
-                    continue;
+            if ($this->canAdd) {
+                foreach ($this->cols as $col => $colunm) {
+                    if (!($colunm instanceof FRow)) {
+                        continue;
+                    }
+                    $displayer = $colunm->getDisplayer();
+                    $value = $displayer->lockValue(false)->value('')->beforRender()->renderValue();
+                    Arr::set($this->template, $col, $value);
+                    if ($displayer instanceof MultipleFile) {
+                        Arr::set($this->template, $col . '__thumbs', $displayer->thumbs());
+                    }
+                    $this->template['__field_info__'][$col] = $displayer->fieldInfo();
+                    $this->convertScripts = array_merge($this->convertScripts, $displayer->getConvertScript());
                 }
-                $displayer = $colunm->getDisplayer();
-                $value = $displayer->lockValue(false)->value('')->beforRender()->renderValue();
-                Arr::set($this->template, $col, $value);
-                $this->template['__field_info__'][$col] = $displayer->fieldInfo();
-                $this->convertScripts = array_merge($this->convertScripts, $displayer->getConvertScript());
             }
         }
 
@@ -560,7 +568,7 @@ EOT;
         $tableColumns = json_encode($this->tableColumns, JSON_UNESCAPED_UNICODE);
         $initData = json_encode($this->dataList, JSON_UNESCAPED_UNICODE);
         $template = json_encode($this->template, JSON_UNESCAPED_UNICODE);
-        
+
         $this->convertScripts = array_filter($this->convertScripts, 'strlen');
         $convertScripts = '';
         if (count($this->convertScripts)) {
