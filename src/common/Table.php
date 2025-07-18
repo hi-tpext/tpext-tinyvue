@@ -962,6 +962,7 @@ class Table extends TWrapper implements Renderable
         'resizable' : true,
         'sortable' : true,
         'remote-sort' : true,
+        'heigh': 'auto',
         'loading' : {$table}Loading,
         'column-min-width' : '100px',
         'fetch-data' : {$table}fetchData,
@@ -1185,7 +1186,10 @@ EOT;
                                 Arr::set($this->dataList[$key], $sDisplayer->getName() . '__thumbs', $sDisplayer->thumbs());
                             }
                         }
+                        $sDisplayer->fill([]);
                     }
+
+                    $displayer->fill([]);
                 }
 
                 if ($this->useActionbar) {

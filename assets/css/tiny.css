@@ -8,7 +8,7 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
- html {
+html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
@@ -744,12 +744,13 @@ th {
   line-height: 24px;
 }
 
-/* .table-wrapper
-  .tiny-grid
-  .tiny-grid-body__column.column-field.col__ellipsis:not(.col__actived)
-  .tiny-grid-cell {
-  overflow-x: auto;
-} */
+.table-wrapper .tiny-grid .tiny-grid-body__y-space {
+  display: none;
+}
+
+.table-wrapper .tiny-grid .tiny-grid__body {
+  overflow: hidden;
+}
 
 .tiny-image-priview {
   overflow: auto;
@@ -879,11 +880,12 @@ th {
   }
 }
 
-
-
 @media screen and (max-width: 767px) {
-  .col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label {
+  .label-col.col-xs-24
+    .tiny-form-item.control-label
+    label.tiny-form-item__label {
     --tv-FormItem-height-sm: 22px;
+    text-align: left;
   }
 }
 
@@ -894,7 +896,9 @@ th {
 }
 
 @media screen and (max-width: 991px) {
-  .col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label {
+  .label-col.col-sm-24
+    .tiny-form-item.control-label
+    label.tiny-form-item__label {
     text-align: left;
     --tv-FormItem-height-sm: 22px;
   }
@@ -1442,11 +1446,15 @@ th {
 }
 
 .form-wrapper .tiny-form .tiny-form-row {
-  min-height: 39px;
+  min-height: 40px;
+}
+
+.form-wrapper form.search-form .tiny-form-item.tiny-form-item {
+  --tv-FormItem-margin-bottom: 4px;
 }
 
 .form-wrapper form.search-form .tiny-form-row {
-  min-height: 35px;
+  min-height: 38px;
 }
 
 .field-required {
