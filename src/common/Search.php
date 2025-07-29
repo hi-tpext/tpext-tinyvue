@@ -452,8 +452,10 @@ class Search extends SWrapper implements Renderable
                 {
                     return false;
                 }
-                if($('form').length > 1)
-                {
+                if(document.activeElement.tagName.toLowerCase()== "textarea") {
+                    return true;
+                }
+                if($('form').size() > 1) {
                     return false;
                 }
                 {$form}Submit();
