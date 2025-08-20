@@ -9,7 +9,7 @@ use tpext\common\Module as baseModule;
 
 class TinyVue extends baseModule
 {
-    protected $version = '1.1.0';
+    protected $version = '1.1.1';
 
     protected $name = 'tpext.tinyvue';
 

@@ -63,9 +63,11 @@ class DropdownBtns extends Bar
         'visible-arrow' : true,
         'split-button' : true,
         'inherit-width' : true,
-        'size' : 'mini',
+        'size' : 'small',
         'trigger' : 'hover',
         'type' : '{$this->type}' || 'default',
+        'round' : false,
+        'border' : true,
     });
 
 EOT;

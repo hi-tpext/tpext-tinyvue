@@ -106,7 +106,7 @@ class LinkBtn extends Bar
     };
 
     const {$btnId}Op = ref({
-        'size' : 'mini',
+        'size' : 'small',
         'plain' : true,
         'type' : '{$this->type}',
         'class' : { 'btn-disabled' : {$table}MultipleToolbarDisabled}
@@ -161,7 +161,7 @@ EOT;
     };
 
     const {$btnId}Op = ref({
-        'size' : 'mini',
+        'size' : 'small',
         'plain' : true,
         'type' : '{$this->type}',
     });

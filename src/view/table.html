@@ -8,7 +8,7 @@
     <div class="table-wrapper">
         <tiny-grid class="{$class}" ref="{$id}Ref" v-bind="{$id}Op" {$attr|raw}>
             <template #toolbar>
-                <tiny-grid-toolbar :id="{$id}ToolbarId" size="mini" :class="{full: {$id}UseChooseColumns.length==0}"
+                <tiny-grid-toolbar :id="{$id}ToolbarId" size="small" :class="{full: {$id}UseChooseColumns.length==0}"
                     :resizable="{ storage: 'local' }" :setting="{$id}ToolbarSetting" @save-setting="{$id}SaveSetting">
                     {notempty name="toolbar"}
                     <template #buttons>

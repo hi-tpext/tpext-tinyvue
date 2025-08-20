@@ -1068,7 +1068,6 @@ EOT;
 
     const {$form}Op = ref({
         'label-width': '0',
-        'size': 'small',
         'readonly': {$readonly},
         'rules': {$rules},
         'show-message': false,

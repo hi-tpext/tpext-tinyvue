@@ -52,7 +52,7 @@ class Field implements Fillable
     protected $icon = '';
     protected $autoPost = [];
     protected $showLabel = true;
-    protected $labelClass = 'tiny-form-item--small';
+    protected $labelClass = 'tiny-form-item--default';
     protected $labelAttr = '';
     protected $size = [2, 8];
     protected $help = '';
@@ -1631,7 +1631,7 @@ EOT;
     {
         $this->formMode = $val ?: 'from';
         if ($this->formMode == 'table') {
-            $this->jsOptions['size'] = 'mini';
+            $this->jsOptions['size'] = 'small';
             if ($this->isInput()) {
                 $this->autoPost(); //表格中修改后自动提交
             }

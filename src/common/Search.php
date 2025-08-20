@@ -4,7 +4,6 @@ namespace tpext\builder\common;
 
 use think\helper\Arr;
 use tpext\think\View;
-use tpext\builder\form\FRow;
 use tpext\builder\form\When;
 use tpext\builder\search\SRow;
 use tpext\builder\common\Module;
@@ -320,7 +319,7 @@ class Search extends SWrapper implements Renderable
                         ->buttonSize($this->butonsSizeClass)
                         ->onClick($this->id . 'Submit();'),
                     $this->button('button', __blang('bilder_button_reset'), '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6')
-                        ->type('primary')
+                        ->type('default')
                         ->buttonSize($this->butonsSizeClass)
                         ->onClick($this->id . 'Reset();')
                 );
@@ -360,7 +359,7 @@ class Search extends SWrapper implements Renderable
      * @param string $type
      * @return $this
      */
-    public function btnReset($label = '重&nbsp;&nbsp;置', $size = '2 col-xl-2 col-lg-2 col-sm-6 col-xs-12', $type = 'primary')
+    public function btnReset($label = '重&nbsp;&nbsp;置', $size = '2 col-xl-2 col-lg-2 col-sm-6 col-xs-12', $type = 'default')
     {
         if ($label == '重&nbsp;&nbsp;置') {
             $label = __blang('bilder_button_reset');
@@ -605,7 +604,7 @@ EOT;
             }
 
             $displayer->extKey($this->tableId);
-            $displayer->labelClass('tiny-form-item--samll');
+            $displayer->labelClass('tiny-form-item--small');
 
             if ($displayer instanceof Text) {
                 $displayer->befor('');

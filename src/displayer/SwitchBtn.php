@@ -17,8 +17,8 @@ class SwitchBtn extends Field
      * @var array
      */
     protected $jsOptions = [
-        'mini' => true,
-        'show-text' => true,
+        // 'mini' => true,
+        'show-text' => false,
     ];
 
     /**
@@ -32,6 +32,21 @@ class SwitchBtn extends Field
     {
         $this->pair = ['on' => $on, 'off' => $off];
 
+        return $this;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $val from | table | search
+     * @return $this
+     */
+    public function setFormMode($val)
+    {
+        parent::setFormMode($val);
+        if ($this->formMode == 'table') {
+            $this->jsOptions['mini'] = true;
+        }
         return $this;
     }
 

@@ -2,7 +2,7 @@
 {if condition="$checkallBtn"}
 <div class="checkbox-group-btn-all">
     {if condition="$blockStyle"}
-    <tiny-checkbox-button class="tiny-checkbox-button--small"
+    <tiny-checkbox-button class="tiny-checkbox-button--default"
         v-model="{$id}CheckAll">{$checkallBtn|raw}</tiny-checkbox-button>
     {else/}
     <tiny-checkbox :indeterminate="{$id}Indeterminate" v-model="{$id}CheckAll">{$checkallBtn|raw}</tiny-checkbox>

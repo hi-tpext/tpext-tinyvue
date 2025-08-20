@@ -1,5 +1,5 @@
 {include file="$begintempl" /}
-<tiny-button size="small" class="icon-selector" @click="{$id}OpenIconSelector(row)">
+<tiny-button size="small" type="primary" :plain="true" class="icon-selector" @click="{$id}OpenIconSelector(row)">
     <i :class="{$VModel}"></i>
 </tiny-button>
 {if condition="!$inTable"}

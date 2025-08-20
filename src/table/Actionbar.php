@@ -2,10 +2,12 @@
 
 namespace tpext\builder\table;
 
+use tpext\think\View;
+use tpext\builder\toolbar\Html;
+use tpext\builder\common\Module;
+use tpext\builder\common\Builder;
 use tpext\builder\common\Toolbar;
 use tpext\builder\toolbar\ActionBtn;
-use tpext\builder\toolbar\Html;
-use tpext\builder\common\Builder;
 
 class Actionbar extends Toolbar
 {
@@ -445,7 +447,22 @@ class Actionbar extends Toolbar
      */
     public function br()
     {
-        parent::html('<br />');
+        parent::html('</div><div class="btn-row">');
         return $this;
+    }
+
+    public function render()
+    {
+        $template = Module::getInstance()->getViewsPath()  . 'table' . DIRECTORY_SEPARATOR .  'actionbar.html';
+
+        $viewshow = new View($template);
+
+        $vars = [
+            'elms' => $this->elms,
+            'class' => $this->class,
+            'attr' => $this->getAttrWithStyle(),
+        ];
+
+        return $viewshow->assign($vars)->getContent();
     }
 }
