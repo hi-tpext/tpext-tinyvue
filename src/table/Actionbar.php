@@ -131,23 +131,24 @@ class Actionbar extends Toolbar
             $elm->tableId($this->tableId);
 
             $label = $elm->getLabel();
-            $icon = $elm->getInon();
-            $labelWidth = mb_strlen($label) * 20;
 
-            if ($icon && $label) {
-                $labelWidth += 18;
-                $width += $labelWidth > 30 ? $labelWidth : 30;
-            } else if ($label) {
-                $width += $labelWidth > 30 ? $labelWidth : 30;
-            } else {
-                $width += 30;
-            }
-
-            $width += 11;
-
-            if ($elm instanceof Html && stristr($label, '<br')) {
-                $btnGropps[] = $width;
+            if ($elm instanceof Html && (stristr($label, '<div') || stristr($label, '<br'))) {
+                $btnGropps[] = $width + 4 * 2;//操作列 padding左右各4px
                 $width = 0;
+            } else {
+                $icon = $elm->getInon();
+                $labelWidth = mb_strlen($label) * 20;
+
+                if ($icon && $label) {
+                    $labelWidth += 18;
+                    $width += $labelWidth > 30 ? $labelWidth : 30;
+                } else if ($label) {
+                    $width += $labelWidth > 30 ? $labelWidth : 30;
+                } else {
+                    $width += 30;
+                }
+
+                $width += 4;
             }
 
             if (!($elm instanceof ActionBtn)) {
@@ -204,9 +205,9 @@ class Actionbar extends Toolbar
             $this->actionConfig[$elm->getId()] = $config;
         }
 
-        if (count($btnGropps)) {
-            $width = max($btnGropps);
-        }
+        $btnGropps[] = $width + 4 * 2;
+
+        $width = max($btnGropps);
 
         $this->actionWidth = $width;
 
@@ -453,7 +454,7 @@ class Actionbar extends Toolbar
 
     public function render()
     {
-        $template = Module::getInstance()->getViewsPath()  . 'table' . DIRECTORY_SEPARATOR .  'actionbar.html';
+        $template = Module::getInstance()->getViewsPath() . 'table' . DIRECTORY_SEPARATOR . 'actionbar.html';
 
         $viewshow = new View($template);
 

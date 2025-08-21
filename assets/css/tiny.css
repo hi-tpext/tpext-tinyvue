@@ -959,7 +959,7 @@ body {
 .tiny-grid .tiny-grid-body__column .column-field-wrapper.disabled,
 .tiny-grid .tiny-grid-body__column .column-field-wrapper.readonly {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 .tiny-grid .tiny-grid-body__column .column-field-wrapper.disabled > *,

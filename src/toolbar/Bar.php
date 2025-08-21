@@ -180,6 +180,11 @@ class Bar implements Renderable
         return $this;
     }
 
+    public function isHidden()
+    {
+        return $this->hidden;
+    }
+
     public function getHref()
     {
         return empty($this->__href__) ? $this->href : $this->__href__;

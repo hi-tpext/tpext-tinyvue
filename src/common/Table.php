@@ -1132,7 +1132,7 @@ EOT;
                     'title' => strip_tags(str_replace(['<br>', '<br/>', '<br />', '<br >'], " | ", $title)), //需要过滤html标签
                     'class-name' => $colunm->getClass(),
                     'sortable' => $colAttr['sortable'] || $col == $sortKey || in_array($col, $this->sortable),
-                    'width' => $colAttr['width'] ?: ($colunm->getStyleByName('width') ?: ($displayer->getStyleByName('width') ?: 'auto')),
+                    'width' => $colAttr['width'] ?: ($colunm->getStyleByName('width') ?: ($displayer->getStyleByName('width') ?: ($col == $this->pk ? 60 : 'auto'))),
                     'min-width' => $colAttr['min-width'] ?: ($colunm->getStyleByName('min-width') ?: ($displayer->getStyleByName('min-width') ?: '90')),
                     // 'max-width' => $colunm->getStyleByName('max-width') ?: ($displayer->getStyleByName('max-width') ?: '100%'),//暂不支持
                     'visible' => $colAttr['hidden'] ? false : ($useChooseColumns && ($useChooseColumns[0] == '*' || in_array($col, $useChooseColumns))),
