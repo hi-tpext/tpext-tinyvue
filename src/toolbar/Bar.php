@@ -257,16 +257,6 @@ class Bar implements Renderable
     /**
      * Undocumented function
      *
-     * @return array
-     */
-    public function getScript()
-    {
-        return $this->script;
-    }
-
-    /**
-     * Undocumented function
-     *
      * @return string
      */
     public function getLabel()

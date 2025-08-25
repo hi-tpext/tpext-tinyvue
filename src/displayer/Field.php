@@ -1196,7 +1196,11 @@ EOT;
             Builder::getInstance()->addSetupScript($this->setupScript);
         }
 
-        if (($this->formMode == 'form' || $this->formMode == 'table') && !empty($this->convertScript)) {
+        if (($this->formMode == 'form' || $this->formMode == 'search') && !empty($this->convertScript)) {
+            if (!$this->inTable) { //不在items中
+                $this->getForm()->addConvertScript($this->convertScript);
+            }
+        } else if ($this->formMode == 'table' && !empty($this->convertScript)) {
             $this->getForm()->addConvertScript($this->convertScript);
         }
 

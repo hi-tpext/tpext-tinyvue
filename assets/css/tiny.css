@@ -760,6 +760,13 @@ body {
   --tv-Grid-cell-padding-x: 4px;
 }
 
+.tiny-grid.size__small {
+  --tv-Grid-cell-height-small: 38px;
+  --tv-Grid-cell-padding-y-small: 4px;
+  --tv-Grid-cell-padding-x-small: 4px;
+  --tv-Grid-line-height: 26px;
+}
+
 .tiny-grid-toolbar .tiny-grid-custom__wrapper,
 .tiny-grid-toolbar .tiny-grid-custom__setting-btn {
   height: var(--tv-size-height-sm);
@@ -913,6 +920,10 @@ body {
 
 .form-wrapper .tiny-form-item__content {
   min-height: var(--tv-size-height-md);
+}
+
+.displayer-select .tiny-form-item .tiny-form-item__content {
+  max-height: var(--tv-size-height-md);
 }
 
 .table-column-content {
@@ -1155,8 +1166,8 @@ body {
   margin-right: 5px;
   padding: 0;
   min-width: 42px;
-  height: 24px;
-  line-height: 22px;
+  height: 28px;
+  line-height: 24px;
 }
 
 .icon-selector-dialog .tiny-dialog-box__header {

@@ -718,6 +718,8 @@ class Table extends TWrapper implements Renderable
                 return acc;
             }, {});
 
+        params = {$search}Convert(params);
+
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',
@@ -757,6 +759,8 @@ class Table extends TWrapper implements Renderable
             },
             {$table}Sort ? { __sort__ : {$table}Sort } : null,
         );
+
+        params = {$search}Convert(params);
 
         axios({
             method: 'get',

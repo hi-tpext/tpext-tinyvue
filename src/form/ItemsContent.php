@@ -667,7 +667,7 @@ EOT;
         'row-id': '__pk__',
         'show-header-overflow': 'tooltip',
         'show-overflow': 'tooltip',
-        'size': 'medium',
+        'size': 'small',
         'stripe': true,
         'resizable': true,
         'sortable': true,
