@@ -52,7 +52,7 @@ class UEditor extends Field
 
         if (!class_exists('\\tpext\\builder\\ueditor\\common\\Resource')) {
             $this->js = [];
-            $this->onMountedScript[] = 'TinyModal.alert({ message: () => <div style="color: #fa9841">未安装ueditor资源包！<pre>composer require ichynul/builder-ueditor</pre></div> });';
+            $this->onMountedScript[] = "TinyModal.alert('请执行：composer require ichynul/builder-ueditor','未安装ueditor资源包');";
             return;
         }
 

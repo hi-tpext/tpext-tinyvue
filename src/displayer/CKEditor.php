@@ -30,7 +30,7 @@ class CKEditor extends Field
         }
         if (!class_exists('\\tpext\\builder\\ckeditor\\common\\Resource')) {
             $this->js = [];
-            $this->onMountedScript[] = 'TinyModal.alert({ message: () => <div style="color: #fa9841">未安装ckeditor资源包！<pre>composer require ichynul/builder-ckeditor</pre></div> });';
+            $this->onMountedScript[] = "TinyModal.alert('请执行：composer require ichynul/builder-ckeditor', '未安装ckeditor资源包');";
             return;
         }
         // 配置可放在config.js中

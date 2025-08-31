@@ -49,7 +49,7 @@ class MDEditor extends Field
         if (!class_exists('\\tpext\\builder\\mdeditor\\common\\Resource')) {
             $this->js = [];
             $this->css = [];
-            $this->onMountedScript[] = 'TinyModal.alert({ message: () => <div style="color: #fa9841">未安装mdeditor资源包！！<pre>composer require ichynul/builder-mdeditor</pre></div> });';
+            $this->onMountedScript[] = "TinyModal.alert('请执行：composer require ichynul/builder-mdeditor', '未安装mdeditor资源包');";
             return;
         }
 
