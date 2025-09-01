@@ -952,8 +952,8 @@ body {
 
 .tiny-grid-body__column .field-raw,
 .tiny-grid-body__column .field-show {
-  /* min-height: 28px;
-  line-height: 28px; */
+  min-height: 28px;
+  line-height: 28px;
 }
 
 .tiny-grid .tiny-grid-body__column.col__center .tiny-checkbox__inner,
