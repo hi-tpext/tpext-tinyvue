@@ -76,6 +76,7 @@ class Builder implements Renderable
 
     protected $commonCss = [
         '/assets/tpexttinyvue/lib/index.css',
+        '/assets/tpexttinyvue/lib/dark-theme-index.css',
         '/assets/tpexttinyvue/js/layui/css/layui.css',
         '/assets/tpexttinyvue/css/tiny.css',
         '/assets/tpexttinyvue/css/materialdesignicons.min.css',
