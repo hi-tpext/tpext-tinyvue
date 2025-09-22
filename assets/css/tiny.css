@@ -1079,6 +1079,15 @@ html.dark body {
   padding: 10px;
 }
 
+/**修复暗黑模式颜色**/
+html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__selected:not(.row__hover):nth-child(2n) {
+  background-color: #394755;
+}
+
+html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__selected:not(.row__hover):nth-child(2n+1) {
+  background-color: #465362;
+}
+
 /** form **/
 
 .tiny-form-item .tiny-form-item__label {
@@ -1304,7 +1313,6 @@ html.dark body {
   --tv-Tabs-item-font-size: 14px;
   --tv-Tabs-content-margin-vertical: 0;
   --tv-Tabs-content-margin-horizontal: 0;
-  --tv-Tabs-border-color: #e7eaec;
   --tv-font-weight-bold: 400;
   --tv-Tabs-height: 38px;
 }
