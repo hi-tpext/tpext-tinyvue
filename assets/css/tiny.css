@@ -1060,6 +1060,10 @@ html.dark body {
   pointer-events: none;
 }
 
+.tiny-grid .tiny-grid-body__column .column-field-wrapper.readonly .tiny-input__suffix-inner {
+  pointer-events: none;
+}
+
 .tiny-grid .tiny-grid-body__column .column-field-wrapper,
 .tiny-grid .tiny-grid-body__column .column-field-wrapper>div {
   width: 100%;
@@ -1679,6 +1683,10 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
 }
 
 .form-field-readonly .tiny-form-item__content>* {
+  pointer-events: none;
+}
+
+.form-field-readonly .tiny-input__suffix-inner {
   pointer-events: none;
 }
 
