@@ -1151,6 +1151,10 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   width: 100%;
 }
 
+.tiny-divider--horizontal{
+  min-height: 19px;
+}
+
 @media (min-width: 768px) {
   .tiny-form-item.control-label label.tiny-form-item__label {
     text-align: right;
