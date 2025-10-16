@@ -682,6 +682,9 @@ class Table extends TWrapper implements Renderable
         if(!{$table}Init && {$table}InitData.length) {
             {$table}Init = true;
             {$table}Loading.value = false;
+            if({$table}Op.value.optimization.scrollY.gt < {$table}InitData.length){
+                {$table}Op.value.optimization.scrollY.gt = {$table}InitData.length;
+            }
             return new Promise((resolve) => {
                 resolve({ result : {$table}InitData, page: { total : {$table}InitDataTotal } });
             });
@@ -735,6 +738,9 @@ class Table extends TWrapper implements Renderable
                 {$table}MultipleToolbarDisabled.value = true;//重置多选工具栏状态
                 let data = res.data || {};
                 {$table}ActiveRow.value = {__pk__ : null};
+                if(data.list && {$table}Op.value.optimization.scrollY.gt < data.list.length){
+                    {$table}Op.value.optimization.scrollY.gt = data.list.length;
+                }
                 resolve({ result : data.list, page: { total : data.total} });
             }).catch(e => {
                 {$table}Loading.value = false;
@@ -977,6 +983,16 @@ class Table extends TWrapper implements Renderable
             'select-change' : {$table}SelectChange,
             'select-all' : {$table}SelectAll,
             'cell-mouseenter' : {$table}CellMouseenter,
+        },
+        'optimization' : {
+            animat: false,
+            delayHover: 1000,
+            scrollX: {
+                gt: 100, // 指定大于多少范围时自动启动虚拟滚动（启用 X 虚拟滚动，必须固定所有列宽，否则无法兼容）默认 100
+            },
+            scrollY: {
+                gt: 1000, // 指定大于多少范围时自动启动虚拟滚动（启用 Y 虚拟滚动，必须固定所有行高，否则无法兼容）默认 500
+            }
         },
     });
 
