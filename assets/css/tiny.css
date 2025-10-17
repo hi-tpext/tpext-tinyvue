@@ -994,6 +994,11 @@ html.dark body {
   background: none;
 }
 
+.tiny-form-item__content .tiny-radio-group.list-inline {
+  --tv-RadioGroup-margin-bottom: 0;
+  --tv-FormItem-height: 26px;
+}
+
 /*radio-button end */
 
 .table-wrapper .tiny-grid.size__medium {
@@ -1151,7 +1156,7 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   width: 100%;
 }
 
-.tiny-divider--horizontal{
+.tiny-divider--horizontal {
   min-height: 19px;
 }
 
@@ -1608,7 +1613,8 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   -moz-osx-font-smoothing: grayscale;
 }
 
-.tiny-form-item__content .checkbox-group-btn-all {
+.tiny-form-item__content .checkbox-group-btn-all,
+.tiny-form-item__content>div.tiny-checkbox-group {
   float: left;
   width: auto;
 }
@@ -1617,9 +1623,11 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   margin-right: var(--tv-Checkbox-label-margin-right);
 }
 
-.tiny-form-item__content>div.tiny-checkbox-group {
-  float: left;
-  width: auto;
+.tiny-form-item__content .checkbox-group-btn-all.is-vertical,
+.tiny-form-item__content>div.tiny-checkbox-group.is-vertical {
+  float: none;
+  --tv-CheckboxGroup-margin-bottom: 0;
+  --tv-FormItem-height: 26px;
 }
 
 .tiny-step-tabs {
