@@ -1,4 +1,5 @@
 <tiny-col class="label-col" {$sizeAttr[0]|raw}>
+    {if condition="$label"}
     <div class="tiny-form-item {$labelClass}">
         <label class="tiny-form-item__label" {$labelAttr|raw} for="{$id}">
             {if condition="$formMode == 'form'"}
@@ -8,4 +9,5 @@
             {$label|raw}
         </label>
     </div>
+    {/if}
 </tiny-col>
