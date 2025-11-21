@@ -25,7 +25,7 @@ class Button extends Field
      */
     protected $jsOptions = [
         'size' => '',
-        'type' => '',
+        'type' => 'default',
         'native-type' => 'button',
         'loading' => false,
         'circle' => false,

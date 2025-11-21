@@ -1995,6 +1995,76 @@ html.dark .label {
   border-color: #c9bdb9;
 }
 
+html.dark .tiny-button.tiny-button--dark.is-plain {
+  color: #b5abc0;
+  background-color: #4e4d50;
+  border-color: #868488;
+}
+
+html.dark .tiny-button.tiny-button--dark.is-plain:hover {
+  border-color: #4e4d50;
+}
+
+html.dark .tiny-button.tiny-button--dark.is-plain {
+  color: #b0b2b4;
+  background-color: #333333;
+  border-color: #818181;
+}
+
+html.dark .tiny-button.tiny-button--dark.is-plain:hover {
+  border-color: #333333;
+}
+
+html.dark .tiny-button.tiny-button--purple.is-plain {
+  color: #b676ff;
+  background-color: #350170;
+  border-color: #6001cc;
+}
+
+html.dark .tiny-button.tiny-button--purple.is-plain:hover {
+  border-color: #350170;
+}
+
+html.dark .tiny-button.tiny-button--pink.is-plain {
+  color: #ff76a6;
+  background-color: #630124;
+  border-color: #c40346;
+}
+
+html.dark .tiny-button.tiny-button--pink.is-plain:hover {
+  border-color: #630124;
+}
+
+html.dark .tiny-button.tiny-button--cyan.is-plain {
+  color: #57c7d4;
+  background-color: #014e57;
+  border-color: #029eaf;
+}
+
+html.dark .tiny-button.tiny-button--cyan.is-plain:hover {
+  border-color: #014e57;
+}
+
+html.dark .tiny-button.tiny-button--yellow.is-plain {
+  color: #ffde7b;
+  background-color: #584200;
+  border-color: #b48701;
+}
+
+html.dark .tiny-button.tiny-button--yellow.is-plain:hover {
+  border-color: #584200;
+}
+
+html.dark .tiny-button.tiny-button--brown.is-plain {
+  color: #ff9d7a;
+  background-color: #611a01;
+  border-color: #b43102;
+}
+
+html.dark .tiny-button.tiny-button--brown.is-plain:hover {
+  border-color: #611a01;
+}
+
 .displayer-formerror {
   min-height: 56px;
   margin-top: 12px;
