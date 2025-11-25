@@ -623,6 +623,8 @@ th {
 }
 
 .help-block {
+  width: 100%;
+  float: left;
   font-size: 12px;
   line-height: 1.5;
   display: block;
@@ -896,7 +898,7 @@ html.dark body {
 
 /*radio-button*/
 
-.tiny-checkbox-button{
+.tiny-checkbox-button {
   --tv-CheckboxButton-margin-top: 0;
 }
 
@@ -1104,11 +1106,19 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
 /** form **/
 
 .tiny-form-row {
-  margin-bottom: 5px;
+  margin-bottom: 12px;
 }
 
 .search-form .tiny-form-row {
-  margin-bottom: 2px;
+  margin-bottom: 9px;
+}
+
+.form-wrapper .tiny-form .tiny-form-row {
+  min-height: 33px;
+}
+
+.form-wrapper form.search-form .tiny-form-row {
+  min-height: 29px;
 }
 
 .tiny-form-row.fields-wrapper {
@@ -1141,8 +1151,20 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   margin-bottom: 3px;
 }
 
+.items-content,
+.fields-content {
+  width: 100%;
+  float: left;
+}
+
 .fields-content .tiny-form-item {
   margin-bottom: var(--tv-FormItem-margin-bottom);
+}
+
+.fields-content+.help-block {
+  padding-left: 10px;
+  margin-top: -12px;
+  margin-bottom: 12px;
 }
 
 .tiny-form-item.full-label {
@@ -1719,14 +1741,6 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
 .form-wrapper form.search-form .tiny-form-row>div {
   padding-left: 0;
   padding-right: 0;
-}
-
-.form-wrapper .tiny-form .tiny-form-row {
-  min-height: 40px;
-}
-
-.form-wrapper form.search-form .tiny-form-row {
-  min-height: 38px;
 }
 
 .field-required {

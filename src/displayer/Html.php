@@ -23,7 +23,7 @@ class Html extends Field
 
     public function created($type = '')
     {
-        $this->getWrapper()->setName($this->name)->addStyle('min-height: 1px');
+        $this->getWrapper()->setName($this->name)->addStyle('min-height: 1px;margin-bottom: 0px;');
     }
 
     /**
