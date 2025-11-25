@@ -525,6 +525,9 @@ EOT;
      */
     public function addValidateScript()
     {
+        if ($this->readonly) {
+            return;
+        }
         $table = $this->id;
         $form = $this->form->getFormId();
         $label = $this->label;
@@ -539,6 +542,9 @@ EOT;
                 if(field=='__pk__' || field=='__del__' || !row.hasOwnProperty('__field_info__') || !row.__field_info__.hasOwnProperty(field) || row.__del__ == 1) {
                     // console.log('{$label} - ' + field + ' pass validate',row);
                     continue;    
+                }
+                if(!{$table}Columns.value[field]){
+                    continue;
                 }
                 if({$table}Columns.value[field].params.required && !row[field]) {
                     let firstError = '[{$label} - ' + {$table}Columns.value[field].title + ']' + __blang.bilder_validate_required;
@@ -629,6 +635,9 @@ EOT;
             for(let field in row) {
                 if(field=='__pk__' || field=='__del__' || !row.hasOwnProperty('__field_info__') || !row.__field_info__.hasOwnProperty(field)) {
                     continue;    
+                }
+                if(!{$table}Columns.value[field]){
+                    continue;
                 }
                 if({$table}Columns.value[field].params.required && !row[field] && row.__del__ != 1) {
                     {$table}Errors.value[row.__pk__][field] = 'is-error';
