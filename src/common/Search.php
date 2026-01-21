@@ -79,7 +79,7 @@ class Search extends SWrapper implements Renderable
      */
     public function created()
     {
-        $this->class = 'tiny-form tiny-form--label-right search-form';
+        $this->class = 'form-horizontal tiny-form tiny-form--label-right search-form';
 
         $this->open = Module::config('search_open') == 1;
 

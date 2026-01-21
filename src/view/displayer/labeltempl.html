@@ -1,7 +1,7 @@
 <tiny-col class="label-col" {$sizeAttr[0]|raw}>
     {if condition="$label"}
-    <div class="tiny-form-item {$labelClass}">
-        <label class="tiny-form-item__label" {$labelAttr|raw} for="{$id}">
+    <div class="tiny-form-item">
+        <label class="tiny-form-item__label {$labelClass}" {$labelAttr|raw} for="{$id}">
             {if condition="$formMode == 'form'"}
             <strong title="{:__blang('bilder_this_field_is_required')}" class="field-required"
                 {$requiredStyle|raw}>*</strong>

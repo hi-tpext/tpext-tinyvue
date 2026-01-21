@@ -1127,6 +1127,7 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
 
 .tiny-form-item .tiny-form-item__label {
   padding-right: 4px;
+  width: 100%;
 }
 
 .form-wrapper .tiny-form .tiny-form-item {
@@ -1143,12 +1144,12 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   font-weight: 600;
   margin-bottom: 0;
   --tv-FormItem-text-color: color: var(--tv-color-text, #666);
-  ;
 }
 
-.tiny-form .tiny-form-item.full-label {
-  line-height: 22px;
+.tiny-form-item label.tiny-form-item__label.full-label {
+  line-height: 3;
   margin-bottom: 3px;
+  text-align: left;
 }
 
 .items-content,
@@ -1167,62 +1168,34 @@ html.dark .table-wrapper .tiny-grid.tiny-grid__stripe .tiny-grid-body__row.row__
   margin-bottom: 12px;
 }
 
-.tiny-form-item.full-label {
-  --tv-FormItem-height-sm: 22px;
-  --tv-FormItem-height-md: 22px;
-  --tv-size-height-md: 22px;
-  --tv-size-height-sm: 22px;
-}
-
-.tiny-form-item.full-label label.tiny-form-item__label {
-  text-align: left;
-}
-
-.tiny-form-item.control-label label.tiny-form-item__label {
-  width: 100%;
-}
-
 .tiny-divider--horizontal {
   min-height: 19px;
 }
 
 @media (min-width: 768px) {
-  .tiny-form-item.control-label label.tiny-form-item__label {
+  .tiny-form-item label.tiny-form-item__label.control-label {
     text-align: right;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .label-col.col-xs-24 .tiny-form-item.control-label label.tiny-form-item__label {
+  .label-col.col-xs-24 .tiny-form-item label.tiny-form-item__label.control-label {
     text-align: left;
-  }
-
-  .label-col.col-xs-24 .tiny-form-item.control-label {
-    --tv-FormItem-height-sm: 22px;
-    --tv-FormItem-height-md: 22px;
-    --tv-size-height-md: 22px;
-    --tv-size-height-sm: 22px;
-    margin-bottom: 4px;
+    line-height: 3;
   }
 }
 
 @media screen and (max-width: 576px) {
-  .tiny-form-item.control-label label.tiny-form-item__label {
+  .tiny-form-item label.tiny-form-item__label.control-label {
     text-align: left;
+    line-height: 3;
   }
 }
 
 @media screen and (max-width: 991px) {
-  .label-col.col-sm-24 .tiny-form-item.control-label label.tiny-form-item__label {
+  .label-col.col-sm-24 .tiny-form-item label.tiny-form-item__label.control-label {
     text-align: left;
-  }
-
-  .label-col.col-sm-24 .tiny-form-item.control-label {
-    --tv-FormItem-height-sm: 22px;
-    --tv-FormItem-height-md: 22px;
-    --tv-size-height-md: 22px;
-    --tv-size-height-sm: 22px;
-    margin-bottom: 4px;
+    line-height: 3;
   }
 }
 

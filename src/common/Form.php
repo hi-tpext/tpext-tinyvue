@@ -103,7 +103,7 @@ class Form extends FWrapper implements Renderable
      */
     public function created()
     {
-        $this->class = 'tiny-form tiny-form--label-right';
+        $this->class = 'form-horizontal tiny-form tiny-form--label-right';
         return $this;
     }
 
