@@ -119,7 +119,7 @@ class Table extends TWrapper implements Renderable
     public function created()
     {
         $this->emptyText = Module::config('table_empty_text');
-        $this->actionRowText = __blang('bilder_action_operation');
+        $this->actionRowText = __blang('builder_action_operation');
 
         $this->tEmpty = new TEmpty;
 
@@ -745,14 +745,14 @@ class Table extends TWrapper implements Renderable
             }).catch(e => {
                 {$table}Loading.value = false;
                 console.log(e);
-                TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+                TinyModal.message({ message: __blang.builder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
             });
         });
     };
 
     const {$table}ExportData = (url, type) => {
         const loading = TinyLoading.service({
-            text: __blang.bilder_generating_data,
+            text: __blang.builder_generating_data,
             background: 'rgba(0, 0, 0, 0.3)'
         });
 
@@ -785,7 +785,7 @@ class Table extends TWrapper implements Renderable
                     //数据太多，打开页面，分页处理
                     layer.open({
                         type: 2,
-                        title: __blang.bilder_generating_data,
+                        title: __blang.builder_generating_data,
                         scrollbar: false,
                         area: ['400px','150px'],
                         content: data.open_url
@@ -795,19 +795,19 @@ class Table extends TWrapper implements Renderable
                     var filename = data.data.replace(/.+?([^\/]+)$/, '$1');
                     layer.open({
                         type: 1,
-                        title: __blang.bilder_download_file,
+                        title: __blang.builder_download_file,
                         shadeClose: false,
                         area: ['400px','150px'],
-                        content: '<div class="alert alert-success " role="alert" style="widht:94%;margin:2%;"><p>' + __blang.bilder_file_has_been_generated + '</p><a onclick="layer.closeAll();" target="_blank" href="' + data.data + '">' + filename + '</a></div>',
+                        content: '<div class="alert alert-success " role="alert" style="widht:94%;margin:2%;"><p>' + __blang.builder_file_has_been_generated + '</p><a onclick="layer.closeAll();" target="_blank" href="' + data.data + '">' + filename + '</a></div>',
                     });
                 }
             } else {
-                TinyModal.alert(__blang.bilder_operation_failed + data.msg);
+                TinyModal.alert(__blang.builder_operation_failed + data.msg);
             }
         }).catch(e => {
             loading.close();
             console.log(e);
-            TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+            TinyModal.message({ message: __blang.builder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
         });
     };
     
@@ -839,7 +839,7 @@ class Table extends TWrapper implements Renderable
             if (data.status || data.code) {
                 TinyNotify({
                     type: 'success',
-                    message: data.msg || data.message || __blang.bilder_operation_succeeded,
+                    message: data.msg || data.message || __blang.builder_operation_succeeded,
                     position: 'top-right',
                     duration: 2000,
                 });
@@ -849,7 +849,7 @@ class Table extends TWrapper implements Renderable
             } else {
                 TinyNotify({
                     type: 'error',
-                    message: data.msg || data.message || __blang.bilder_operation_failed,
+                    message: data.msg || data.message || __blang.builder_operation_failed,
                     position: 'top-right',
                     duration: 2000,
                 });
@@ -866,14 +866,14 @@ class Table extends TWrapper implements Renderable
         }).catch(e => {
             {$table}Loading.value = false;
             console.log(e);
-            TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+            TinyModal.message({ message: __blang.builder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
         });
     };
 
     const {$table}SaveSetting = (configs) => {
         {$table}UseChooseColumns.value = configs.columns.filter(x => x.visible && x.property != '__action__').map(x => x.property);
         if ({$table}UseChooseColumns.value.length == 0) {
-            TinyModal.message({ message: __blang.bilder_show_at_least_one_field, duration: '1500', status: 'warning', messageClosable: true });
+            TinyModal.message({ message: __blang.builder_show_at_least_one_field, duration: '1500', status: 'warning', messageClosable: true });
         }
     };
 
@@ -1405,7 +1405,7 @@ EOT;
             return $displayer;
         }
 
-        throw new \InvalidArgumentException(__blang('bilder_invalid_argument_exception') . ' : ' . $name);
+        throw new \InvalidArgumentException(__blang('builder_invalid_argument_exception') . ' : ' . $name);
     }
 
     /**

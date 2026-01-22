@@ -75,8 +75,8 @@ class ItemsContent extends FWrapper
 
     public function __construct()
     {
-        $this->actionRowText = __blang('bilder_action_operation');
-        $this->emptyText = '<span>' . __blang('bilder_no_relevant_data') . '</span>';
+        $this->actionRowText = __blang('builder_action_operation');
+        $this->emptyText = '<span>' . __blang('builder_no_relevant_data') . '</span>';
     }
 
     /**
@@ -560,8 +560,8 @@ EOT;
                     continue;
                 }
                 if({$table}Columns.value[field].params.required && !row[field]) {
-                    let firstError = '[{$label} - ' + {$table}Columns.value[field].title + ']' + __blang.bilder_validate_required;
-                    TinyModal.message({ message: __blang.bilder_validate_form_failed + firstError, status: 'warning', messageClosable: true });
+                    let firstError = '[{$label} - ' + {$table}Columns.value[field].title + ']' + __blang.builder_validate_required;
+                    TinyModal.message({ message: __blang.builder_validate_form_failed + firstError, status: 'warning', messageClosable: true });
 
                     {$form}Data.__form_error____display__only = firstError;
                     setTimeout(() =>{
@@ -624,10 +624,10 @@ EOT;
         } else {
             if(!{$table}CanRecover) {
                 TinyModal.confirm({
-                    title : __blang.bilder_operation_tips,
-                    message: __blang.bilder_confirm_to_do_operation + ' [' + __blang.bilder_remove + '] ' + __blang.bilder_action_operation + ' ?',
-                    confirmContent: __blang.bilder_button_ok,
-                    cancelContent: __blang.bilder_button_cancel,
+                    title : __blang.builder_operation_tips,
+                    message: __blang.builder_confirm_to_do_operation + ' [' + __blang.builder_remove + '] ' + __blang.builder_action_operation + ' ?',
+                    confirmContent: __blang.builder_button_ok,
+                    cancelContent: __blang.builder_button_cancel,
                 })
                 .then((res) => {
                     if(res == 'confirm') {

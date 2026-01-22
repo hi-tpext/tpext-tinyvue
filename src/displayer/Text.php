@@ -123,7 +123,7 @@ class Text extends Field
             'append' => $this->append,
             'prefix' => $this->prefix,
             'suffix' => $this->suffix,
-            'placeholder' => $this->placeholder ?: __blang('bilder_please_enter') . $this->label
+            'placeholder' => $this->placeholder ?: __blang('builder_please_enter') . $this->label
         ];
     }
 

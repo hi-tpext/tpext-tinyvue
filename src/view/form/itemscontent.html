@@ -11,7 +11,7 @@
     <tiny-grid-column v-bind="{$id}Columns['{$co}']" :style="{$id}Columns['{$co}']['wrapperStyle']">
       <template #header="{column}">
         <div class="table-column-header">
-          <strong v-if="{$id}Columns['{$co}'].params.required" title="{:__blang('bilder_this_field_is_required')}"
+          <strong v-if="{$id}Columns['{$co}'].params.required" title="{:__blang('builder_this_field_is_required')}"
             class="field-required">*&nbsp;</strong>
           <span v-html="{$id}Columns['{$co}'].params.titleRaw"></span>
         </div>
@@ -32,13 +32,13 @@
           <template v-if="row.__pk__ !== '__add__'">
             <tiny-button v-if="row.__del__== 0" v-bind="{$id}DelBtnOp" @click="{$id}Delete(row)"
               :disabled="!row.__can_delete__">
-              <span class="action-delete" title="{:__blang('bilder_remove')}">
+              <span class="action-delete" title="{:__blang('builder_remove')}">
                 <i class="mdi mdi-delete"></i>
               </span>
             </tiny-button>
             <tiny-button v-if="row.__del__== 1" v-bind="{$id}AddBtnOp" @click="{$id}Recover(row)"
               :disabled="!row.__can_delete__">
-              <span class="action-recover" title="{:__blang('bilder_recover')}">
+              <span class="action-recover" title="{:__blang('builder_recover')}">
                 <i class="mdi mdi-restart"></i>
               </span>
             </tiny-button>
@@ -46,7 +46,7 @@
           {/if}
           {if condition="$canAdd"}
           <tiny-button v-if="row.__pk__ == '__add__'" v-bind="{$id}AddBtnOp" @click="{$id}Add()">
-            <span class="action-newone" title="{:__blang('bilder_new_one_item')}">
+            <span class="action-newone" title="{:__blang('builder_new_one_item')}">
               <i class="mdi mdi-plus-circle-outline"></i>
             </span>
           </tiny-button>

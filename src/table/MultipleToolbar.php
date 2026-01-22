@@ -194,7 +194,7 @@ class MultipleToolbar extends Toolbar
             $url = (string) url('add');
         }
         if ($label == '添加') {
-            $label = __blang('bilder_action_add');
+            $label = __blang('builder_action_add');
         }
         $action = 'add';
         if (isset($this->actions[$action])) {
@@ -222,7 +222,7 @@ class MultipleToolbar extends Toolbar
             $postUrl = (string) url('delete');
         }
         if ($label == '删除') {
-            $label = __blang('bilder_action_delete');
+            $label = __blang('builder_action_delete');
         }
         $this->actions['delete'] = 'delete';
         $this->linkBtn('delete', $label)->postChecked($postUrl, $confirm)->type($type)->icon($icon)->addAttr($attr);
@@ -246,7 +246,7 @@ class MultipleToolbar extends Toolbar
             $postUrl = (string) url('enable', ['state' => 0]);
         }
         if ($label == '禁用') {
-            $label = __blang('bilder_action_disable');
+            $label = __blang('builder_action_disable');
         }
         $this->actions['disable'] = 'disable';
         $this->linkBtn('disable', $label)->postChecked($postUrl, $confirm)->type($type)->icon($icon)->addAttr($attr);
@@ -270,7 +270,7 @@ class MultipleToolbar extends Toolbar
             $postUrl = (string) url('enable', ['state' => 1]);
         }
         if ($label == '启用') {
-            $label = __blang('bilder_action_enable');
+            $label = __blang('builder_action_enable');
         }
         $this->actions['enable'] = 'enable';
         $this->linkBtn('enable', $label)->postChecked($postUrl, $confirm)->type($type)->icon($icon)->addAttr($attr);
@@ -287,10 +287,10 @@ class MultipleToolbar extends Toolbar
     public function btnEnableAndDisable($enableTitle = '启用', $disableTitle = '禁用')
     {
         if ($enableTitle == '启用') {
-            $enableTitle = __blang('bilder_action_enable');
+            $enableTitle = __blang('builder_action_enable');
         }
         if ($disableTitle == '禁用') {
-            $disableTitle = __blang('bilder_action_disable');
+            $disableTitle = __blang('builder_action_disable');
         }
         $this->btnEnable()->getCurrent()->attr('title="' . $enableTitle . '"')->label($enableTitle);
         $this->btnDisable()->getCurrent()->attr('title="' . $disableTitle . '"')->label($disableTitle);
@@ -310,7 +310,7 @@ class MultipleToolbar extends Toolbar
     public function btnRefresh($label = '', $type = 'info', $icon = 'mdi-refresh', $attr = 'title="刷新"')
     {
         if ($attr == 'title="刷新"') {
-            $attr = 'title="' . __blang('bilder_action_refresh') . '"';
+            $attr = 'title="' . __blang('builder_action_refresh') . '"';
         }
         $this->actions['refresh'] = 'refresh';
         $this->linkBtn('refresh', $label)->type($type)->icon($icon)->addAttr($attr);
@@ -329,7 +329,7 @@ class MultipleToolbar extends Toolbar
     public function btnToggleSearch($label = '', $type = '', $icon = 'mdi-magnify', $attr = 'title="搜索"')
     {
         if ($attr == 'title="搜索"') {
-            $attr = 'title="' . __blang('bilder_action_search') . '"';
+            $attr = 'title="' . __blang('builder_action_search') . '"';
         }
         $this->actions['toggle_search'] = 'toggle_search';
         $this->linkBtn('toggle_search', $label)->type($type)->icon($icon)->addAttr($attr);
@@ -377,10 +377,10 @@ class MultipleToolbar extends Toolbar
         $url = (string) url(Module::getInstance()->getImportUrl()) . '?successUrl=' . $afterSuccessUrl . '&acceptedExts=' . $acceptedExts . '&fileSize=' . $fileSize . '&pageToken=' . $pagetoken . '&driver=' . $driver;
 
         if ($label == '导入') {
-            $label = __blang('bilder_action_import');
+            $label = __blang('builder_action_import');
         }
         if ($attr == 'title="上传文件"') {
-            $attr = 'title="' . __blang('bilder_action_upload_file') . '"';
+            $attr = 'title="' . __blang('builder_action_upload_file') . '"';
         }
         $this->actions['import'] = 'import';
         $this->linkBtn('import', $label)->useLayer(true, $layerSize)->href($url)->icon($icon)->type($type)->addAttr($attr);
@@ -408,10 +408,10 @@ class MultipleToolbar extends Toolbar
             return $this;
         }
         if ($label == '导出') {
-            $label = __blang('bilder_action_export');
+            $label = __blang('builder_action_export');
         }
         if ($attr == 'title="导出"') {
-            $attr = 'title="' . __blang('bilder_action_export') . '"';
+            $attr = 'title="' . __blang('builder_action_export') . '"';
         }
         $action = 'export';
         if (isset($this->actions[$action])) {
@@ -440,11 +440,11 @@ class MultipleToolbar extends Toolbar
         }
 
         if (empty($items)) {
-            $items = ['csv' => __blang('bilder_action_export_csv')];
+            $items = ['csv' => __blang('builder_action_export_csv')];
 
             if (class_exists('\\PhpOffice\\PhpSpreadsheet\\Spreadsheet') || class_exists('\\Vtiful\\Kernel\\Excel') || class_exists('\\PHPExcel')) {
                 $items = array_merge($items, [
-                    'xlsx' => __blang('bilder_action_export_xlsx'),
+                    'xlsx' => __blang('builder_action_export_xlsx'),
                 ]);
             }
         }
@@ -455,10 +455,10 @@ class MultipleToolbar extends Toolbar
             return $this;
         }
         if ($label == '导出') {
-            $label = __blang('bilder_action_export');
+            $label = __blang('builder_action_export');
         }
         if ($attr == 'title="导出"') {
-            $attr = 'title="' . __blang('bilder_action_export') . '"';
+            $attr = 'title="' . __blang('builder_action_export') . '"';
         }
         $this->actions['exports'] = 'exports';
         $this->dropdownBtns('exports', $label)->items($items)->type($type)->icon($icon)->href($postUrl)->pullRight();

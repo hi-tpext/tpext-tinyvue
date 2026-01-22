@@ -20,16 +20,16 @@ class DateTimeRange extends DateTime
         'format' => 'yyyy-MM-dd HH:mm:ss',
         'value-format' => 'yyyy-MM-dd HH:mm:ss',
         'time-format' => 'HH:mm:ss',
-        'start-placeholder' => '', //bilder_date_range_from
-        'end-placeholder' => '', //bilder_date_range_to
+        'start-placeholder' => '', //builder_date_range_from
+        'end-placeholder' => '', //builder_date_range_to
         'range-separator' => ',',
     ];
 
     public function created($type = '')
     {
         parent::created($type);
-        $this->jsOptions['start-placeholder'] = __blang('bilder_date_range_from');
-        $this->jsOptions['end-placeholder'] = __blang('bilder_date_range_to');
+        $this->jsOptions['start-placeholder'] = __blang('builder_date_range_from');
+        $this->jsOptions['end-placeholder'] = __blang('builder_date_range_to');
     }
 
     /**

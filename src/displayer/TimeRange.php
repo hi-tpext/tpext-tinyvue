@@ -9,8 +9,8 @@ class TimeRange extends Time
     public function created($type = '')
     {
         parent::created($type);
-        $this->jsOptions['start-placeholder'] = __blang('bilder_date_range_from');
-        $this->jsOptions['end-placeholder'] = __blang('bilder_date_range_to');
+        $this->jsOptions['start-placeholder'] = __blang('builder_date_range_from');
+        $this->jsOptions['end-placeholder'] = __blang('builder_date_range_to');
         $this->jsOptions['range-separator'] = ',';
         $this->jsOptions['is-range'] = true;
     }

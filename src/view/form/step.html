@@ -17,12 +17,12 @@
     <tiny-col {$sizeAttr[0]|raw}></tiny-col>
     <tiny-col {$sizeAttr[1]|raw}>
         <tiny-button :reset-time="0" :disabled="{$id}Op.active == 0"
-            @click="{$id}PrevClick">{:__blang('bilder_step_prev')}</tiny-button>
+            @click="{$id}PrevClick">{:__blang('builder_step_prev')}</tiny-button>
         <tiny-button v-show="{$id}Op.active < {$id}Options.length - 1" :reset-time="0"
             :disabled="{$id}Op.active == {$id}Options.length - 1"
-            @click="{$id}NextClick">{:__blang('bilder_step_next')}</tiny-button>
+            @click="{$id}NextClick">{:__blang('builder_step_next')}</tiny-button>
         <tiny-button type="primary" :reset-time="0" v-show="{$id}Op.active == {$id}Options.length - 1"
-            @click="{$id}FinishClick">{:__blang('bilder_step_finish')}</tiny-button>
+            @click="{$id}FinishClick">{:__blang('builder_step_finish')}</tiny-button>
     </tiny-col>
 </div>
 {/if}

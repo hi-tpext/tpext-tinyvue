@@ -101,7 +101,7 @@ class DateTime extends Field
     {
         return [
             'type' => $this->type,
-            'placeholder' => $this->placeholder ?: __blang('bilder_please_select') . $this->label
+            'placeholder' => $this->placeholder ?: __blang('builder_please_select') . $this->label
         ];
     }
 }

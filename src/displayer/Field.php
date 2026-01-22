@@ -1112,7 +1112,7 @@ EOT;
         $rules = [];
         if ($this->isRequired()) {
             $this->jsOptions['required'] = true;
-            $rules = ['required' => true, 'message' => '[' . $this->label . ']' . __blang('bilder_validate_required')];
+            $rules = ['required' => true, 'message' => '[' . $this->label . ']' . __blang('builder_validate_required')];
         }
 
         $configs = empty($this->jsOptions) ? '{}' : json_encode($this->jsOptions, JSON_UNESCAPED_UNICODE);
@@ -1185,7 +1185,7 @@ EOT;
         }
 
         if ($this->formMode != 'table' && ($this->readonly || $this->disabled) && $this->isInput() && !($this instanceof MultipleFile)) {
-            $this->getWrapper()->addClass('form-field-readonly')->addAttr('title="' . __blang('bilder_readonly') . '"');
+            $this->getWrapper()->addClass('form-field-readonly')->addAttr('title="' . __blang('builder_readonly') . '"');
         }
 
         if (!empty($this->onMountedScript)) {
@@ -1447,7 +1447,7 @@ EOT;
             (($displayer->isInput() || $this->isDisplayerType('items')))
             && $displayer->isRequired() && !$displayer->isReadonly() && !$displayer->isDisabled()
         ) {
-            $displayer->getForm()->addValidatorRule($fieldName, ['required' => true, 'message' => '[' . $this->label . ']' . __blang('bilder_validate_required')]);
+            $displayer->getForm()->addValidatorRule($fieldName, ['required' => true, 'message' => '[' . $this->label . ']' . __blang('builder_validate_required')]);
         }
 
         if ($displayer instanceof Fields) {

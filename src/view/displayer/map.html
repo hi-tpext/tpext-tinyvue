@@ -16,7 +16,7 @@
     </tiny-input>
     {if condition="$maptype neq 'yandex' && !$readonly && !$disabled" }
     <tiny-input class="tiny-map-search" title="若无法搜索，检查是否填写了正确的js apikey" v-model.lazy="{$id}Search" id="search-{$id}"
-        type="text" placeholder="{:__blang('bilder_map_search_place')}">
+        type="text" placeholder="{:__blang('builder_map_search_place')}">
         <template #prefix>
             <i class="mdi mdi-search-web"></i>
         </template>

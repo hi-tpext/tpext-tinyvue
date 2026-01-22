@@ -559,7 +559,7 @@ class Form extends FWrapper implements Renderable
     public function btnSubmit($label = '提&nbsp;&nbsp;交', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = 'info')
     {
         if ($label == '提&nbsp;&nbsp;交') {
-            $label = __blang('bilder_button_submit');
+            $label = __blang('builder_button_submit');
         }
         $this->bottomOffset();
         $this->button('submit', $label, $size)
@@ -581,7 +581,7 @@ class Form extends FWrapper implements Renderable
     public function btnReset($label = '重&nbsp;&nbsp;置', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = 'warning')
     {
         if ($label == '重&nbsp;&nbsp;置') {
-            $label = __blang('bilder_button_reset');
+            $label = __blang('builder_button_reset');
         }
         $this->bottomOffset();
         $this->button('reset', $label, $size)
@@ -603,7 +603,7 @@ class Form extends FWrapper implements Renderable
     public function btnBack($label = '返&nbsp;&nbsp;回', $size = '6 col-xl-6 col-lg-6 col-sm-6 col-xs-6', $type = 'info')
     {
         if ($label == '返&nbsp;&nbsp;回') {
-            $label = __blang('bilder_button_go_back');
+            $label = __blang('builder_button_go_back');
         }
         $this->bottomOffset();
         $this->button('button', $label, $size)
@@ -625,7 +625,7 @@ class Form extends FWrapper implements Renderable
     public function btnLayerClose($label = '返&nbsp;&nbsp;回', $size = 12, $type = 'info')
     {
         if ($label == '返&nbsp;&nbsp;回') {
-            $label = __blang('bilder_button_go_back');
+            $label = __blang('builder_button_go_back');
         }
         $this->bottomOffset();
         $this->button('button', $label, $size)
@@ -888,9 +888,9 @@ class Form extends FWrapper implements Renderable
             if (parent && parent.layer && event.keyCode === 0x1B) {
                 var index1 = parent.layer.getFrameIndex(window.name);
                 if(index1) {
-                    var index2 = layer.msg(__blang.bilder_confirm_close_this_window, {
+                    var index2 = layer.msg(__blang.builder_confirm_close_this_window, {
                         time: 2000,
-                        btn: [__blang.bilder_button_ok, __blang.bilder_button_cancel],
+                        btn: [__blang.builder_button_ok, __blang.builder_button_cancel],
                         yes: function (params) {
                             layer.close(index2);
                             
@@ -938,7 +938,7 @@ EOT;
         {$form}Ref.value.validate((valid, error) => {
             if (!valid) {
                 let firstError = Object.values(error)[0][0]['message'];
-                TinyModal.message({ message: __blang.bilder_validate_form_failed + firstError, status: 'warning', messageClosable: true });
+                TinyModal.message({ message: __blang.builder_validate_form_failed + firstError, status: 'warning', messageClosable: true });
                 {$form}Data.__form_error____display__only = firstError;
                 setTimeout(() =>{
                     {$form}Data.__form_error____display__only = '';
@@ -972,7 +972,7 @@ EOT;
         params = {$form}Convert(params);
         
         let {$form}Loading = TinyLoading.service({
-            text: __blang.bilder_loading,
+            text: __blang.builder_loading,
             background: 'rgba(0, 0, 0, 0.2)',
             target: document.getElementById('{$form}')
         });
@@ -1024,7 +1024,7 @@ EOT;
             let data = res.data || {};
             let success = data.code || data.status || 0;
             let status = success ? 'success' : 'error';
-            let message = data.msg || data.message || (success ? __blang.bilder_save_succeeded : __blang.bilder_save_failed);
+            let message = data.msg || data.message || (success ? __blang.builder_save_succeeded : __blang.builder_save_failed);
 
             if (data.layer_close) {
                 closeLayer(message, status);
@@ -1062,7 +1062,7 @@ EOT;
         }).catch(e => {
             {$form}Loading.close();
             console.log(e);
-            TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+            TinyModal.message({ message: __blang.builder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
         });
     };
 
@@ -1192,7 +1192,7 @@ EOT;
             return $displayer;
         }
 
-        throw new \InvalidArgumentException(__blang('bilder_invalid_argument_exception') . ' : ' . $name);
+        throw new \InvalidArgumentException(__blang('builder_invalid_argument_exception') . ' : ' . $name);
     }
 
     /**

@@ -33,7 +33,7 @@ class MultipleSelect extends Select
             'collapse-tags' => false,
             'hover-expand' => true,
             'show-alloption' => true,
-            'all-text' => __blang('bilder_left_tree_text_all')
+            'all-text' => __blang('builder_left_tree_text_all')
         ];
 
         $this->jsOptions($multipleOptios);

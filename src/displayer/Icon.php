@@ -176,7 +176,7 @@ class Icon extends Text
         })
         .catch(e => {
             console.log(e);
-            TinyModal.message({ message: __blang.bilder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
+            TinyModal.message({ message: __blang.builder_network_error + (e.message || JSON.stringify(e)), status: 'error', messageClosable: true });
         });
     };
 EOT;

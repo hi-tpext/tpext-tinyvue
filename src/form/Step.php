@@ -284,7 +284,7 @@ class Step implements Renderable
                 }
             });
             if (errArray.length > 0) {
-                TinyModal.message({ message: __blang.bilder_validate_form_failed, status: 'warning', messageClosable: true });
+                TinyModal.message({ message: __blang.builder_validate_form_failed, status: 'warning', messageClosable: true });
                 return false;
             }
             {$stepId}Op.value.active += 1;
