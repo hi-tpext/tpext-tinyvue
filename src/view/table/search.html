@@ -8,7 +8,7 @@
     <tiny-form class="{$class}" ref="{$id}Ref" :model="{$id}Data" v-bind="{$id}Op" {$attr|raw}>
         <tiny-row>
             {volist name="rows" id="row"}
-            <tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getName()}-div" {$row->getAttrWithStyle()|raw}
+            <tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getClassName()}-div" {$row->getAttrWithStyle()|raw}
                 {$row->getColSizeAttr()|raw}>
                 {:$row->render()}
             </tiny-col>

@@ -11,7 +11,7 @@
                 {:$row->render()}
             </tiny-col>
             {else/}
-            <tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getName()}-div" {$row->getAttrWithStyle()|raw}
+            <tiny-col class="tiny-form-row {$row->getClass()} row-{$row->getClassName()}-div" {$row->getAttrWithStyle()|raw}
                 {$row->getColSizeAttr()|raw}>
                 {:$row->render()}
             </tiny-col>
