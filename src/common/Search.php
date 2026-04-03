@@ -124,6 +124,10 @@ class Search extends SWrapper implements Renderable
      */
     public function hasDefault(): bool
     {
+        if ($this->tablink && !($this->tablink->getActive() === '' || $this->tablink->getActive() === null)) {
+            return true;
+        }
+        
         foreach ($this->rows as $row) {
             if ($row instanceof SRow) {
                 $default = $row->getDisplayer()->getDefault();
