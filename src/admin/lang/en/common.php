@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'builder_js_lang_key'                     => 'enUS',
     'builder_save_succeeded'                  => 'Saving succeeded !',
     'builder_save_failed'                     => 'Saving failed !',
     'builder_network_error'                   => 'Network error !',

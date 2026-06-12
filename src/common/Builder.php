@@ -121,7 +121,7 @@ class Builder implements Renderable
         if (!self::$instance) {
             self::$instance = new static($title, $desc);
             self::$instance->created();
-            
+
             if (self::$isWebmanContext) {
                 Context::set(static::class, self::$instance);
             }
@@ -524,7 +524,8 @@ class Builder implements Renderable
      * Undocumented function
      *
      * @return array
-     */    public function getVueTokens()
+     */
+    public function getVueTokens()
     {
         return $this->vueTokens;
     }
@@ -948,7 +949,7 @@ EOT;
 
         unset($j);
 
-        $__blang = include Module::getInstance()->getRoot() . 'src' . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . App::getDefaultLang() . '.php';
+        $__blang = Module::getInstance()->getLang('common');
 
         if (empty($this->layout)) {
             $this->layout = Module::getInstance()->getViewsPath() . 'layout.html';
