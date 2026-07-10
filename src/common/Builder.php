@@ -158,6 +158,10 @@ class Builder implements Renderable
                 Context::set(static::class, null);
             }
         }
+
+        if (self::$isWebmanContext) {
+            Context::set(static::class . '::auth', null);
+        }
     }
 
     /**
@@ -853,6 +857,13 @@ class Builder implements Renderable
     public static function auth($class)
     {
         static::$auth = $class;
+
+        if (is_null(self::$isWebmanContext)) {
+            self::$isWebmanContext = class_exists(Context::class);
+        }
+        if (self::$isWebmanContext) {
+            Context::set(static::class . '::auth', $class);
+        }
     }
 
     /**
@@ -869,6 +880,10 @@ class Builder implements Renderable
         //如果不是完整的[moudle/controller/action]格式
         if (preg_match('/^\w+$/', $url) || preg_match('/^\w+(\.\w+)?\/\w+$/', $url)) {
             $url = url($url);
+        }
+
+        if (self::$isWebmanContext) {
+            self::$auth = Context::get(static::class . '::auth');
         }
 
         if (!empty(static::$auth)) {
