@@ -14,10 +14,13 @@ use tpext\builder\displayer\Field;
 use tpext\builder\table\Actionbar;
 use tpext\builder\displayer\Fields;
 use tpext\builder\displayer\MultipleFile;
+use tpext\builder\inface\ReleaseAble;
+use tpext\builder\traits\HasDestroyOnce;
 
-class ItemsContent extends FWrapper
+class ItemsContent extends FWrapper implements ReleaseAble
 {
     use HasDom;
+    use HasDestroyOnce;
 
     protected $id = 'items';
     protected $view = 'itemscontent';
@@ -800,10 +803,18 @@ EOT;
 
     public function destroy()
     {
-        foreach ($this->cols as $col) {
-            $col->destroy();
+        // 已销毁直接返回：同一组件可被多归属路径重复触达（契约见 traits\HasDestroyOnce）
+        if ($this->__destroyed__) {
+            return;
         }
-        $this->cols = null;
-        $this->list = null;
+        foreach ($this->cols as $col) {
+            if ($col instanceof ReleaseAble) {
+                $col->destroy();
+            }
+        }
+        // 数组属性复位为空数组（保持类型恒定，二次 destroy 自然幂等）
+        $this->cols = [];
+        $this->list = [];
+        $this->__destroyed__ = true;
     }
 }
